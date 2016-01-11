@@ -1,0 +1,42 @@
+digraph example { 
+rankdir=BT;
+AbstractClassTwoAbstractMethods [
+shape="record",
+label = "{AbstractClassTwoAbstractMethods| + voidOne() : void\l+ voidTwo() : void\l}"
+];
+
+ClassPrivate [
+shape="record",
+label = "{ClassPrivate| - i : int\l- f : float\l|- privateFloatOne() : float\l}"
+];
+
+ClassUsesClass [
+shape="record",
+label = "{ClassUsesClass| }"
+];
+
+ClassWithJustMainMethod [
+shape="record",
+label = "{ClassWithJustMainMethod| + main(String[] ) : void\l}"
+];
+
+ClassWithOneVariable [
+shape="record",
+label = "{ClassWithOneVariable| - privateI : int\l|}"
+];
+
+Interface [
+shape="record",
+label = "{\<\<interface\>\>\nInterface| + s : String\l+ i : int\l|+ intOne() : int\l+ stringTwo() : String\l}"
+];
+
+ProtectedClass [
+shape="record",
+label = "{ProtectedClass| # s : String\l# i : int\l|# protectedDoubleOne() : double\l# protectedLongTwo() : long\l+ voidOne() : void\l+ voidTwo() : void\l+ intOne() : int\l+ stringTwo() : String\l}"
+];
+
+
+AbstractClassTwoAbstractMethods -> Interface [arrowhead="onormal", style="dashed"];
+ClassPrivate -> ProtectedClass [arrowhead="onormal"];
+ClassPrivate -> Interface [arrowhead="onormal", style="dashed"];
+ProtectedClass -> AbstractClassTwoAbstractMethods [arrowhead="onormal"];}

@@ -1,0 +1,234 @@
+digraph example { 
+rankdir=BT;
+BlackOlives [
+shape="record",
+label = "{BlackOlives| + toString() : String\l}"
+];
+
+Cheese [
+shape="record",
+label = "{\<\<interface\>\>\nCheese| + toString() : String\l}"
+];
+
+CheesePizza [
+shape="record",
+label = "{CheesePizza|   ingredientFactory : PizzaIngredientFactory\l|  prepare() : void\l}"
+];
+
+ChicagoPizzaIngredientFactory [
+shape="record",
+label = "{ChicagoPizzaIngredientFactory| + createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createVeggies() : Veggies[]\l+ createPepperoni() : Pepperoni\l+ createClam() : Clams\l}"
+];
+
+ChicagoPizzaStore [
+shape="record",
+label = "{ChicagoPizzaStore| # createPizza(String ) : Pizza\l}"
+];
+
+ClamPizza [
+shape="record",
+label = "{ClamPizza|   ingredientFactory : PizzaIngredientFactory\l|  prepare() : void\l}"
+];
+
+Clams [
+shape="record",
+label = "{\<\<interface\>\>\nClams| + toString() : String\l}"
+];
+
+Dough [
+shape="record",
+label = "{\<\<interface\>\>\nDough| + toString() : String\l}"
+];
+
+Eggplant [
+shape="record",
+label = "{Eggplant| + toString() : String\l}"
+];
+
+FreshClams [
+shape="record",
+label = "{FreshClams| + toString() : String\l}"
+];
+
+FrozenClams [
+shape="record",
+label = "{FrozenClams| + toString() : String\l}"
+];
+
+Garlic [
+shape="record",
+label = "{Garlic| + toString() : String\l}"
+];
+
+MarinaraSauce [
+shape="record",
+label = "{MarinaraSauce| + toString() : String\l}"
+];
+
+MozzarellaCheese [
+shape="record",
+label = "{MozzarellaCheese| + toString() : String\l}"
+];
+
+Mushroom [
+shape="record",
+label = "{Mushroom| + toString() : String\l}"
+];
+
+NYPizzaIngredientFactory [
+shape="record",
+label = "{NYPizzaIngredientFactory| + createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createVeggies() : Veggies[]\l+ createPepperoni() : Pepperoni\l+ createClam() : Clams\l}"
+];
+
+NYPizzaStore [
+shape="record",
+label = "{NYPizzaStore| # createPizza(String ) : Pizza\l}"
+];
+
+Onion [
+shape="record",
+label = "{Onion| + toString() : String\l}"
+];
+
+ParmesanCheese [
+shape="record",
+label = "{ParmesanCheese| + toString() : String\l}"
+];
+
+Pepperoni [
+shape="record",
+label = "{\<\<interface\>\>\nPepperoni| + toString() : String\l}"
+];
+
+PepperoniPizza [
+shape="record",
+label = "{PepperoniPizza|   ingredientFactory : PizzaIngredientFactory\l|  prepare() : void\l}"
+];
+
+Pizza [
+shape="record",
+label = "{Pizza|   name : String\l  dough : Dough\l  sauce : Sauce\l  veggies : Veggies[]\l  cheese : Cheese\l  pepperoni : Pepperoni\l  clam : Clams\l|  prepare() : void\l  bake() : void\l  cut() : void\l  box() : void\l  setName(String ) : void\l  getName() : String\l+ toString() : String\l}"
+];
+
+PizzaIngredientFactory [
+shape="record",
+label = "{\<\<interface\>\>\nPizzaIngredientFactory| + createDough() : Dough\l+ createSauce() : Sauce\l+ createCheese() : Cheese\l+ createVeggies() : Veggies[]\l+ createPepperoni() : Pepperoni\l+ createClam() : Clams\l}"
+];
+
+PizzaStore [
+shape="record",
+label = "{PizzaStore| # createPizza(String ) : Pizza\l+ orderPizza(String ) : Pizza\l}"
+];
+
+PizzaTestDrive [
+shape="record",
+label = "{PizzaTestDrive| + main(String[] ) : void\l}"
+];
+
+PlumTomatoSauce [
+shape="record",
+label = "{PlumTomatoSauce| + toString() : String\l}"
+];
+
+RedPepper [
+shape="record",
+label = "{RedPepper| + toString() : String\l}"
+];
+
+ReggianoCheese [
+shape="record",
+label = "{ReggianoCheese| + toString() : String\l}"
+];
+
+Sauce [
+shape="record",
+label = "{\<\<interface\>\>\nSauce| + toString() : String\l}"
+];
+
+SlicedPepperoni [
+shape="record",
+label = "{SlicedPepperoni| + toString() : String\l}"
+];
+
+Spinach [
+shape="record",
+label = "{Spinach| + toString() : String\l}"
+];
+
+ThickCrustDough [
+shape="record",
+label = "{ThickCrustDough| + toString() : String\l}"
+];
+
+ThinCrustDough [
+shape="record",
+label = "{ThinCrustDough| + toString() : String\l}"
+];
+
+VeggiePizza [
+shape="record",
+label = "{VeggiePizza|   ingredientFactory : PizzaIngredientFactory\l|  prepare() : void\l}"
+];
+
+Veggies [
+shape="record",
+label = "{\<\<interface\>\>\nVeggies| + toString() : String\l}"
+];
+
+//begins writing relations
+MarinaraSauce -> Sauce [arrowhead="onormal", style="dashed"];
+RedPepper -> Veggies [arrowhead="onormal", style="dashed"];
+ThickCrustDough -> Dough [arrowhead="onormal", style="dashed"];
+NYPizzaIngredientFactory -> PizzaIngredientFactory [arrowhead="onormal", style="dashed"];
+NYPizzaIngredientFactory -> ThinCrustDough [arrowhead = "vee"];
+NYPizzaIngredientFactory -> MarinaraSauce [arrowhead = "vee"];
+NYPizzaIngredientFactory -> ReggianoCheese [arrowhead = "vee"];
+NYPizzaIngredientFactory -> Veggies [arrowhead = "vee"];
+NYPizzaIngredientFactory -> Garlic [arrowhead = "vee"];
+NYPizzaIngredientFactory -> Onion [arrowhead = "vee"];
+NYPizzaIngredientFactory -> Mushroom [arrowhead = "vee"];
+NYPizzaIngredientFactory -> RedPepper [arrowhead = "vee"];
+NYPizzaIngredientFactory -> SlicedPepperoni [arrowhead = "vee"];
+NYPizzaIngredientFactory -> FreshClams [arrowhead = "vee"];
+PepperoniPizza -> Pizza [arrowhead="onormal"];
+SlicedPepperoni -> Pepperoni [arrowhead="onormal", style="dashed"];
+Eggplant -> Veggies [arrowhead="onormal", style="dashed"];
+BlackOlives -> Veggies [arrowhead="onormal", style="dashed"];
+MozzarellaCheese -> Cheese [arrowhead="onormal", style="dashed"];
+NYPizzaStore -> PizzaStore [arrowhead="onormal"];
+NYPizzaStore -> NYPizzaIngredientFactory [arrowhead = "vee"];
+NYPizzaStore -> CheesePizza [arrowhead = "vee"];
+NYPizzaStore -> VeggiePizza [arrowhead = "vee"];
+NYPizzaStore -> ClamPizza [arrowhead = "vee"];
+NYPizzaStore -> PepperoniPizza [arrowhead = "vee"];
+ReggianoCheese -> Cheese [arrowhead="onormal", style="dashed"];
+Spinach -> Veggies [arrowhead="onormal", style="dashed"];
+Onion -> Veggies [arrowhead="onormal", style="dashed"];
+Mushroom -> Veggies [arrowhead="onormal", style="dashed"];
+VeggiePizza -> Pizza [arrowhead="onormal"];
+ClamPizza -> Pizza [arrowhead="onormal"];
+PlumTomatoSauce -> Sauce [arrowhead="onormal", style="dashed"];
+ThinCrustDough -> Dough [arrowhead="onormal", style="dashed"];
+ChicagoPizzaIngredientFactory -> PizzaIngredientFactory [arrowhead="onormal", style="dashed"];
+ChicagoPizzaIngredientFactory -> ThickCrustDough [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> PlumTomatoSauce [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> MozzarellaCheese [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> Veggies [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> BlackOlives [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> Spinach [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> Eggplant [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> SlicedPepperoni [arrowhead = "vee"];
+ChicagoPizzaIngredientFactory -> FrozenClams [arrowhead = "vee"];
+PizzaTestDrive -> NYPizzaStore [arrowhead = "vee"];
+PizzaTestDrive -> ChicagoPizzaStore [arrowhead = "vee"];
+CheesePizza -> Pizza [arrowhead="onormal"];
+Garlic -> Veggies [arrowhead="onormal", style="dashed"];
+ParmesanCheese -> Cheese [arrowhead="onormal", style="dashed"];
+FrozenClams -> Clams [arrowhead="onormal", style="dashed"];
+FreshClams -> Clams [arrowhead="onormal", style="dashed"];
+ChicagoPizzaStore -> PizzaStore [arrowhead="onormal"];
+ChicagoPizzaStore -> ChicagoPizzaIngredientFactory [arrowhead = "vee"];
+ChicagoPizzaStore -> CheesePizza [arrowhead = "vee"];
+ChicagoPizzaStore -> VeggiePizza [arrowhead = "vee"];
+ChicagoPizzaStore -> ClamPizza [arrowhead = "vee"];
+ChicagoPizzaStore -> PepperoniPizza [arrowhead = "vee"];}

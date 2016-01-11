@@ -1,0 +1,62 @@
+digraph example { 
+rankdir=BT;
+CurrentConditionsDisplay [
+shape="record",
+label = "{CurrentConditionsDisplay| - temperature : float\l- humidity : float\l- weatherData : Subject\l|+ update(float , float) : void\l+ display() : void\l}"
+];
+
+DisplayElement [
+shape="record",
+label = "{\<\<interface\>\>\nDisplayElement|   <clinit>() : void\l+ display() : void\l}"
+];
+
+ForecastDisplay [
+shape="record",
+label = "{ForecastDisplay| - currentPressure : float\l- lastPressure : float\l- weatherData : WeatherData\l|+ update(float , float) : void\l+ display() : void\l}"
+];
+
+HeatIndexDisplay [
+shape="record",
+label = "{HeatIndexDisplay|   heatIndex : float\l- weatherData : WeatherData\l|+ update(float , float) : void\l- computeHeatIndex(float ) : float\l+ display() : void\l}"
+];
+
+Observer [
+shape="record",
+label = "{\<\<interface\>\>\nObserver|   <clinit>() : void\l+ update(float , float) : void\l}"
+];
+
+StatisticsDisplay [
+shape="record",
+label = "{StatisticsDisplay| - maxTemp : float\l- minTemp : float\l- tempSum : float\l- numReadings : int\l- weatherData : WeatherData\l|+ update(float , float) : void\l+ display() : void\l}"
+];
+
+Subject [
+shape="record",
+label = "{\<\<interface\>\>\nSubject|   <clinit>() : void\l+ registerObserver(Observer ) : void\l+ removeObserver(Observer ) : void\l+ notifyObservers() : void\l}"
+];
+
+WeatherData [
+shape="record",
+label = "{WeatherData| - observers : ArrayList\l- temperature : float\l- humidity : float\l- pressure : float\l|+ registerObserver(Observer ) : void\l+ removeObserver(Observer ) : void\l+ notifyObservers() : void\l+ measurementsChanged() : void\l+ setMeasurements(float , float) : void\l+ getTemperature() : float\l+ getHumidity() : float\l+ getPressure() : float\l}"
+];
+
+WeatherStation [
+shape="record",
+label = "{WeatherStation| + main(String[] ) : void\l}"
+];
+
+WeatherStationHeatIndex [
+shape="record",
+label = "{WeatherStationHeatIndex| + main(String[] ) : void\l}"
+];
+
+//begins writing relations
+CurrentConditionsDisplay -> Observer [arrowhead="onormal", style="dashed"];
+CurrentConditionsDisplay -> DisplayElement [arrowhead="onormal", style="dashed"];
+ForecastDisplay -> Observer [arrowhead="onormal", style="dashed"];
+ForecastDisplay -> DisplayElement [arrowhead="onormal", style="dashed"];
+HeatIndexDisplay -> Observer [arrowhead="onormal", style="dashed"];
+HeatIndexDisplay -> DisplayElement [arrowhead="onormal", style="dashed"];
+StatisticsDisplay -> Observer [arrowhead="onormal", style="dashed"];
+StatisticsDisplay -> DisplayElement [arrowhead="onormal", style="dashed"];
+WeatherData -> Subject [arrowhead="onormal", style="dashed"];}
