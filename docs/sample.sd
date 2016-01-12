@@ -1,25 +1,8 @@
-bfs:BFS[a]
-/queue:FIFO
-someNode:Node
-node:Node
-adjList:List
-adj:Node
+Register:Register[a]
+Sale:Sale[a]
+/Payment:Payment[a]
 
-bfs:someNode.setLevel(0)
-
-[c:loop while queue != ()]
-
-  bfs:level=node.getLevel()
-  bfs:adjList=node.getAdjacentNodes()
-  [c:loop 0 <= i < #adjList]
-    bfs:adj=adjList.get(i)
-    bfs:nodeLevel=adj.getLevel()
-    [c:alt nodeLevel IS NOT defined]
-      bfs:adj.setLevel(level+1)
-
-      --[else]
-      bfs:nothing to do
-    [/c]
-  [/c]
-[/c]
-
+Register:Register.main
+Register:Sale.makePayment(cashTendered)
+Sale:Payment.new(cashTendered)
+Sale:Payment.authorize
