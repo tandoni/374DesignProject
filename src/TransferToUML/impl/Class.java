@@ -44,11 +44,11 @@ public class Class implements IClass{
 	
 	
 	@Override
-	public void accept(IVisitor v) {
+	public void acceptUML(IVisitor v) {
 		v.preVisit(this);
 		v.visit(this);
 		for(IField f : this.fields){
-			f.accept(v);
+			f.acceptUML(v);
 		}
 		
 		if(!this.fields.isEmpty()){
@@ -56,7 +56,7 @@ public class Class implements IClass{
 		}
 		
 		for(IMethod m : this.methods){
-			m.accept(v);
+			m.acceptUML(v);
 		}
 		v.postVisit(this);
 	}
@@ -104,6 +104,12 @@ public class Class implements IClass{
 	@Override
 	public String getClassType() {
 		return this.classType;
+	}
+
+	@Override
+	public void acceptSequence(IVisitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 

@@ -28,10 +28,10 @@ public class MethodVisitorHelper extends MethodVisitor {
 	@Override
 	public void visitFieldInsn(int opcode, String owner, String name, String desc) {
 
-//		if (this.toDecorate != null) {
-//			toDecorate.visitFieldInsn(opcode, owner, name, desc);
-//		}
-		
+		// if (this.toDecorate != null) {
+		// toDecorate.visitFieldInsn(opcode, owner, name, desc);
+		// }
+
 		super.visitFieldInsn(opcode, owner, name, desc);
 
 		String[] ownerSplit = owner.split("/");
@@ -61,10 +61,29 @@ public class MethodVisitorHelper extends MethodVisitor {
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
-		String[] args = getArguments(desc);
+		String[] args = getArgumentsType(desc);
+
+		System.out.println("this.myClass.getName(): " + this.myClass.getName());
+		System.out.println("owner: " + owner);
+		System.out.println("name: " + name);
+		System.out.println("desc: " + desc);
+		System.out.println("type: " + getType(desc));
+		if(args.length != 0) {
+			System.out.println("args: " + args[0]);
+			//String[] args2 = String.getMethodDescriptor(desc);
+		}
+
+		if (!owner.contains("java/lang/Object")) {
+			String[] ownerSplit = owner.split("/");
+
+			if (owner.equals(this.myClass.getName())) {
+				System.out.println(
+						ownerSplit[ownerSplit.length - 1] + " calls methods in ");
+			}
+		}
 	}
 
-	String[] getArguments(String desc) {
+	String[] getArgumentsType(String desc) {
 		Type[] args = Type.getArgumentTypes(desc);
 		String[] argClassList = new String[args.length];
 		for (int i = 0; i < args.length; i++) {

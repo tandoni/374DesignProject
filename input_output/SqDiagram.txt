@@ -1,0 +1,19 @@
+digraph example { 
+rankdir=BT;
+Register [
+shape="record",
+label = "{Register| - sale : Sale\l|}"
+];
+
+Sale [
+shape="record",
+label = "{Sale| - p : Payment\l|}"
+];
+
+Payment [
+shape="record",
+label = "{Payment| - cashTendered : int\l|}"
+];
+
+
+Sale -> Payment [arrowhead = "vee"];}
