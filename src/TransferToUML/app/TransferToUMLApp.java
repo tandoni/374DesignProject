@@ -10,26 +10,20 @@ import TransferToUML.visitor.IVisitor;
 import problem.asm.DesignParser;
 
 public class TransferToUMLApp {
-		
-	public static String[] classes = {
-			"analyze.AbstractClassTwoAbstractMethods",
-			"analyze.ClassPrivate",
-			"analyze.ClassUsesClass",
-			"analyze.ClassWithJustMainMethod",
-			"analyze.ClassWithOneVariable",
-			"analyze.Interface",
-			"analyze.ProtectedClass"
-	};
 
-	public static void main(String[] args) throws IOException {	
-		
+	public static String[] classes = { "analyze.AbstractClassTwoAbstractMethods", "analyze.ClassPrivate",
+			"analyze.ClassWithJustMainMethod", "analyze.ClassWithOneVariable", "analyze.Interface",
+			"analyze.ProtectedClass" };
+
+	public static void main(String[] args) throws IOException {
+
 		DesignParser parser = new DesignParser();
-		
+
 		parser.main(classes);
-		OutputStream out = new FileOutputStream("./input_output/TempUML.dot");
+		OutputStream out = new FileOutputStream("./input_output/TempUML.vz");
 		IVisitor writer = new UMLTransferOutputStream(out);
 		ITraverser traverser = (ITraverser) parser.model;
-		
+
 		String title = "example";
 		out.write("digraph ".getBytes());
 		out.write(title.getBytes());
@@ -37,7 +31,7 @@ public class TransferToUMLApp {
 		traverser.accept(writer);
 		out.write("}".getBytes());
 		out.close();
-		//UMLGenerator g = new UMLGenerator(title);
-		//g.execute();
+		// UMLGenerator g = new UMLGenerator(title);
+		// g.execute();
 	}
 }

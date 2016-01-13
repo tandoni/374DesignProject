@@ -10,11 +10,6 @@ shape="record",
 label = "{ClassPrivate| - i : int\l- f : float\l|- privateFloatOne() : float\l}"
 ];
 
-ClassUsesClass [
-shape="record",
-label = "{ClassUsesClass| }"
-];
-
 ClassWithJustMainMethod [
 shape="record",
 label = "{ClassWithJustMainMethod| + main(String[] ) : void\l}"
