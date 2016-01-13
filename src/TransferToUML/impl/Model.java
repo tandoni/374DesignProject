@@ -10,20 +10,22 @@ import TransferToUML.api.IModel;
 import TransferToUML.api.IRelation;
 import TransferToUML.api.ISequence;
 import TransferToUML.app.TransferToUMLApp;
-import TransferToUML.visitor.ITraverser;
 import TransferToUML.visitor.IVisitor;
 
 public class Model implements IModel {
 
 	public Collection<IClass> classes;
 	public Map<String, IRelation> relations;
-	public ArrayList<ISequence> sequences = new ArrayList<ISequence>();
-	public ArrayList<String> createdClasses = new ArrayList<String>();
-	public Collection<String> classNames = new ArrayList<String>();
+	public ArrayList<ISequence> sequences;
+	public ArrayList<String> createdClasses;
+	public Collection<String> classNames;
 
 	public Model() {
 		this.classes = new ArrayList<IClass>();
 		this.relations = new HashMap<String, IRelation>();
+		this.sequences = new ArrayList<ISequence>();
+		this.createdClasses = new ArrayList<String>();
+		this.classNames = new ArrayList<String>();
 		setClassNames();
 	}
 
@@ -148,7 +150,7 @@ public class Model implements IModel {
 		ArrayList<String> args = sequence.getArguments();
 
 		if (this.classNames.contains(fromClass) && this.classNames.contains(toClass)) {
-			if (calledMethod.equals("<init>")) {
+			if (calledMethod.contains("init>")) {
 				sequence.setCalledMethod("new");
 				this.createdClasses.add(toClass);
 			}
