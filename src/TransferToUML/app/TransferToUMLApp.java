@@ -28,7 +28,7 @@ public class TransferToUMLApp {
 		out.write("digraph ".getBytes());
 		out.write(title.getBytes());
 		out.write(" { \nrankdir=BT;\n".getBytes());
-		traverser.accept(writer);
+		traverser.acceptUML(writer);
 		out.write("}".getBytes());
 		out.close();
 		// UMLGenerator g = new UMLGenerator(title);
