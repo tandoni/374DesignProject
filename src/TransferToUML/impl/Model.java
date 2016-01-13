@@ -45,10 +45,10 @@ public class Model implements IModel{
 //		}
 //	}
 
-	public void accept(IVisitor v) {
+	public void acceptUML(IVisitor v) {
 		v.preVisit(this);
 		for(IClass c: this.classes) {
-			c.accept(v);
+			c.acceptUML(v);
 		}
 		v.visit(this);
 		v.postVisit(this);
@@ -126,6 +126,12 @@ public class Model implements IModel{
 	@Override
 	public String toString(){
 		return "classes: " + this.classes + ";" + "Relation: " + this.relations + "; ";
+	}
+
+	@Override
+	public void acceptSequence(IVisitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

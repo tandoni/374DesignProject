@@ -45,10 +45,16 @@ public class Field implements IField {
 	}
 
 	@Override
-	public void accept(IVisitor v) {
+	public void acceptUML(IVisitor v) {
 		v.preVisit(this);
 		v.visit(this);
 		v.postVisit(this);
+	}
+
+	@Override
+	public void acceptSequence(IVisitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

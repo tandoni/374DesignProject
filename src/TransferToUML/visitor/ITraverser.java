@@ -1,5 +1,6 @@
 package TransferToUML.visitor;
 
 public interface ITraverser {
-	public void accept(IVisitor v);
+	public void acceptUML(IVisitor v);
+	public void acceptSequence(IVisitor v);
 }

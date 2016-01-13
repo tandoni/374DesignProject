@@ -96,7 +96,7 @@ public class Relation implements IRelation {
 
 
 
-	public void accept(IVisitor v) {
+	public void acceptUML(IVisitor v) {
 //		v.preVisit(this);
 //		for(IClass p: this.components) {
 //			ITraverser t = (ITraverser)p;
@@ -155,6 +155,12 @@ public class Relation implements IRelation {
 	public void addAssociations(String s) {
 		if (!this.associations.contains(s) && this.classNames.contains(getPureName(s)))
 			this.associations.add(s);
+	}
+
+	@Override
+	public void acceptSequence(IVisitor v) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

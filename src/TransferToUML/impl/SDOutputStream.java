@@ -9,6 +9,7 @@ import TransferToUML.api.IModel;
 import TransferToUML.api.IRelation;
 import TransferToUML.visitor.VisitorAdapter;
 
+
 public class SDOutputStream extends VisitorAdapter {
 	private final OutputStream out;
 
