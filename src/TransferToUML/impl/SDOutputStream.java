@@ -68,8 +68,18 @@ public class SDOutputStream extends VisitorAdapter {
 			String s = "";
 
 			String n = r.getSubClass();
-			// System.out.println(r.getSuperClass());
 
+			if (r.getUses() != null) {
+				ArrayList<String[]> uses = new ArrayList<String[]>();
+				for (String i : r.getUses()) {
+					uses.add(i.split("/"));
+				}
+
+				for (String[] i : uses) {
+					s += "\n" + n + " -> " + i[i.length - 1] + " [arrowhead = \"vee\", style = \"dashed\"];";
+				}
+			}
+			// System.out.println(r.getSuperClass());
 
 			if (s != "") {
 				this.write(s);
