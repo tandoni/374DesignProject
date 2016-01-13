@@ -11,9 +11,19 @@ import problem.asm.DesignParser;
 
 public class TransferToUMLApp {
 
-	public static String[] classes = { "analyze.AbstractClassTwoAbstractMethods", "analyze.ClassPrivate",
-			"analyze.ClassWithJustMainMethod", "analyze.ClassWithOneVariable", "analyze.Interface",
-			"analyze.ProtectedClass" };
+	public static String[] classes = { 
+//			"analyze.AbstractClassTwoAbstractMethods", 
+//			"analyze.ClassPrivate",
+//			"analyze.ClassWithJustMainMethod", 
+//			"analyze.ClassWithOneVariable", 
+//			"analyze.Interface",
+//			"analyze.ProtectedClass"
+			
+			"analyze.register.Register",
+			"analyze.register.Sale",
+			"analyze.register.Payment"
+			
+	};
 
 	public static void main(String[] args) throws IOException {
 

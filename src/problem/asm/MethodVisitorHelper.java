@@ -72,15 +72,17 @@ public class MethodVisitorHelper extends MethodVisitor {
 			System.out.println("args: " + args[0]);
 			//String[] args2 = String.getMethodDescriptor(desc);
 		}
-
-		if (!owner.contains("java/lang/Object")) {
-			String[] ownerSplit = owner.split("/");
-
-			if (owner.equals(this.myClass.getName())) {
-				System.out.println(
-						ownerSplit[ownerSplit.length - 1] + " calls methods in ");
-			}
-		}
+//
+//		if (!owner.contains("java/lang/Object")) {
+//			String[] ownerSplit = owner.split("/");
+//
+//			if (owner.equals(this.myClass.getName())) {
+//				System.out.println(
+//						ownerSplit[ownerSplit.length - 1] + " calls methods in ");
+//			}
+//		}
+		
+		
 	}
 
 	String[] getArgumentsType(String desc) {
