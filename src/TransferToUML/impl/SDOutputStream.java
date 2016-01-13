@@ -61,4 +61,22 @@ public class SDOutputStream extends VisitorAdapter {
 
 	}
 
+	@Override
+	public void preVisit(IClass c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void visit(IClass c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void postVisit(IClass c) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
