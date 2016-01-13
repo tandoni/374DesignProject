@@ -8,7 +8,9 @@ import org.objectweb.asm.MethodVisitor;
 import TransferToUML.api.IClass;
 import TransferToUML.api.IModel;
 import TransferToUML.api.IRelation;
+import TransferToUML.api.ISequence;
 import TransferToUML.impl.Relation;
+import TransferToUML.impl.Sequence;
 
 public class MethodVisitorHelper extends MethodVisitor {
 
@@ -63,26 +65,30 @@ public class MethodVisitorHelper extends MethodVisitor {
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		String[] args = getArgumentsType(desc);
 
-		System.out.println("this.myClass.getName(): " + this.myClass.getName());
-		System.out.println("owner: " + owner);
-		System.out.println("name: " + name);
-		System.out.println("desc: " + desc);
-		System.out.println("type: " + getType(desc));
-		if(args.length != 0) {
-			System.out.println("args: " + args[0]);
-			//String[] args2 = String.getMethodDescriptor(desc);
-		}
-//
-//		if (!owner.contains("java/lang/Object")) {
-//			String[] ownerSplit = owner.split("/");
-//
-//			if (owner.equals(this.myClass.getName())) {
-//				System.out.println(
-//						ownerSplit[ownerSplit.length - 1] + " calls methods in ");
-//			}
-//		}
-		
-		
+		// System.out.println("this.myClass.getName(): " +
+		// this.myClass.getName());
+		// System.out.println("owner: " + owner);
+		// System.out.println("name: " + name);
+		// System.out.println("desc: " + desc);
+		// System.out.println("type: " + getType(desc));
+		// if (args.length != 0) {
+		// System.out.println("args: " + args[0]);
+		// // String[] args2 = String.getMethodDescriptor(desc);
+		// }
+		String[] ownerSplit = owner.split("/");
+		ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
+		this.model.addSequence(sequence);
+
+		//
+		// if (!owner.contains("java/lang/Object")) {
+		// String[] ownerSplit = owner.split("/");
+		//
+		// if (owner.equals(this.myClass.getName())) {
+		// System.out.println(
+		// ownerSplit[ownerSplit.length - 1] + " calls methods in ");
+		// }
+		// }
+
 	}
 
 	String[] getArgumentsType(String desc) {

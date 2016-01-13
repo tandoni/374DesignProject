@@ -9,7 +9,6 @@ import TransferToUML.api.IModel;
 import TransferToUML.api.IRelation;
 import TransferToUML.visitor.VisitorAdapter;
 
-
 public class SDOutputStream extends VisitorAdapter {
 	private final OutputStream out;
 
@@ -27,39 +26,13 @@ public class SDOutputStream extends VisitorAdapter {
 	}
 
 	@Override
-	public void preVisit(IClass c) {
-		// To-do: Ishank rewrite the format() method below to the correct thing
-		// for pre-visiting a class (might not need to write anything).
-		String s = String.format("%s [\nshape=\"record\",\n", c.getName());
-		this.write(s);
-	}
-
-	@Override
-	public void visit(IClass c) {
-		// To-do: Ishank rewrite the format() method below to the correct thing
-		// for visiting a class (might not need to write anything).
-		String s = String.format("%s [\nshape=\"record\",\n", c.getName());
-		this.write(s);
-	}
-
-	@Override
-	public void postVisit(IClass c) {
-		// To-do: Ishank rewrite the format() method below to the correct thing
-		// for post-visiting a class (might not need to write anything).
-		String s = String.format("%s [\nshape=\"record\",\n", c.getName());
-		this.write(s);
-	}
-
-	@Override
 	public void visitSperator() {
 		// TODO Auto-generated method stub
 
 	}
 
-	// To-do: Ishank: in the code below, you can see that we inititalize a
-	// String s. All of the s += code needs to be re-written for Sequence
-	// Diagram syntax. Also, we might have to visit classes here or something,
-	// in order to know how to correctly write the SD visit code.
+	// To-do: Ishank: write all of the parsing code here. prbly hard-code
+	// this.getClass.indexAt(0).main method to start diagram
 	@Override
 	public void visit(IModel m) {
 		ArrayList<IRelation> relations = (ArrayList<IRelation>) m.getRelations();

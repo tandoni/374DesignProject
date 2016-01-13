@@ -8,15 +8,15 @@ import TransferToUML.app.TransferToUMLApp;
 import TransferToUML.visitor.IVisitor;
 
 public class Relation implements IRelation {
-	
+
 	private String subClass;
 	private String superClass;
 	private Collection<String> interfaces;
 	private Collection<String> uses;
 	private Collection<String> associations;
-	
+
 	public Collection<String> classNames = new ArrayList<String>();
-	
+
 	public Relation(String subName) {
 		this.subClass = subName;
 		this.superClass = "";
