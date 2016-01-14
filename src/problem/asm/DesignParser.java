@@ -12,7 +12,7 @@ import TransferToUML.impl.Model;
 public class DesignParser {
 
 	public IModel model;
-	boolean deb = true;
+	boolean deb = false;
 
 	public DesignParser() {
 		this.model = new Model();
