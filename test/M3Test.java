@@ -1,9 +1,12 @@
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+
+import java.util.List;
 
 import org.junit.Test;
 
 import TransferToUML.api.IModel;
+import TransferToUML.api.ISequence;
 import TransferToUML.impl.Model;
 import TransferToUML.impl.Sequence;
 
@@ -37,14 +40,9 @@ public class M3Test {
 		assertEquals("method", seq.getCalledMethod());
 		assertEquals("fromClass", seq.getFromClass());
 		assertEquals("toClass", seq.getToClass());
-		assertEquals("args0", args[0]);
-		assertEquals("args1", args[1]);
-		assertEquals("args2", args[2]);
-	}
-
-	@Test
-	public void testAddSequence() {
-//		m.
+		assertEquals("args0", seq.getArguments().get(0));
+		assertEquals("args1", seq.getArguments().get(1));
+		assertEquals("args2", seq.getArguments().get(2));
 	}
 
 }
