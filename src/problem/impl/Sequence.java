@@ -1,9 +1,9 @@
-package TransferToUML.impl;
+package problem.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import TransferToUML.api.ISequence;
+import problem.interfaces.ISequence;
 
 public class Sequence implements ISequence {
 	private String fromClass = "";

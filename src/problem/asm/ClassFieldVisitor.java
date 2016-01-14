@@ -4,10 +4,10 @@ import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 //import org.objectweb.asm.Type;
 
-import TransferToUML.api.IClass;
-import TransferToUML.api.IField;
-import TransferToUML.api.IModel;
-import TransferToUML.impl.Field;
+import problem.impl.Field;
+import problem.interfaces.IClass;
+import problem.interfaces.IField;
+import problem.interfaces.IModel;
 
 public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor{
 

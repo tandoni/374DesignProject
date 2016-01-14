@@ -1,4 +1,4 @@
-package TransferToUML.api;
+package problem.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collection;

@@ -5,12 +5,12 @@ import org.objectweb.asm.MethodVisitor;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import TransferToUML.api.IClass;
-import TransferToUML.api.IMethod;
-import TransferToUML.api.IModel;
-import TransferToUML.api.IRelation;
-import TransferToUML.impl.Method;
-import TransferToUML.impl.Relation;
+import problem.impl.Method;
+import problem.impl.Relation;
+import problem.interfaces.IClass;
+import problem.interfaces.IMethod;
+import problem.interfaces.IModel;
+import problem.interfaces.IRelation;
 
 public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 

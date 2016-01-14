@@ -6,8 +6,8 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-import TransferToUML.api.IModel;
-import TransferToUML.impl.Model;
+import problem.impl.Model;
+import problem.interfaces.IModel;
 
 public class DesignParser {
 

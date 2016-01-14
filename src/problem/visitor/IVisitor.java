@@ -1,10 +1,10 @@
-package TransferToUML.visitor;
+package problem.visitor;
 
-import TransferToUML.api.IRelation;
-import TransferToUML.api.IClass;
-import TransferToUML.api.IField;
-import TransferToUML.api.IMethod;
-import TransferToUML.api.IModel;
+import problem.interfaces.IClass;
+import problem.interfaces.IField;
+import problem.interfaces.IMethod;
+import problem.interfaces.IModel;
+import problem.interfaces.IRelation;
 
 public interface IVisitor {
 	

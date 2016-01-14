@@ -1,6 +1,6 @@
-package TransferToUML.api;
+package problem.interfaces;
 
-import TransferToUML.visitor.ITraverser;
+import problem.visitor.ITraverser;
 
 public interface IMethod extends ITraverser {
 	public int getAccess();

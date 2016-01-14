@@ -1,13 +1,13 @@
-package TransferToUML.impl;
+package problem.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import TransferToUML.api.IClass;
-import TransferToUML.api.IField;
-import TransferToUML.api.IMethod;
-import TransferToUML.api.IRelation;
-import TransferToUML.visitor.IVisitor;
+import problem.interfaces.IClass;
+import problem.interfaces.IField;
+import problem.interfaces.IMethod;
+import problem.interfaces.IRelation;
+import problem.visitor.IVisitor;
 
 public class Class implements IClass{
 	

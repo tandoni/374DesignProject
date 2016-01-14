@@ -1,11 +1,11 @@
-package TransferToUML.impl;
+package problem.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import TransferToUML.api.IRelation;
-import TransferToUML.app.TransferToUMLApp;
-import TransferToUML.visitor.IVisitor;
+import problem.app.MyMainApp;
+import problem.interfaces.IRelation;
+import problem.visitor.IVisitor;
 
 public class Relation implements IRelation {
 
@@ -75,7 +75,7 @@ public class Relation implements IRelation {
 	}
 
 	public void setClassNames() {
-		for (String s : TransferToUMLApp.classes) {
+		for (String s : MyMainApp.classes) {
 			String[] split = s.split("\\.");
 			s = split[split.length - 1];
 			// System.out.println("set |" + s + "|");

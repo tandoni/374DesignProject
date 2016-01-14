@@ -1,8 +1,8 @@
-package TransferToUML.impl;
+package problem.impl;
 
-import TransferToUML.api.IField;
-import TransferToUML.visitor.ITraverser;
-import TransferToUML.visitor.IVisitor;
+import problem.interfaces.IField;
+import problem.visitor.ITraverser;
+import problem.visitor.IVisitor;
 
 public class Field implements IField {
 	private int access;

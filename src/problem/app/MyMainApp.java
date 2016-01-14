@@ -1,4 +1,4 @@
-package TransferToUML.app;
+package problem.app;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -6,13 +6,13 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-import TransferToUML.impl.SDOutputStream;
-import TransferToUML.impl.UMLTransferOutputStream;
-import TransferToUML.visitor.ITraverser;
-import TransferToUML.visitor.IVisitor;
 import problem.asm.DesignParser;
+import problem.impl.SDOutputStream;
+import problem.impl.UMLOutputStream;
+import problem.visitor.ITraverser;
+import problem.visitor.IVisitor;
 
-public class TransferToUMLApp {
+public class MyMainApp {
 
 	public static String[] classes = {
 			// "analyze.AbstractClassTwoAbstractMethods",
@@ -31,8 +31,8 @@ public class TransferToUMLApp {
 		DesignParser parser = new DesignParser();
 
 		parser.main(classes);
-		OutputStream out = new FileOutputStream("./input_output/TempUML.gv");
-		IVisitor writer = new UMLTransferOutputStream(out);
+		OutputStream out = new FileOutputStream("./input_output/GraphForGraphViz.gv");
+		IVisitor writer = new UMLOutputStream(out);
 		ITraverser traverser = (ITraverser) parser.model;
 
 		String title = "example";
@@ -44,8 +44,8 @@ public class TransferToUMLApp {
 		out.close();
 		// UMLGenerator g = new UMLGenerator(title);
 		// g.execute();
-
-		OutputStream out2 = new FileOutputStream("./input_output/PaymentSD.sd");
+		
+		OutputStream out2 = new FileOutputStream("./input_output/GraphForSDEdit.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
 
