@@ -1,10 +1,8 @@
 package problem.interfaces;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 public interface ISequence {
-
 	public void addFromClass(String fromClass);
 
 	public void addToClass(String toClass);

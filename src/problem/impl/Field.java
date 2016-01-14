@@ -1,7 +1,6 @@
 package problem.impl;
 
 import problem.interfaces.IField;
-import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
 
 public class Field implements IField {

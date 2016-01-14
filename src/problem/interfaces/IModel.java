@@ -3,7 +3,6 @@ package problem.interfaces;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import problem.impl.Sequence;
 import problem.visitor.ITraverser;
 
 public interface IModel extends ITraverser {
@@ -13,12 +12,12 @@ public interface IModel extends ITraverser {
 
 	public void addRelation(IRelation r);
 
-	// public void setRelation(IRelation r);
 	public Collection<IRelation> getRelations();
 
 	public IClass getNamedClass(String s);
 
 	public void addSequence(ISequence sequence);
+
 	public ArrayList<ISequence> getSequences();
 
 	ArrayList<String> getCreatedClasses();

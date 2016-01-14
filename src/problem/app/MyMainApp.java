@@ -40,8 +40,9 @@ public class MyMainApp {
 		traverser.acceptUML(writer);
 		out.write("}".getBytes());
 		out.close();
-		// UMLGenerator g = new UMLGenerator(title);
-		// g.execute();
+		
+		
+		//		SDEdit
 		
 		OutputStream out2 = new FileOutputStream("./input_output/GraphForSDEdit.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
