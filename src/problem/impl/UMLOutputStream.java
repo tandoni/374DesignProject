@@ -14,10 +14,10 @@ import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 import problem.visitor.VisitorAdapter;
 
-public class UMLTransferOutputStream extends VisitorAdapter {
+public class UMLOutputStream extends VisitorAdapter {
 	private final OutputStream out;
 
-	public UMLTransferOutputStream(OutputStream out) throws IOException {
+	public UMLOutputStream(OutputStream out) throws IOException {
 		super();
 		this.out = out;
 	}

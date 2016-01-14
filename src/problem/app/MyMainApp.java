@@ -6,7 +6,7 @@ import java.io.OutputStream;
 
 import problem.asm.DesignParser;
 import problem.impl.SDOutputStream;
-import problem.impl.UMLTransferOutputStream;
+import problem.impl.UMLOutputStream;
 import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
 
@@ -30,7 +30,7 @@ public class MyMainApp {
 
 		parser.main(classes);
 		OutputStream out = new FileOutputStream("./input_output/TempUML.gv");
-		IVisitor writer = new UMLTransferOutputStream(out);
+		IVisitor writer = new UMLOutputStream(out);
 		ITraverser traverser = (ITraverser) parser.model;
 
 		String title = "example";
