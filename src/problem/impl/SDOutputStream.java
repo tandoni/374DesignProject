@@ -28,12 +28,9 @@ public class SDOutputStream extends VisitorAdapter {
 
 	@Override
 	public void visitSperator() {
-		// TODO Auto-generated method stub
 
 	}
 
-	// To-do: Ishank: write all of the parsing code here. prbly hard-code
-	// this.getClass.indexAt(0).main method to start diagram
 	@Override
 	public void visit(IModel m) {
 		List<ISequence> seqs = m.getSequences();
@@ -73,19 +70,16 @@ public class SDOutputStream extends VisitorAdapter {
 
 	@Override
 	public void preVisit(IClass c) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void visit(IClass c) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void postVisit(IClass c) {
-		// TODO Auto-generated method stub
 
 	}
 

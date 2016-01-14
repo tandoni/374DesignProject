@@ -29,7 +29,7 @@ public class MyMainApp {
 		DesignParser parser = new DesignParser();
 
 		parser.main(classes);
-		OutputStream out = new FileOutputStream("./input_output/TempUML.gv");
+		OutputStream out = new FileOutputStream("./input_output/GraphForGraphViz.gv");
 		IVisitor writer = new UMLOutputStream(out);
 		ITraverser traverser = (ITraverser) parser.model;
 
