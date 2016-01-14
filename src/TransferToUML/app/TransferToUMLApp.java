@@ -4,6 +4,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import TransferToUML.impl.SDOutputStream;
 import TransferToUML.impl.UMLTransferOutputStream;
 import TransferToUML.visitor.ITraverser;
 import TransferToUML.visitor.IVisitor;
@@ -18,7 +19,7 @@ public class TransferToUMLApp {
 			// "analyze.ClassWithOneVariable",
 			// "analyze.Interface",
 			// "analyze.ProtectedClass"
-
+//			"java.util.Collections.shuffle(List<T> list)"
 			"analyze.register.Register", "analyze.register.Sale", "analyze.register.Payment"
 
 	};
@@ -28,7 +29,7 @@ public class TransferToUMLApp {
 		DesignParser parser = new DesignParser();
 
 		parser.main(classes);
-		OutputStream out = new FileOutputStream("./input_output/TempUML.vz");
+		OutputStream out = new FileOutputStream("./input_output/TempUML.gv");
 		IVisitor writer = new UMLTransferOutputStream(out);
 		ITraverser traverser = (ITraverser) parser.model;
 
@@ -41,5 +42,13 @@ public class TransferToUMLApp {
 		out.close();
 		// UMLGenerator g = new UMLGenerator(title);
 		// g.execute();
+		
+		OutputStream out2 = new FileOutputStream("./input_output/PaymentSD.sd");
+		IVisitor writer2 = new SDOutputStream(out2);
+		ITraverser traverser2 = (ITraverser) parser.model;
+		
+		traverser2.acceptSequence(writer2);
+		out2.close();
+		
 	}
 }

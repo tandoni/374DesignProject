@@ -1,0 +1,8 @@
+Register:Register[a]
+Sale:Sale[a]
+/Payment:Payment[a]
+
+Register:Register.main
+Register:Sale.makePayment(arg0)
+Sale:Payment.new(arg0)
+Sale:Payment.authorize()

@@ -2,11 +2,12 @@ package TransferToUML.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import TransferToUML.api.IClass;
 import TransferToUML.api.IModel;
-import TransferToUML.api.IRelation;
+import TransferToUML.api.ISequence;
 import TransferToUML.visitor.VisitorAdapter;
 
 public class SDOutputStream extends VisitorAdapter {
@@ -35,48 +36,57 @@ public class SDOutputStream extends VisitorAdapter {
 	// this.getClass.indexAt(0).main method to start diagram
 	@Override
 	public void visit(IModel m) {
-		ArrayList<IRelation> relations = (ArrayList<IRelation>) m.getRelations();
+		List<ISequence> seqs = m.getSequences();
+		Collection<IClass> classes = m.getClasses();
+		List<String> createdClasses = m.getCreatedClasses();
+		StringBuilder sb = new StringBuilder();
 
-		for (IRelation r : relations) {
-			String s = "";
-
-			String n = r.getSubClass();
-
-			if (r.getUses() != null) {
-				ArrayList<String[]> uses = new ArrayList<String[]>();
-				for (String i : r.getUses()) {
-					uses.add(i.split("/"));
-				}
-
-				for (String[] i : uses) {
-					s += "\n" + n + " -> " + i[i.length - 1] + " [arrowhead = \"vee\", style = \"dashed\"];";
-				}
-			}
-			// System.out.println(r.getSuperClass());
-
-			if (s != "") {
-				this.write(s);
-			}
+		for (IClass c : classes) {
+			String name = c.getName();
+			if (!createdClasses.contains(name))
+				sb.append(name + ":" + name + "[a]\n");
 		}
+		for (String s : createdClasses) {
+			sb.append(String.format("/%s:%s[a]\n\n", s, s));
+		}
+		
+		sb.append(((IClass) classes.toArray()[0]).getName() + ":" + ((IClass) classes.toArray()[0]).getName() + ".main\n");
+		
+		for (ISequence s : seqs) {
+			String from = s.getFromClass();
+			String to = s.getToClass();
+			String calledMethod = s.getCalledMethod();
+			List<String> args = s.getArguments();
+
+			sb.append(String.format("%s:%s.%s(", from, to, calledMethod));
+
+			for (int i = 0; i < args.size(); i++) {
+				sb.append("arg" + i);
+				if(i != args.size()-1) sb.append(", ");
+			}
+
+			sb.append(")\n");
+		}
+		this.write(sb.toString());
 
 	}
 
 	@Override
 	public void preVisit(IClass c) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void visit(IClass c) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void postVisit(IClass c) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }

@@ -67,6 +67,11 @@ public class Model implements IModel {
 	public Collection<IClass> getClasses() {
 		return this.classes;
 	}
+	
+	@Override
+	public Collection<String> getClassNames() {
+		return this.classNames;
+	}
 
 	@Override
 	public void addRelation(IRelation r) {
@@ -136,8 +141,22 @@ public class Model implements IModel {
 
 	@Override
 	public void acceptSequence(IVisitor v) {
-		// TODO Auto-generated method stub
-
+		v.preVisit(this);
+		for (IClass c : this.classes) {
+			c.acceptSequence(v);
+		}
+		v.visit(this);
+		v.postVisit(this);
+	}
+	
+	@Override
+	public ArrayList<ISequence> getSequences() {
+		return this.sequences;
+	}
+	
+	@Override
+	public ArrayList<String> getCreatedClasses() {
+		return this.createdClasses;
 	}
 
 	public void addSequence(ISequence sequence) {
@@ -147,8 +166,6 @@ public class Model implements IModel {
 		String fromClass = sequence.getFromClass();
 		String toClass = sequence.getToClass();
 		String calledMethod = sequence.getCalledMethod();
-		ArrayList<String> args = sequence.getArguments();
-
 		if (this.classNames.contains(fromClass) && this.classNames.contains(toClass)) {
 			if (calledMethod.contains("init>")) {
 				sequence.setCalledMethod("new");
