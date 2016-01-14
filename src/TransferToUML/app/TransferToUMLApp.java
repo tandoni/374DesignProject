@@ -50,5 +50,7 @@ public class TransferToUMLApp {
 		traverser2.acceptSequence(writer2);
 		out2.close();
 		
+		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
+		
 	}
 }

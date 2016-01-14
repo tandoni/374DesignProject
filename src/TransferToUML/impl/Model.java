@@ -171,8 +171,8 @@ public class Model implements IModel {
 				sequence.setCalledMethod("new");
 				this.createdClasses.add(toClass);
 			}
-			System.out.println("adding sequence: from " + sequence.getFromClass() + ", to " + sequence.getToClass()
-					+ ", method " + sequence.getCalledMethod());
+//			System.out.println("adding sequence: from " + sequence.getFromClass() + ", to " + sequence.getToClass()
+//					+ ", method " + sequence.getCalledMethod());
 			this.sequences.add(sequence);
 		}
 
