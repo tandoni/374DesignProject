@@ -16,9 +16,21 @@ public class Model implements IModel {
 
 	public Collection<IClass> classes;
 	public Map<String, IRelation> relations;
+	// Not technically important to be queue, but this is basically a holding
+	// place for potential sequences until ASM is done. Once ASM is done, we
+	// have sufficient info to determine if things like constructors are not
+	// necessary to create the correct SD diagram.
+	public ArrayList<ISequence> sequencesQueue = new ArrayList<ISequence>();
 	public ArrayList<ISequence> sequences;
 	public ArrayList<String> createdClasses;
 	public Collection<String> classNames;
+	// This class names is unique for sequence diagrams, because we don't know
+	// the class names until after the ASM code has already traversed
+	// everything.
+	public Collection<String> classNamesSeq = new ArrayList<String>();
+	// recordSequence starts false until we find the method that was specified
+	// in the "command line", then it is true
+	private Boolean recordSequence = false;
 
 	public Model() {
 		this.classes = new ArrayList<IClass>();
@@ -67,7 +79,7 @@ public class Model implements IModel {
 	public Collection<IClass> getClasses() {
 		return this.classes;
 	}
-	
+
 	@Override
 	public Collection<String> getClassNames() {
 		return this.classNames;
@@ -148,15 +160,31 @@ public class Model implements IModel {
 		v.visit(this);
 		v.postVisit(this);
 	}
-	
+
 	@Override
 	public ArrayList<ISequence> getSequences() {
 		return this.sequences;
 	}
-	
+
 	@Override
 	public ArrayList<String> getCreatedClasses() {
 		return this.createdClasses;
+	}
+
+	public void setRecordSequence(boolean boo) {
+		this.recordSequence = boo;
+	}
+
+	public boolean getRecordSequence() {
+		return this.recordSequence;
+	}
+
+	// This method is used to store all potential sequences in a queue. Then,
+	// once ASM is done with everything, we'll know exactly what classes must be
+	// drawn in the SD. From that info, we can determine all the info we need.
+	@Override
+	public void addSequenceToQueue(ISequence sequence) {
+		this.sequencesQueue.add(sequence);
 	}
 
 	public void addSequence(ISequence sequence) {
@@ -166,13 +194,14 @@ public class Model implements IModel {
 		String fromClass = sequence.getFromClass();
 		String toClass = sequence.getToClass();
 		String calledMethod = sequence.getCalledMethod();
-		if (this.classNames.contains(fromClass) && this.classNames.contains(toClass)) {
+		if (this.classNamesSeq.contains(fromClass) && this.classNamesSeq.contains(toClass)) {
 			if (calledMethod.contains("init>")) {
 				sequence.setCalledMethod("new");
 				this.createdClasses.add(toClass);
 			}
-//			System.out.println("adding sequence: from " + sequence.getFromClass() + ", to " + sequence.getToClass()
-//					+ ", method " + sequence.getCalledMethod());
+			// System.out.println("adding sequence: from " +
+			// sequence.getFromClass() + ", to " + sequence.getToClass()
+			// + ", method " + sequence.getCalledMethod());
 			this.sequences.add(sequence);
 		}
 
