@@ -75,17 +75,9 @@ public class MethodVisitorHelper extends MethodVisitor {
 		// System.out.println("args: " + args[0]);
 		// // String[] args2 = String.getMethodDescriptor(desc);
 		// }
-		// if (this.myClass.getName() && name) {
-		//
-		// }
-		if (this.model.getRecordSequence()) {
-			String[] ownerSplit = owner.split("/");
-			ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
-			// We have to queue the sequences so that we can determine all of
-			// the classes that we are analyzing. Once we have determined all of
-			// the classes we are analyzing, we can do the rest from there.
-			this.model.addSequenceToQueue(sequence);
-		}
+		String[] ownerSplit = owner.split("/");
+		ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
+		this.model.addSequence(sequence);
 
 		//
 		// if (!owner.contains("java/lang/Object")) {
