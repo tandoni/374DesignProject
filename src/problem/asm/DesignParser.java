@@ -12,6 +12,7 @@ import TransferToUML.impl.Model;
 public class DesignParser {
 
 	public IModel model;
+	boolean deb = true;
 
 	public DesignParser() {
 		this.model = new Model();
@@ -31,6 +32,16 @@ public class DesignParser {
 		for (String className : args) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled
 			// Java class
+			System.out.println(className);
+			String name = "";
+			String meth = "";
+			if(deb) {
+				String[] all = className.split("\\.");
+				name = all[0] + "." + all[1] + "." + all[2];
+				meth = all[3].substring(0, all[3].indexOf("("));
+				System.out.println("name is: " + name);
+				System.out.println("method is: " + meth);
+			}
 			ClassReader reader = new ClassReader(className);
 
 			// make class declaration visitor to get superclass and interfaces
