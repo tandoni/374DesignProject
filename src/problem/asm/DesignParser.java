@@ -55,7 +55,9 @@ public class DesignParser {
 
 			// TODO: add more DECORATORS here in later milestones to accomplish
 			// specific tasks
-
+			// specific tasks
+			// Tell the Reader to use our (heavily decorated) ClassVisitor to
+			// visit the class
 
 			// Tell the Reader to use our (heavily decorated) ClassVisitor to
 			// visit the class

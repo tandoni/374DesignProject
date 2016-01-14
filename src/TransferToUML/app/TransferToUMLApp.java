@@ -19,10 +19,8 @@ public class TransferToUMLApp {
 			// "analyze.ClassWithOneVariable",
 			// "analyze.Interface",
 			// "analyze.ProtectedClass"
-			// "java.util.Collections.shuffle(List<T> list)"
-			// "analyze.register.Register",
-			"analyze.register.Sale.makePayment",
-			// "analyze.register.Payment"
+//			"java.util.Collections.shuffle(List<T> list)"
+			"analyze.register.Register", "analyze.register.Sale", "analyze.register.Payment"
 
 	};
 
@@ -44,15 +42,15 @@ public class TransferToUMLApp {
 		out.close();
 		// UMLGenerator g = new UMLGenerator(title);
 		// g.execute();
-
+		
 		OutputStream out2 = new FileOutputStream("./input_output/PaymentSD.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
-
+		
 		traverser2.acceptSequence(writer2);
 		out2.close();
-
+		
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
-
+		
 	}
 }

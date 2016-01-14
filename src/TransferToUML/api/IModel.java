@@ -19,17 +19,10 @@ public interface IModel extends ITraverser {
 	public IClass getNamedClass(String s);
 
 	public void addSequence(ISequence sequence);
-
 	public ArrayList<ISequence> getSequences();
 
 	ArrayList<String> getCreatedClasses();
 
 	Collection<String> getClassNames();
-
-	public void setRecordSequence(boolean boo);
-
-	public boolean getRecordSequence();
-
-	public void addSequenceToQueue(ISequence sequence);
 
 }
