@@ -3,6 +3,8 @@ package TransferToUML.app;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 import TransferToUML.impl.SDOutputStream;
 import TransferToUML.impl.UMLTransferOutputStream;
@@ -19,13 +21,13 @@ public class TransferToUMLApp {
 			// "analyze.ClassWithOneVariable",
 			// "analyze.Interface",
 			// "analyze.ProtectedClass"
-//			"java.util.Collections.shuffle(List<T> list)"
+			// "java.util.Collections.shuffle(List<T> list)"
 			"analyze.register.Register", "analyze.register.Sale", "analyze.register.Payment"
 
 	};
 
 	public static void main(String[] args) throws IOException {
-
+		java.util.Collections.shuffle(new ArrayList<String>());
 		DesignParser parser = new DesignParser();
 
 		parser.main(classes);
@@ -42,15 +44,15 @@ public class TransferToUMLApp {
 		out.close();
 		// UMLGenerator g = new UMLGenerator(title);
 		// g.execute();
-		
+
 		OutputStream out2 = new FileOutputStream("./input_output/PaymentSD.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
-		
+
 		traverser2.acceptSequence(writer2);
 		out2.close();
-		
+
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
-		
+
 	}
 }
