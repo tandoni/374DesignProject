@@ -1,16 +1,16 @@
-package TransferToUML.impl;
+package problem.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import TransferToUML.api.IClass;
-import TransferToUML.api.IModel;
-import TransferToUML.api.IRelation;
-import TransferToUML.api.ISequence;
-import TransferToUML.app.TransferToUMLApp;
-import TransferToUML.visitor.IVisitor;
+import problem.app.MyMainApp;
+import problem.interfaces.IClass;
+import problem.interfaces.IModel;
+import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
+import problem.visitor.IVisitor;
 
 public class Model implements IModel {
 
@@ -42,7 +42,7 @@ public class Model implements IModel {
 	}
 
 	public void setClassNames() {
-		for (String s : TransferToUMLApp.classes) {
+		for (String s : MyMainApp.classes) {
 			String[] split = s.split("\\.");
 			s = split[split.length - 1];
 			this.classNames.add(s);

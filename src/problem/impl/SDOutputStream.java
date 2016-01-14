@@ -1,14 +1,14 @@
-package TransferToUML.impl;
+package problem.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collection;
 import java.util.List;
 
-import TransferToUML.api.IClass;
-import TransferToUML.api.IModel;
-import TransferToUML.api.ISequence;
-import TransferToUML.visitor.VisitorAdapter;
+import problem.interfaces.IClass;
+import problem.interfaces.IModel;
+import problem.interfaces.ISequence;
+import problem.visitor.VisitorAdapter;
 
 public class SDOutputStream extends VisitorAdapter {
 	private final OutputStream out;

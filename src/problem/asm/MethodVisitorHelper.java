@@ -5,12 +5,12 @@ import java.util.ArrayList;
 
 import org.objectweb.asm.MethodVisitor;
 
-import TransferToUML.api.IClass;
-import TransferToUML.api.IModel;
-import TransferToUML.api.IRelation;
-import TransferToUML.api.ISequence;
-import TransferToUML.impl.Relation;
-import TransferToUML.impl.Sequence;
+import problem.impl.Relation;
+import problem.impl.Sequence;
+import problem.interfaces.IClass;
+import problem.interfaces.IModel;
+import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
 
 public class MethodVisitorHelper extends MethodVisitor {
 

@@ -1,4 +1,4 @@
-package TransferToUML.impl;
+package problem.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import org.objectweb.asm.Opcodes;
 import org.objectweb.asm.Type;
 
-import TransferToUML.api.IRelation;
-import TransferToUML.api.IClass;
-import TransferToUML.api.IField;
-import TransferToUML.api.IMethod;
-import TransferToUML.api.IModel;
-import TransferToUML.visitor.VisitorAdapter;
+import problem.interfaces.IClass;
+import problem.interfaces.IField;
+import problem.interfaces.IMethod;
+import problem.interfaces.IModel;
+import problem.interfaces.IRelation;
+import problem.visitor.VisitorAdapter;
 
 public class UMLTransferOutputStream extends VisitorAdapter {
 	private final OutputStream out;

@@ -5,10 +5,10 @@ import java.util.List;
 
 import org.junit.Test;
 
-import TransferToUML.api.IModel;
-import TransferToUML.api.ISequence;
-import TransferToUML.impl.Model;
-import TransferToUML.impl.Sequence;
+import problem.impl.Model;
+import problem.impl.Sequence;
+import problem.interfaces.IModel;
+import problem.interfaces.ISequence;
 
 public class M3Test {
 	IModel m = new Model();

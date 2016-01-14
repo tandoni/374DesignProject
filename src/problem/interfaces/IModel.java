@@ -1,10 +1,10 @@
-package TransferToUML.api;
+package problem.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collection;
 
-import TransferToUML.impl.Sequence;
-import TransferToUML.visitor.ITraverser;
+import problem.impl.Sequence;
+import problem.visitor.ITraverser;
 
 public interface IModel extends ITraverser {
 	public void addClass(IClass c);

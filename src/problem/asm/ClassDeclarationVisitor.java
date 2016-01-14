@@ -4,11 +4,11 @@ package problem.asm;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
-import TransferToUML.api.IClass;
-import TransferToUML.api.IModel;
-import TransferToUML.api.IRelation;
-import TransferToUML.impl.Class;
-import TransferToUML.impl.Relation;
+import problem.impl.Class;
+import problem.impl.Relation;
+import problem.interfaces.IClass;
+import problem.interfaces.IModel;
+import problem.interfaces.IRelation;
 
 public class ClassDeclarationVisitor extends ClassVisitor implements IClassVisitor{
 	

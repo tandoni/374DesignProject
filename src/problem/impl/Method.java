@@ -1,8 +1,8 @@
-package TransferToUML.impl;
+package problem.impl;
 
-import TransferToUML.api.IMethod;
-import TransferToUML.visitor.ITraverser;
-import TransferToUML.visitor.IVisitor;
+import problem.interfaces.IMethod;
+import problem.visitor.ITraverser;
+import problem.visitor.IVisitor;
 
 public class Method implements IMethod {
 	private int access;

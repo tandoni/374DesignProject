@@ -1,16 +1,16 @@
-package TransferToUML.app;
+package problem.app;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import TransferToUML.impl.SDOutputStream;
-import TransferToUML.impl.UMLTransferOutputStream;
-import TransferToUML.visitor.ITraverser;
-import TransferToUML.visitor.IVisitor;
 import problem.asm.DesignParser;
+import problem.impl.SDOutputStream;
+import problem.impl.UMLTransferOutputStream;
+import problem.visitor.ITraverser;
+import problem.visitor.IVisitor;
 
-public class TransferToUMLApp {
+public class MyMainApp {
 
 	public static String[] classes = {
 			// "analyze.AbstractClassTwoAbstractMethods",

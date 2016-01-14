@@ -1,6 +1,6 @@
 package problem.asm;
 
-import TransferToUML.api.IClass;
+import problem.interfaces.IClass;
 
 // to figure out decorated type
 public interface IClassVisitor {

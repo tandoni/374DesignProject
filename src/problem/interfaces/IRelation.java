@@ -1,8 +1,8 @@
-package TransferToUML.api;
+package problem.interfaces;
 
 import java.util.Collection;
 
-import TransferToUML.visitor.ITraverser;
+import problem.visitor.ITraverser;
 
 public interface IRelation extends ITraverser{
 	

@@ -1,4 +1,4 @@
-package TransferToUML.visitor;
+package problem.visitor;
 
 public interface ITraverser {
 	public void acceptUML(IVisitor v);
