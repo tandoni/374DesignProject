@@ -106,7 +106,7 @@ public class UMLOutputStream extends VisitorAdapter {
 			// System.out.println(r.getSuperClass());
 			if (r.getSuperClass() != null) {
 				String[] superClass = r.getSuperClass().split("/");
-				s += "\n" + n + " -> " + superClass[superClass.length - 1] + " [arrowhead=\"onormal\"];";
+				s += "\n" + n + " -> " + superClass[superClass.length - 1] + " [arrowhead=\"empty\"];";
 			}
 
 			ArrayList<String[]> interfaces = new ArrayList<String[]>();
@@ -116,7 +116,7 @@ public class UMLOutputStream extends VisitorAdapter {
 				}
 
 				for (String[] i : interfaces) {
-					s += "\n" + n + " -> " + i[i.length - 1] + " [arrowhead=\"onormal\", style=\"dashed\"];";
+					s += "\n" + n + " -> " + i[i.length - 1] + " [arrowhead=\"empty\", style=\"dashed\"];";
 				}
 			}
 
