@@ -1,4 +1,7 @@
-# JavaCodeToUMLCode
+# 374DesignProject
+
+
+Milestone 1 and 2
 
 Design of the code
 --
@@ -8,18 +11,17 @@ IClassVistor : for getting the Class that visted Method/Field belongs
 ClassMethodVisitor : add function to figure out uses
 MethodVisitorHelper : help figuring out associations and uses, been used in ClassMethodVisitor.
 
-<TransferToUML.app>
-TransferToUMLApp : starting file
+<problem.app>
+MyMainApp : starting file
 
-<TransferToUML.api & impl>
+<problem.interfaces & problem.impl>
 IClass Class
 IField Field
 IMethod Method
 IRelation Relation
-
 IModel Model  
 
-UMLTransferOutputStream : visit classes, fields and methods and get infomation to parse and convert that to code for GraphViz.
+UMLOutputStream : visit classes, fields and methods and get infomation to parse and convert that to code for GraphViz.
 
 
 Design improvements
@@ -33,7 +35,7 @@ While, Thais and Ishank focused more on the ASM Parsing, generating UML diagrams
 
 Instructions
 --
-The TransferToUMLApp reads the files that are referenced on the static String array named "classes". So just adding the classes to that array is all what is needed.
+The MyMainApp reads the files that are referenced on the static String array named "classes". So just adding the classes to that array is all what is needed.
 
 
 Milestone 3:
@@ -45,7 +47,7 @@ Who did what:
 	Ruying and Max focused on implementing the initial design and adding the internal structure. While Ishank focused on parsing, generating the diagrams, and testing by referring the design and internally created structure.
 
 Instructions:
-	To test the sequence diagrams, you will have to type in the class names in the TransferToUMLApp.java for the static field classes. After running the same file, it will generate a .sd file in input_output directory which can now be opened by the SDEdit.jar file (We chose to prefer jar due to all members running different OS).
+	To test the sequence diagrams, you will have to type in the class names in the MyMainApp.java for the static field classes. After running the same file, it will generate a GraphForSDEdit.sd file in input_output directory which can now be opened by the SDEdit.jar file (We chose to prefer jar due to all members running different OS).
 
 
 

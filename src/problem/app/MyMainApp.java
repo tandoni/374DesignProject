@@ -43,7 +43,7 @@ public class MyMainApp {
 		// UMLGenerator g = new UMLGenerator(title);
 		// g.execute();
 		
-		OutputStream out2 = new FileOutputStream("./input_output/PaymentSD.sd");
+		OutputStream out2 = new FileOutputStream("./input_output/GraphForSDEdit.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
 		
