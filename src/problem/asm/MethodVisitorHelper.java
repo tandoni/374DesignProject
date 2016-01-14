@@ -16,24 +16,17 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 	private IModel model;
 	private IClass myClass;
-	private MethodVisitor toDecorate;
 	private ArrayList<String> arguments;
 
 	public MethodVisitorHelper(int api, IModel model, MethodVisitor toDecorate, IClass myClass) {
 		super(api, toDecorate);
 		this.model = model;
-		this.toDecorate = toDecorate;
 		this.myClass = myClass;
 		this.arguments = new ArrayList<String>();
 	}
 
 	@Override
 	public void visitFieldInsn(int opcode, String owner, String name, String desc) {
-
-		// if (this.toDecorate != null) {
-		// toDecorate.visitFieldInsn(opcode, owner, name, desc);
-		// }
-
 		super.visitFieldInsn(opcode, owner, name, desc);
 
 		String[] ownerSplit = owner.split("/");
@@ -41,7 +34,7 @@ public class MethodVisitorHelper extends MethodVisitor {
 		String[] fieldSplit = getType(desc).split("\\.");
 
 		if (owner.equals(this.myClass.getName())) {
-			// create relation for assocation
+			// create relation for association
 			IRelation r = new Relation(ownerSplit[ownerSplit.length - 1]);
 			r.addAssociations(fieldSplit[fieldSplit.length - 1]);
 			this.model.addRelation(r);
@@ -65,30 +58,9 @@ public class MethodVisitorHelper extends MethodVisitor {
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		String[] args = getArgumentsType(desc);
 
-		// System.out.println("this.myClass.getName(): " +
-		// this.myClass.getName());
-		// System.out.println("owner: " + owner);
-		// System.out.println("name: " + name);
-		// System.out.println("desc: " + desc);
-		// System.out.println("type: " + getType(desc));
-		// if (args.length != 0) {
-		// System.out.println("args: " + args[0]);
-		// // String[] args2 = String.getMethodDescriptor(desc);
-		// }
 		String[] ownerSplit = owner.split("/");
 		ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
 		this.model.addSequence(sequence);
-
-		//
-		// if (!owner.contains("java/lang/Object")) {
-		// String[] ownerSplit = owner.split("/");
-		//
-		// if (owner.equals(this.myClass.getName())) {
-		// System.out.println(
-		// ownerSplit[ownerSplit.length - 1] + " calls methods in ");
-		// }
-		// }
-
 	}
 
 	String[] getArgumentsType(String desc) {

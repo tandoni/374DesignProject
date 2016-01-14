@@ -1,7 +1,6 @@
 package problem.impl;
 
 import java.util.ArrayList;
-import java.util.Collection;
 
 import problem.interfaces.ISequence;
 

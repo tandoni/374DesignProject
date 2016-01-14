@@ -1,7 +1,6 @@
 package problem.impl;
 
 import problem.interfaces.IMethod;
-import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
 
 public class Method implements IMethod {
@@ -53,13 +52,11 @@ public class Method implements IMethod {
 
 	@Override
 	public void acceptUML(IVisitor v) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void acceptSequence(IVisitor v) {
-		// TODO Auto-generated method stub
 		
 	}
 
