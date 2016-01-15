@@ -7,6 +7,7 @@ import problem.interfaces.IClass;
 import problem.interfaces.IField;
 import problem.interfaces.IMethod;
 import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Class implements IClass{
@@ -106,10 +107,16 @@ public class Class implements IClass{
 		return this.classType;
 	}
 
+//	@Override
+//	public void acceptSequence(IVisitor v) {
+//		// TODO Auto-generated method stub
+//		
+//	}
+
 	@Override
-	public void acceptSequence(IVisitor v) {
+	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("CLass : acceptSequence");
 	}
 
 

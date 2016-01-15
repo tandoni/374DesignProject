@@ -17,6 +17,7 @@ public class MethodVisitorHelper extends MethodVisitor {
 	private IModel model;
 	private IClass myClass;
 	private ArrayList<String> arguments;
+	private ArrayList<ISequence> subMethods = new ArrayList<ISequence>();
 
 	public MethodVisitorHelper(int api, IModel model, MethodVisitor toDecorate, IClass myClass) {
 		super(api, toDecorate);
@@ -61,6 +62,10 @@ public class MethodVisitorHelper extends MethodVisitor {
 		String[] ownerSplit = owner.split("/");
 		ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
 		this.model.addSequence(sequence);
+		
+		if(!(name.equals("<init>"))){
+			this.subMethods.add(sequence);
+		}
 	}
 
 	String[] getArgumentsType(String desc) {
@@ -81,5 +86,9 @@ public class MethodVisitorHelper extends MethodVisitor {
 		Type type = Type.getType(desc);
 		String t = type.getClassName();
 		return t;
+	}
+
+	public ArrayList<ISequence> getSubMethods() {
+		return this.subMethods;
 	}
 }

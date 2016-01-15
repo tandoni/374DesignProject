@@ -5,6 +5,7 @@ import java.util.Collection;
 
 import problem.app.MyMainApp;
 import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Relation implements IRelation {
@@ -159,10 +160,16 @@ public class Relation implements IRelation {
 			this.associations.add(s);
 	}
 
-	@Override
-	public void acceptSequence(IVisitor v) {
-		// TODO Auto-generated method stub
+//	@Override
+//	public void acceptSequence(IVisitor v) {
+//		// TODO Auto-generated method stub
+//
+//	}
 
+	@Override
+	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+		// TODO Auto-generated method stub
+		System.out.println("Relation : acceptSequence");
 	}
 
 }

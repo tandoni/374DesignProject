@@ -2,7 +2,9 @@ package problem.interfaces;
 
 import java.util.ArrayList;
 
-public interface ISequence {
+import problem.visitor.ITraverser;
+
+public interface ISequence extends ITraverser{
 	public void addFromClass(String fromClass);
 
 	public void addToClass(String toClass);
