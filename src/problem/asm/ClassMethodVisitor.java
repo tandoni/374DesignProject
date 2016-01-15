@@ -33,14 +33,12 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
-		IMethod m = new Method(access, name, desc, signature, exceptions);
 
 		// System.out.println(" method " + name);
 
 		this.myClass = this.getBelongedClass();
 
 		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
-		namedClass.addMethod(m);
 
 		// addAccessLevel(access);
 		// addReturnType(desc);
@@ -56,6 +54,10 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		}
 
 		MethodVisitor newToDecorate = new MethodVisitorHelper(Opcodes.ASM5, this.model, toDecorate, this.myClass);
+		
+		Method m = new Method(access, name, desc, signature, ((MethodVisitorHelper)newToDecorate).getSubMethods());
+		namedClass.addMethod(m);
+		
 		return newToDecorate;
 
 	}

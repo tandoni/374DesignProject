@@ -1,6 +1,9 @@
 package problem.impl;
 
+import java.util.ArrayList;
+
 import problem.interfaces.IMethod;
+import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Method implements IMethod {
@@ -8,14 +11,15 @@ public class Method implements IMethod {
 	private String name;
 	private String description;
 	private String signature;
-	private String[] exceptions;
+	//private String[] exceptions;
+	private ArrayList<ISequence> subMethods;
 
-	public Method(int access, String name, String desc, String signature, String[] exceptions) {
+	public Method(int access, String name, String desc, String signature, ArrayList<ISequence> subMethod) {
 		this.access = access;
 		this.name = name;
 		this.description = desc;
 		this.signature = signature;
-		this.exceptions = exceptions;
+		this.subMethods = subMethod;
 	}
 
 	@Override
@@ -38,26 +42,26 @@ public class Method implements IMethod {
 		return this.signature;
 	}
 
+//	@Override
+//	public String[] getExceptions() {
+//		return this.exceptions;
+//	}
+	
 	@Override
-	public String[] getExceptions() {
-		return this.exceptions;
+	public ArrayList<ISequence> getSubMethods() {
+		return subMethods;
 	}
 
-
-	public void UMLaccept(IVisitor v) {
+	@Override
+	public void acceptUML(IVisitor v) {
 		v.preVisit(this);
 		v.visit(this);
 		v.postVisit(this);
 	}
 
 	@Override
-	public void acceptUML(IVisitor v) {
-		
+	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+		System.out.println("Method : acceptSequence");
+		v.preVisit(this);
 	}
-
-	@Override
-	public void acceptSequence(IVisitor v) {
-		
-	}
-
 }

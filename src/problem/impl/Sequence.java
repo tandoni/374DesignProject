@@ -3,6 +3,7 @@ package problem.impl;
 import java.util.ArrayList;
 
 import problem.interfaces.ISequence;
+import problem.visitor.IVisitor;
 
 public class Sequence implements ISequence {
 	private String fromClass = "";
@@ -57,5 +58,17 @@ public class Sequence implements ISequence {
 
 	public void setCalledMethod(String string) {
 		this.calledMethod = string;
+	}
+
+	@Override
+	public void acceptUML(IVisitor v) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+		// TODO Auto-generated method stub
+		
 	}
 }

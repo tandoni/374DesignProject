@@ -1,12 +1,15 @@
 package problem.impl;
 
+import org.objectweb.asm.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import problem.app.MyMainApp;
 import problem.interfaces.IClass;
+import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 import problem.interfaces.ISequence;
@@ -19,6 +22,8 @@ public class Model implements IModel {
 	public ArrayList<ISequence> sequences;
 	public ArrayList<String> createdClasses;
 	public Collection<String> classNames;
+
+	private int calldepth = 5;
 
 	public Model() {
 		this.classes = new ArrayList<IClass>();
@@ -67,7 +72,7 @@ public class Model implements IModel {
 	public Collection<IClass> getClasses() {
 		return this.classes;
 	}
-	
+
 	@Override
 	public Collection<String> getClassNames() {
 		return this.classNames;
@@ -139,21 +144,21 @@ public class Model implements IModel {
 		return "classes: " + this.classes + ";" + "Relation: " + this.relations + "; ";
 	}
 
-	@Override
-	public void acceptSequence(IVisitor v) {
-		v.preVisit(this);
-		for (IClass c : this.classes) {
-			c.acceptSequence(v);
-		}
-		v.visit(this);
-		v.postVisit(this);
-	}
-	
+	// @Override
+	// public void acceptSequence(IVisitor v) {
+	// v.preVisit(this);
+	// for (IClass c : this.classes) {
+	// c.acceptSequence(v);
+	// }
+	// v.visit(this);
+	// v.postVisit(this);
+	// }
+
 	@Override
 	public ArrayList<ISequence> getSequences() {
 		return this.sequences;
 	}
-	
+
 	@Override
 	public ArrayList<String> getCreatedClasses() {
 		return this.createdClasses;
@@ -171,11 +176,73 @@ public class Model implements IModel {
 				sequence.setCalledMethod("new");
 				this.createdClasses.add(toClass);
 			}
-//			System.out.println("adding sequence: from " + sequence.getFromClass() + ", to " + sequence.getToClass()
-//					+ ", method " + sequence.getCalledMethod());
+			// System.out.println("adding sequence: from " +
+			// sequence.getFromClass() + ", to " + sequence.getToClass()
+			// + ", method " + sequence.getCalledMethod());
 			this.sequences.add(sequence);
 		}
 
+	}
+
+	@Override
+	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+		
+		System.out.println("Model : acceptSequence");
+
+		if (depth > 0) {
+			//System.out.println("Flag1");
+			for (IClass clazz : classes) {
+				for (IMethod m : clazz.getMethods()) {
+					if ((m.getName()).equals(subMethods.getCalledMethod())) {
+						//System.out.println("Flag2");
+						String[] argTemp = this.getArgumentsType(m.getDescription());
+						//System.out.println("argTemp " + argTemp);
+						//System.out.println(subMethods.getFromClass() + " " + subMethods.getToClass() + " " + subMethods.getCalledMethod() + " " + subMethods.getArguments());;
+						
+						List<String> all = new ArrayList<String>();
+						for(String s : argTemp) {
+							all.add(s);
+						}
+						List<String> subs = subMethods.getArguments();
+						List<String> subsFinal = new ArrayList<String>();
+						for(String s : subs) {
+							if (s.contains("<")) {
+								String a = s.substring(0, s.indexOf("<"));
+								subsFinal.add(a);
+								if (s.contains("*"))
+									subsFinal.add("Random");
+							}
+						}
+						
+//						if (argTemp.equals(subsMethod.getArgs())) {
+							//System.out.println("Flag3");
+							for (ISequence innerSubM : m.getSubMethods()) {
+								 System.out.println(innerSubM.getCalledMethod() +innerSubM.getArguments());
+								this.acceptSequence(v, innerSubM, depth - 1);
+//							}
+
+						}
+					}
+				}
+			}
+		}
+		return;
+	}
+	
+	String[] getArgumentsType(String desc) {
+		Type[] args = Type.getArgumentTypes(desc);
+		String[] argClassList = new String[args.length];
+		for (int i = 0; i < args.length; i++) {
+			String arg = args[i].getClassName();
+			String[] splitArg1 = arg.split("\\.");
+			//String[] splitArg = splitArg1[splitArg1.length - 1].split("<");
+
+			arg = splitArg1[splitArg1.length - 1];
+			argClassList[i] = arg;
+			//System.out.println("++++++++" + argClassList[i]);
+		}
+		//System.out.println("++++++++" + argClassList);
+		return argClassList;
 	}
 
 }
