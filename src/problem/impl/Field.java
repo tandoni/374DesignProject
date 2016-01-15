@@ -51,12 +51,6 @@ public class Field implements IField {
 		v.postVisit(this);
 	}
 
-//	@Override
-//	public void acceptSequence(IVisitor v) {
-//		// TODO Auto-generated method stub
-//		
-//	}
-
 	@Override
 	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
 		// TODO Auto-generated method stub

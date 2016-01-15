@@ -4,11 +4,15 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import problem.asm.DesignParser;
 import problem.impl.SDOutputStream;
 import problem.impl.Sequence;
 import problem.impl.UMLOutputStream;
+import problem.interfaces.IModel;
 import problem.interfaces.ISequence;
 import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
@@ -56,6 +60,15 @@ public class MyMainApp {
 
 		String[] argTemp = {"List<*>"};
 		ISequence subM = new Sequence("java.util.Collections", "Collections", "shuffle", argTemp);
+		
+		String[] newClasses=null;
+		for(int i = 0; i < 5; i++){
+			IModel model = parser.model;
+			newClasses = model.getNewClasses(subM, 5);
+				
+			//parser.main(newClasses);
+		}
+	
 		traverser2.acceptSequence(writer2, subM, 5);
 		out2.close();
 

@@ -144,16 +144,6 @@ public class Model implements IModel {
 		return "classes: " + this.classes + ";" + "Relation: " + this.relations + "; ";
 	}
 
-	// @Override
-	// public void acceptSequence(IVisitor v) {
-	// v.preVisit(this);
-	// for (IClass c : this.classes) {
-	// c.acceptSequence(v);
-	// }
-	// v.visit(this);
-	// v.postVisit(this);
-	// }
-
 	@Override
 	public ArrayList<ISequence> getSequences() {
 		return this.sequences;
@@ -164,6 +154,7 @@ public class Model implements IModel {
 		return this.createdClasses;
 	}
 
+	@Override
 	public void addSequence(ISequence sequence) {
 
 		if (sequence.equals(null))
@@ -185,27 +176,58 @@ public class Model implements IModel {
 	}
 
 	@Override
-	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+	public String[] getNewClasses(ISequence subM, int depth) {
+
+		ArrayList<String> classesToAdd = new ArrayList<String>();
 		
+		if (depth > 0) {
+			for (IClass clazz : this.classes) {
+				if (clazz.getName().equals(subM.getToClass())) {
+					classesToAdd.add(subM.getFromClass());
+					for (IMethod m : clazz.getMethods()) {
+						if ((m.getName()).equals(subM.getCalledMethod())) {
+							if (this.getArgumentsType(m.getDescription()).equals(subM.getArguments())) {
+								classesToAdd.remove(subM.getFromClass());
+								for (ISequence innerSM : m.getSubMethods()) {
+									classesToAdd.add(innerSM.getFromClass());
+									this.getNewClasses(innerSM, depth - 1);
+								}
+
+							}
+						}
+					}
+				}
+			}
+		}
+
+		return classesToAdd.toArray(new String[classesToAdd.size()]);
+	}
+
+	@Override
+	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+
 		System.out.println("Model : acceptSequence");
 
 		if (depth > 0) {
-			//System.out.println("Flag1");
-			for (IClass clazz : classes) {
+			// System.out.println("Flag1");
+			for (IClass clazz : this.classes) {
 				for (IMethod m : clazz.getMethods()) {
 					if ((m.getName()).equals(subMethods.getCalledMethod())) {
-						//System.out.println("Flag2");
+						// System.out.println("Flag2");
 						String[] argTemp = this.getArgumentsType(m.getDescription());
-						//System.out.println("argTemp " + argTemp);
-						//System.out.println(subMethods.getFromClass() + " " + subMethods.getToClass() + " " + subMethods.getCalledMethod() + " " + subMethods.getArguments());;
-						
+						// System.out.println("argTemp " + argTemp);
+						// System.out.println(subMethods.getFromClass() + " " +
+						// subMethods.getToClass() + " " +
+						// subMethods.getCalledMethod() + " " +
+						// subMethods.getArguments());;
+
 						List<String> all = new ArrayList<String>();
-						for(String s : argTemp) {
+						for (String s : argTemp) {
 							all.add(s);
 						}
 						List<String> subs = subMethods.getArguments();
 						List<String> subsFinal = new ArrayList<String>();
-						for(String s : subs) {
+						for (String s : subs) {
 							if (s.contains("<")) {
 								String a = s.substring(0, s.indexOf("<"));
 								subsFinal.add(a);
@@ -213,13 +235,13 @@ public class Model implements IModel {
 									subsFinal.add("Random");
 							}
 						}
-						
-//						if (argTemp.equals(subsMethod.getArgs())) {
-							//System.out.println("Flag3");
-							for (ISequence innerSubM : m.getSubMethods()) {
-								 System.out.println(innerSubM.getCalledMethod() +innerSubM.getArguments());
-								this.acceptSequence(v, innerSubM, depth - 1);
-//							}
+
+						// if (argTemp.equals(subsMethod.getArgs())) {
+						// System.out.println("Flag3");
+						for (ISequence innerSubM : m.getSubMethods()) {
+							System.out.println(innerSubM.getCalledMethod() + innerSubM.getArguments());
+							this.acceptSequence(v, innerSubM, depth - 1);
+							// }
 
 						}
 					}
@@ -228,20 +250,20 @@ public class Model implements IModel {
 		}
 		return;
 	}
-	
+
 	String[] getArgumentsType(String desc) {
 		Type[] args = Type.getArgumentTypes(desc);
 		String[] argClassList = new String[args.length];
 		for (int i = 0; i < args.length; i++) {
 			String arg = args[i].getClassName();
 			String[] splitArg1 = arg.split("\\.");
-			//String[] splitArg = splitArg1[splitArg1.length - 1].split("<");
+			// String[] splitArg = splitArg1[splitArg1.length - 1].split("<");
 
 			arg = splitArg1[splitArg1.length - 1];
 			argClassList[i] = arg;
-			//System.out.println("++++++++" + argClassList[i]);
+			// System.out.println("++++++++" + argClassList[i]);
 		}
-		//System.out.println("++++++++" + argClassList);
+		// System.out.println("++++++++" + argClassList);
 		return argClassList;
 	}
 

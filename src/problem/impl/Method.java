@@ -64,4 +64,5 @@ public class Method implements IMethod {
 		System.out.println("Method : acceptSequence");
 		v.preVisit(this);
 	}
+
 }
