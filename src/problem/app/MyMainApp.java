@@ -4,10 +4,16 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import problem.asm.DesignParser;
 import problem.impl.SDOutputStream;
+import problem.impl.Sequence;
 import problem.impl.UMLOutputStream;
+import problem.interfaces.IModel;
+import problem.interfaces.ISequence;
 import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
 
@@ -21,7 +27,10 @@ public class MyMainApp {
 			// "analyze.Interface",
 			// "analyze.ProtectedClass"
 			// "java.util.Collections.shuffle(List<T> list)"
-			"analyze.register.Register", "analyze.register.Sale", "analyze.register.Payment"
+			
+			//"analyze.register.Register", "analyze.register.Sale", "analyze.register.Payment"
+			
+			"java.util.Collections"
 
 	};
 
@@ -43,13 +52,24 @@ public class MyMainApp {
 		out.close();
 		
 		
-		//		SDEdit
+		//SDEdit
 		
 		OutputStream out2 = new FileOutputStream("./input_output/GraphForSDEdit.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
 
-		traverser2.acceptSequence(writer2);
+		String[] argTemp = {"List<*>"};
+		ISequence subM = new Sequence("java.util.Collections", "Collections", "shuffle", argTemp);
+		
+		String[] newClasses=null;
+		for(int i = 0; i < 5; i++){
+			IModel model = parser.model;
+			newClasses = model.getNewClasses(subM, 5);
+				
+			//parser.main(newClasses);
+		}
+	
+		traverser2.acceptSequence(writer2, subM, 5);
 		out2.close();
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");

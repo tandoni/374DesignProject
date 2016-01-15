@@ -1,6 +1,7 @@
 package problem.impl;
 
 import problem.interfaces.IField;
+import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Field implements IField {
@@ -51,9 +52,9 @@ public class Field implements IField {
 	}
 
 	@Override
-	public void acceptSequence(IVisitor v) {
+	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
 		// TODO Auto-generated method stub
-		
+		System.out.println("Field : acceptSequence");
 	}
 
 }
