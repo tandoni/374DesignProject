@@ -175,11 +175,12 @@ public class Model implements IModel {
 
 	}
 
+	// This method searches for the method specified to start the SD production.
 	@Override
 	public String[] getNewClasses(ISequence subM, int depth) {
 
 		ArrayList<String> classesToAdd = new ArrayList<String>();
-		
+
 		if (depth > 0) {
 			for (IClass clazz : this.classes) {
 				if (clazz.getName().equals(subM.getToClass())) {
