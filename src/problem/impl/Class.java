@@ -43,6 +43,7 @@ public class Class implements IClass {
 		this.classType = classType;
 	}
 
+	// This is where the code to write the UML for this class is called
 	@Override
 	public void acceptUML(IVisitor v) {
 		v.preVisit(this);

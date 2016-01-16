@@ -29,6 +29,8 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		this.decorated = decorated;
 	}
 
+	// access = protected, private, etc. for method. name is name of method.
+	// desc is the description (return type, and other information).
 	@Override
 	public MethodVisitor visitMethod(int access, String name, String desc, String signature, String[] exceptions) {
 
@@ -54,10 +56,10 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		}
 
 		MethodVisitor newToDecorate = new MethodVisitorHelper(Opcodes.ASM5, this.model, toDecorate, this.myClass);
-		
-		Method m = new Method(access, name, desc, signature, ((MethodVisitorHelper)newToDecorate).getSubMethods());
+		// getSubMethods() will get the method for the sequence.
+		Method m = new Method(access, name, desc, signature, ((MethodVisitorHelper) newToDecorate).getSubMethods());
 		namedClass.addMethod(m);
-		
+
 		return newToDecorate;
 
 	}
@@ -104,8 +106,8 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 			String[] typeSplit = args[i].getClassName().split("\\.");
 			result += typeSplit[typeSplit.length - 1] + ",";
 		}
-		if(result != "")
-			result = result.substring(0, result.length()-2);
+		if (result != "")
+			result = result.substring(0, result.length() - 2);
 		return result;
 	}
 

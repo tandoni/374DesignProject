@@ -60,10 +60,11 @@ public class MethodVisitorHelper extends MethodVisitor {
 		String[] args = getArgumentsType(desc);
 
 		String[] ownerSplit = owner.split("/");
+		// This is where the sequence is added
 		ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
 		this.model.addSequence(sequence);
-		
-		if(!(name.equals("<init>"))){
+
+		if (!(name.equals("<init>"))) {
 			this.subMethods.add(sequence);
 		}
 	}
