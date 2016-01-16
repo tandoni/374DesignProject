@@ -22,8 +22,26 @@ public class Model implements IModel {
 	public ArrayList<ISequence> sequences;
 	public ArrayList<String> createdClasses;
 	public Collection<String> classNames;
-
-	private int calldepth = 5;
+	// recordSeq is a boolean used when creating SD. It's set to true when we
+	// have found the correct class and method that was specified at the start
+	// of the program. When this is true, we will begin adding sequences to be
+	// generated later
+	private boolean recordSeq = false;
+	// We don't want to
+	// start recording sequences in our SD until after we have found the correct
+	// class and method that were specified at the start of the program. These
+	// variables represent the method we should start recording sequences.
+	// Because of the way asm parses things, it is better to store the method
+	// name, and the args as separate entities.
+	private String startMethodName = "";
+	private String[] startMethodArgs = new String[99];
+	// This var is very similar to startMethod (above), but this represents the
+	// class we need to start recording the SD.
+	private String startClass = "";
+	// This is the current class ASM is parsing. This will be updated in
+	// DesignParser, and we need to check this against startClass when creating
+	// the SD, to know when to start recording sequences.
+	private String currentClass = "";
 
 	public Model() {
 		this.classes = new ArrayList<IClass>();
@@ -267,6 +285,70 @@ public class Model implements IModel {
 		}
 		// System.out.println("++++++++" + argClassList);
 		return argClassList;
+	}
+
+	// Below are getters and setters for currentClass, startClass, startMethod,
+	// and recordSeq
+	public void setCurrentClass(String currentClass) {
+		this.currentClass = currentClass;
+	}
+
+	public String getCurrentClass() {
+		return this.currentClass;
+	}
+
+	public void setStartClass(String startClass) {
+		this.startClass = startClass;
+	}
+
+	public String getStartClass() {
+		return this.startClass;
+	}
+
+	public void setStartMethod(String startMethod) {
+		this.startMethodName = startMethod.substring(0, startMethod.indexOf("("));
+		String allArgs = startMethod.substring(startMethod.indexOf("(") + 1, startMethod.length() - 1);
+		String[] eachArgs = allArgs.split(" ");
+		// This will hold only the args, not the params as well
+		String[] onlyArgs = new String[(int) Math.ceil(eachArgs.length / 2)];
+		// All even indexes in eachArgs are the actual args. Odd lengthed
+		// indexes are the names of the params.
+		for (int i = 0; i < eachArgs.length; i = i + 2) {
+			onlyArgs[onlyArgs.length - 1] = eachArgs[i];
+		}
+		// Get rid of carrots, they're hard to deal with.
+		for (int i = 0; i < onlyArgs.length; i++) {
+			int ind = onlyArgs[i].indexOf("<");
+			if (ind > -1) {
+				onlyArgs[i] = onlyArgs[i].substring(0, ind);
+			}
+		}
+		this.setStartMethodArgs(onlyArgs);
+
+	}
+
+	public void setStartMethodName(String startMethodName) {
+		this.startMethodName = startMethodName;
+	}
+
+	public void setStartMethodArgs(String[] startArgs) {
+		this.startMethodArgs = startArgs;
+	}
+
+	public String getStartMethodName() {
+		return this.startMethodName;
+	}
+
+	public String[] getStartMethodArgs() {
+		return this.startMethodArgs;
+	}
+
+	public void setRecordSeq(boolean bool) {
+		this.recordSeq = bool;
+	}
+
+	public boolean getRecordSeq() {
+		return this.recordSeq;
 	}
 
 }

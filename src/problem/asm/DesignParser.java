@@ -32,18 +32,27 @@ public class DesignParser {
 		for (String className : args) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled
 			// Java class
-			String name = "";
-			String meth = "";
-			if (deb) {
-				String[] all = className.split("\\.");
-				name = all[0] + "." + all[1] + "." + all[2];
-				meth = all[3].substring(0, all[3].indexOf("("));
-				System.out.println("name is: " + name);
-				System.out.println("method is: " + meth);
-			}
+			System.out.println("currentClass: " + this.model.getCurrentClass());
+			if (args.length == 1 && className.contains("(")) {
+				System.out.println("This is a Sequence Diagram method call");
+				String[] splitArg1 = className.split("\\.");
+				int splitArg1len = splitArg1.length;
+				this.model.setStartMethod(splitArg1[splitArg1len - 1]);
+				System.out.println("startMethodName: " + this.model.getStartMethodName());
+				System.out.println("startMethodArgs[0]: " + this.model.getStartMethodArgs()[0]);
 
-			if (deb)
-				System.out.println("Class name is: " + className);
+				// Since the className also contained the method, we must get
+				// rid of the method part
+				className = "";
+				for (int i = 0; i < splitArg1len - 2; i++) {
+					className += splitArg1[i];
+					className += ".";
+				}
+				className += splitArg1[splitArg1len - 2];
+				this.model.setStartClass(className);
+			}
+			this.model.setCurrentClass(className);
+			System.out.println("className: " + className);
 			ClassReader reader = new ClassReader(className);
 
 			// make class declaration visitor to get superclass and interfaces

@@ -56,6 +56,10 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+		if (this.model.getRecordSeq()) {
+			System.out.println(
+					"visitMethodInsn " + " owner: " + owner + " name: " + name + " desc: " + getArguments(desc));
+		}
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		String[] args = getArgumentsType(desc);
 
@@ -91,5 +95,20 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 	public ArrayList<ISequence> getSubMethods() {
 		return this.subMethods;
+	}
+
+	// Used in sequence generation
+	String getArguments(String desc) {
+
+		String result = "";
+
+		Type[] args = Type.getArgumentTypes(desc);
+		for (int i = 0; i < args.length; i++) {
+			String[] typeSplit = args[i].getClassName().split("\\.");
+			result += typeSplit[typeSplit.length - 1] + ",";
+		}
+		if (result != "")
+			result = result.substring(0, result.length() - 1);
+		return result;
 	}
 }

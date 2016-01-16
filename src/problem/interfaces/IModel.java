@@ -29,5 +29,22 @@ public interface IModel extends ITraverser {
 
 	public void addSequence(ISequence sequence);
 
+	public void setCurrentClass(String currentClass);
+
+	public String getCurrentClass();
+
+	public void setStartClass(String startClass);
+
+	public String getStartClass();
+
+	public void setStartMethod(String startMethod);
+
+	public String getStartMethodName();
+
+	public String[] getStartMethodArgs();
+
+	public void setRecordSeq(boolean bool);
+
+	public boolean getRecordSeq();
 
 }

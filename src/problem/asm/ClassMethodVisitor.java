@@ -36,7 +36,37 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 
 		MethodVisitor toDecorate = super.visitMethod(access, name, desc, signature, exceptions);
 
-		// System.out.println(" method " + name);
+		String methodName = name;
+		String methodArgsStr = getArguments(desc);
+		String[] methodArgs = methodArgsStr.split(",");
+		if (this.model.getStartClass().equals(this.model.getCurrentClass())
+				&& this.model.getStartMethodName().equals(methodName)) {
+			boolean argsMatch = true;
+			if (methodArgs.length != this.model.getStartMethodArgs().length) {
+				argsMatch = false;
+			}
+			if (methodArgs.length == this.model.getStartMethodArgs().length) {
+				for (int i = 0; i < methodArgs.length; i++) {
+					if (!methodArgs[i].equals(this.model.getStartMethodArgs()[i])) {
+						argsMatch = false;
+					}
+				}
+			}
+			if (argsMatch) {
+				// Now we need to start recording sequences for the SD
+				this.model.setRecordSeq(true);
+				// public Sequence(String from, String to, String method,
+				// String[] args)
+				// Sequence seq = new Sequence(this.model.getCurrentClass(), "",
+				// )
+				System.out.println("Current Class: " + this.model.getCurrentClass());
+				System.out.println("Start Class: " + this.model.getStartClass());
+				System.out.println(" method: " + name + " start method name: " + this.model.getStartMethodName());
+				System.out.println("getArguments(desc): " + getArguments(desc));
+				System.out.println(
+						"halalell---------------------------------------------------------------------------------------------------------------");
+			}
+		}
 
 		this.myClass = this.getBelongedClass();
 
@@ -45,7 +75,8 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		// addAccessLevel(access);
 		// addReturnType(desc);
 
-		String[] splitArgs = getArguments(desc).split(",");
+		String[] splitArgs = getArguments(desc).split("/");
+		// System.out.println("splitArgs: " + splitArgs[0]);
 
 		for (String s : splitArgs) {
 			if (s != "") {
@@ -107,7 +138,7 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 			result += typeSplit[typeSplit.length - 1] + ",";
 		}
 		if (result != "")
-			result = result.substring(0, result.length() - 2);
+			result = result.substring(0, result.length() - 1);
 		return result;
 	}
 
