@@ -60,16 +60,22 @@ public class MethodVisitorHelper extends MethodVisitor {
 			System.out.println(
 					"visitMethodInsn " + " owner: " + owner + " name: " + name + " desc: " + getArguments(desc));
 		}
+		System.out.println("current Class: " + this.model.getCurrentClass());
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		String[] args = getArgumentsType(desc);
 
 		String[] ownerSplit = owner.split("/");
-		// This is where the sequence is added
-		ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
-		this.model.addSequence(sequence);
 
-		if (!(name.equals("<init>"))) {
-			this.subMethods.add(sequence);
+		if (this.model.getRecordSeq()) {
+			System.out.println("adding a sequence");
+			// This is where the sequence is added
+			ISequence sequence = new Sequence(this.model.getCurrentClass(),
+					owner.split("/")[owner.split("/").length - 1], name, getArguments(desc).split(","));
+			this.model.addSequence(sequence);
+
+			// if (!(name.equals("<init>"))) {
+			// this.subMethods.add(sequence);
+			// }
 		}
 	}
 

@@ -175,22 +175,24 @@ public class Model implements IModel {
 
 	@Override
 	public void addSequence(ISequence sequence) {
+		this.sequences.add(sequence);
 
-		if (sequence.equals(null))
-			return;
-		String fromClass = sequence.getFromClass();
-		String toClass = sequence.getToClass();
-		String calledMethod = sequence.getCalledMethod();
-		if (this.classNames.contains(fromClass) && this.classNames.contains(toClass)) {
-			if (calledMethod.contains("init>")) {
-				sequence.setCalledMethod("new");
-				this.createdClasses.add(toClass);
-			}
-			// System.out.println("adding sequence: from " +
-			// sequence.getFromClass() + ", to " + sequence.getToClass()
-			// + ", method " + sequence.getCalledMethod());
-			this.sequences.add(sequence);
-		}
+		// if (sequence.equals(null))
+		// return;
+		// String fromClass = sequence.getFromClass();
+		// String toClass = sequence.getToClass();
+		// String calledMethod = sequence.getCalledMethod();
+		// if (this.classNames.contains(fromClass) &&
+		// this.classNames.contains(toClass)) {
+		// if (calledMethod.contains("init>")) {
+		// sequence.setCalledMethod("new");
+		// this.createdClasses.add(toClass);
+		// }
+		// // System.out.println("adding sequence: from " +
+		// // sequence.getFromClass() + ", to " + sequence.getToClass()
+		// // + ", method " + sequence.getCalledMethod());
+		// this.sequences.add(sequence);
+		// }
 
 	}
 
@@ -228,46 +230,47 @@ public class Model implements IModel {
 
 		System.out.println("Model : acceptSequence");
 
-		if (depth > 0) {
-			// System.out.println("Flag1");
-			for (IClass clazz : this.classes) {
-				for (IMethod m : clazz.getMethods()) {
-					if ((m.getName()).equals(subMethods.getCalledMethod())) {
-						// System.out.println("Flag2");
-						String[] argTemp = this.getArgumentsType(m.getDescription());
-						// System.out.println("argTemp " + argTemp);
-						// System.out.println(subMethods.getFromClass() + " " +
-						// subMethods.getToClass() + " " +
-						// subMethods.getCalledMethod() + " " +
-						// subMethods.getArguments());;
-
-						List<String> all = new ArrayList<String>();
-						for (String s : argTemp) {
-							all.add(s);
-						}
-						List<String> subs = subMethods.getArguments();
-						List<String> subsFinal = new ArrayList<String>();
-						for (String s : subs) {
-							if (s.contains("<")) {
-								String a = s.substring(0, s.indexOf("<"));
-								subsFinal.add(a);
-								if (s.contains("*"))
-									subsFinal.add("Random");
-							}
-						}
-
-						// if (argTemp.equals(subsMethod.getArgs())) {
-						// System.out.println("Flag3");
-						for (ISequence innerSubM : m.getSubMethods()) {
-							System.out.println(innerSubM.getCalledMethod() + innerSubM.getArguments());
-							this.acceptSequence(v, innerSubM, depth - 1);
-							// }
-
-						}
-					}
-				}
-			}
-		}
+		// if (depth > 0) {
+		// // System.out.println("Flag1");
+		// for (IClass clazz : this.classes) {
+		// for (IMethod m : clazz.getMethods()) {
+		// if ((m.getName()).equals(subMethods.getCalledMethod())) {
+		// // System.out.println("Flag2");
+		// String[] argTemp = this.getArgumentsType(m.getDescription());
+		// // System.out.println("argTemp " + argTemp);
+		// // System.out.println(subMethods.getFromClass() + " " +
+		// // subMethods.getToClass() + " " +
+		// // subMethods.getCalledMethod() + " " +
+		// // subMethods.getArguments());;
+		//
+		// List<String> all = new ArrayList<String>();
+		// for (String s : argTemp) {
+		// all.add(s);
+		// }
+		// List<String> subs = subMethods.getArguments();
+		// List<String> subsFinal = new ArrayList<String>();
+		// for (String s : subs) {
+		// if (s.contains("<")) {
+		// String a = s.substring(0, s.indexOf("<"));
+		// subsFinal.add(a);
+		// if (s.contains("*"))
+		// subsFinal.add("Random");
+		// }
+		// }
+		//
+		// // if (argTemp.equals(subsMethod.getArgs())) {
+		// // System.out.println("Flag3");
+		// for (ISequence innerSubM : m.getSubMethods()) {
+		// System.out.println(innerSubM.getCalledMethod() +
+		// innerSubM.getArguments());
+		// this.acceptSequence(v, innerSubM, depth - 1);
+		// // }
+		//
+		// }
+		// }
+		// }
+		// }
+		// }
 		return;
 	}
 
