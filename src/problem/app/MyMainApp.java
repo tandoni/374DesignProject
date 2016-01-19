@@ -17,15 +17,14 @@ import problem.interfaces.ISequence;
 import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
 
+// in input_output dir for project
+// "C:\Program Files (x86)\Graphviz2.38\bin\dot" -Tpng graph1.gv >
+// graph1.png
 public class MyMainApp {
 
-	public static String[] classes = {
-			// "analyze.AbstractClassTwoAbstractMethods",
-			// "analyze.ClassPrivate",
-			// "analyze.ClassWithJustMainMethod",
-			// "analyze.ClassWithOneVariable",
-			// "analyze.Interface",
-			// "analyze.ProtectedClass"
+	public static String[] classes = { "analyze.AbstractClassTwoAbstractMethods", "analyze.ClassPrivate",
+			"analyze.ClassWithJustMainMethod", "analyze.ClassWithOneVariable", "analyze.Interface",
+			"analyze.ProtectedClass"
 			// "java.util.Collections.shuffle(List<T> list)"
 
 			// "analyze.register.Register.checkout(int cashTendered)",
@@ -35,7 +34,7 @@ public class MyMainApp {
 			// "java.util.Collections.shuffle(List<T> list)"
 			// "analyze.register.Register.checkout(int cashTendered)"
 			// "problem.asm.DesignParser.main(String[] args)"
-			"analyze.oneone.DataStandardizerApp.main(String[] args)"
+			// "analyze.oneone.DataStandardizerApp.main(String[] args)"
 
 	};
 
@@ -43,18 +42,18 @@ public class MyMainApp {
 		DesignParser parser = new DesignParser();
 
 		parser.main(classes);
-		// OutputStream out = new
-		// FileOutputStream("./input_output/GraphForGraphViz.gv");
-		// IVisitor writer = new UMLOutputStream(out);
-		// ITraverser traverser = (ITraverser) parser.model;
-		//
-		// String title = "example";
-		// out.write("digraph ".getBytes());
-		// out.write(title.getBytes());
-		// out.write(" { \nrankdir=BT;\n".getBytes());
-		// traverser.acceptUML(writer);
-		// out.write("}".getBytes());
-		// out.close();
+
+		OutputStream out = new FileOutputStream("./input_output/GraphForGraphViz.gv");
+		IVisitor writer = new UMLOutputStream(out);
+		ITraverser traverser = (ITraverser) parser.model;
+
+		String title = "example";
+		out.write("digraph ".getBytes());
+		out.write(title.getBytes());
+		out.write(" { \nrankdir=BT;\n".getBytes());
+		traverser.acceptUML(writer);
+		out.write("}".getBytes());
+		out.close();
 
 		// SDEdit
 
