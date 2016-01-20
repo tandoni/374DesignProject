@@ -41,13 +41,22 @@ public class UMLOutputStream extends VisitorAdapter {
 		String s;
 		if (c.getClassType() == "Interface") {
 			s = String.format("label = \"{\\<\\<interface\\>\\>\\n%s| ", c.getName());
+		} else if (c.getClassType() == "Abstract") {
+			s = String.format("label = \"{\\<\\<Abstract\\>\\>\\n%s| ", c.getName());
+		} else if (c.getClassType() == "Singleton") {
+			// To-DO Ishank please format this so that the class name comes
+			// first and <<singleton>> comes below it. Look at M4 for example.
+			// Also, somewhere we need to color the box around the Singleton
+			// class a different color. You can probably do that here, but if
+			// not just see if c.getClassType() == "Singleton". If it does, then
+			// do it there.
+			s = String.format("label = \"{%s| ", c.getName());
+			// s = String.format("label = " + c.getName() +
+			// "{\\<\\<Abstract\\>\\>\\n%s| ", c.getName());
 		} else {
-			if (c.getClassType() == "Abstract") {
-				s = String.format("label = \"{\\<\\<Abstract\\>\\>\\n%s| ", c.getName());
-			} else {
-				s = String.format("label = \"{%s| ", c.getName());
-			}
+			s = String.format("label = \"{%s| ", c.getName());
 		}
+
 		this.write(s);
 	}
 

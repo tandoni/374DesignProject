@@ -22,9 +22,16 @@ import problem.visitor.IVisitor;
 // graph1.png
 public class MyMainApp {
 
-	public static String[] classes = { "analyze.AbstractClassTwoAbstractMethods", "analyze.ClassPrivate",
-			"analyze.ClassWithJustMainMethod", "analyze.ClassWithOneVariable", "analyze.Interface",
-			"analyze.ProtectedClass"
+	public static String[] classes = {
+			// "analyze.AbstractClassTwoAbstractMethods",
+			// "analyze.ClassPrivate",
+			// "analyze.ClassWithJustMainMethod",
+			// "analyze.ClassWithOneVariable", "analyze.Interface",
+			// "analyze.ProtectedClass"
+
+			// Used to test Singleton
+			"headfirst.singleton.chocolate.ChocolateBoiler", "headfirst.singleton.chocolate.ChocolateController"
+
 			// "java.util.Collections.shuffle(List<T> list)"
 
 			// "analyze.register.Register.checkout(int cashTendered)",

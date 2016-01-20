@@ -18,5 +18,6 @@ public interface IClass extends ITraverser{
 	
 	public String getClassType();
 //	public void setClassType(String s);
+	void setClassType(String s);
 
 }

@@ -47,4 +47,8 @@ public interface IModel extends ITraverser {
 
 	public boolean getRecordSeq();
 
+	public void addSingleton(String singleton);
+
+	public ArrayList<String> getSingletons();
+
 }

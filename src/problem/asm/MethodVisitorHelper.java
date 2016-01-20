@@ -50,6 +50,17 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 		// create relation for association
 		IRelation r = new Relation(this.myClass.getName());
+		System.out.println("this.model.getCurrentClass(): " + this.model.getCurrentClass());
+		// String curClassName2 = this.model.getCurrentClass();
+		// String[] curClassName1 = curClassName2.split("\\.");
+		// String curClassName = curClassName1[curClassName1.length - 1];
+		String curClassName = this.model.getCurrentClass().split("\\.")[this.model.getCurrentClass().split("\\.").length
+				- 1];
+		if (this.myClass.getName().equals(curClassName)) {
+			System.out.println("we have a singleton");
+			this.model.addSingleton(curClassName);
+			this.model.getNamedClass(curClassName).setClassType("singleton");
+		}
 		r.addAssociations(typeSplit[typeSplit.length - 1]);
 		this.model.addRelation(r);
 	}

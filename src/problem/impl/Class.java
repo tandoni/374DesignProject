@@ -107,6 +107,11 @@ public class Class implements IClass {
 		return this.classType;
 	}
 
+	@Override
+	public void setClassType(String s) {
+		this.classType = s;
+	}
+
 	// @Override
 	// public void acceptSequence(IVisitor v) {
 	// // TODO Auto-generated method stub
@@ -118,10 +123,5 @@ public class Class implements IClass {
 		// TODO Auto-generated method stub
 		System.out.println("CLass : acceptSequence");
 	}
-
-	// @Override
-	// public void setClassType(String s) {
-	// this.classType = s;
-	// }
 
 }

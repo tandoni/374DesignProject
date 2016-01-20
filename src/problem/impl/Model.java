@@ -20,6 +20,7 @@ public class Model implements IModel {
 	public Collection<IClass> classes;
 	public Map<String, IRelation> relations;
 	public ArrayList<ISequence> sequences;
+	protected ArrayList<String> singletons = new ArrayList<String>();
 	public ArrayList<String> createdClasses;
 	public Collection<String> classNames;
 	// recordSeq is a boolean used when creating SD. It's set to true when we
@@ -352,6 +353,14 @@ public class Model implements IModel {
 
 	public boolean getRecordSeq() {
 		return this.recordSeq;
+	}
+
+	public void addSingleton(String singleton) {
+		this.singletons.add(singleton);
+	}
+
+	public ArrayList<String> getSingletons() {
+		return this.singletons;
 	}
 
 }

@@ -1,12 +1,12 @@
 package analyze;
 
 public class ClassPrivate extends ProtectedClass implements Interface {
-	private AbstractClassTwoAbstractMethods ab;
+	private ClassWithOneVariable ab;
 	private int i = 0;
 	private float f = 0f;
 
-	public ClassPrivate(AbstractClassTwoAbstractMethods ab) {
-		this.ab = ab;
+	public ClassPrivate() {
+		this.ab = new ClassWithOneVariable();
 	}
 
 	private float privateFloatOne() {
