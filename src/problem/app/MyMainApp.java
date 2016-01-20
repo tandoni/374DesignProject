@@ -68,19 +68,18 @@ public class MyMainApp {
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
 
-		// String[] argTemp = { "List<*>" };
-		// ISequence subM = new Sequence("java.util.Collections", "Collections",
-		// "shuffle", argTemp);
+		String[] argTemp = { "List<*>" };
+		ISequence subM = new Sequence("java.util.Collections", "Collections", "shuffle", argTemp);
 
-		// String[] newClasses = null;
-		// for (int i = 0; i < 5; i++) {
-		// IModel model = parser.model;
-		// newClasses = model.getNewClasses(subM, 5);
-		//
-		// // parser.main(newClasses);
-		// }
+		String[] newClasses = null;
+		for (int i = 0; i < 50; i++) {
+			IModel model = parser.model;
+			newClasses = model.getNewClasses(subM, 5);
 
-		// traverser2.acceptSequence(writer2, subM, 5);
+			parser.main(newClasses);
+		}
+
+		traverser2.acceptSequence(writer2, subM, 5);
 		out2.close();
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
