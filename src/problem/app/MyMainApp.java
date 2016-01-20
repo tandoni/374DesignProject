@@ -18,7 +18,7 @@ import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
 
 // in input_output dir for project
-// "C:\Program Files (x86)\Graphviz2.38\bin\dot" -Tpng graph1.gv >
+// "C:\Program Files (x86)\Graphviz2.38\bin\dot" -Tpng GraphForGraphViz.gv >
 // graph1.png
 public class MyMainApp {
 
