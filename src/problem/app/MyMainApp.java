@@ -3,17 +3,10 @@ package problem.app;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
 
 import problem.asm.DesignParser;
 import problem.impl.SDOutputStream;
-import problem.impl.Sequence;
 import problem.impl.UMLOutputStream;
-import problem.interfaces.IModel;
-import problem.interfaces.ISequence;
 import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
 
@@ -30,10 +23,10 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-			// "headfirst.singleton.chocolate.ChocolateBoiler",
-			// "headfirst.singleton.chocolate.ChocolateController"
+			 "headfirst.singleton.chocolate.ChocolateBoiler",
+			 "headfirst.singleton.chocolate.ChocolateController"
 
-			"java.util.Collections.shuffle(List<T> list)"
+//			"java.util.Collections.shuffle(List<T> list)"
 
 			// "analyze.register.Register.checkout(int cashTendered)",
 			// "analyze.register.Sale",
@@ -68,15 +61,7 @@ public class MyMainApp {
 		OutputStream out2 = new FileOutputStream("./input_output/GraphForSDEdit.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
-
-		// String[] newClasses = null;
-		// for (int i = 0; i < 50; i++) {
-		// IModel model = parser.model;
-		// newClasses = model.getNewClasses(subM, 5);
-		//
-		// parser.main(newClasses);
-		// }
-
+		
 		traverser2.acceptSequence(writer2, 5);
 		out2.close();
 
