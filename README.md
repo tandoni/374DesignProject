@@ -54,6 +54,7 @@ Milestone 4:
 
 Design Evolution:
 	In order to implement the Singleton class, we check when a new association is added in the MethodVisitorHelper class. When this happens, we check to see if the association is going to and from the same class. If this is the case, then we call addSingleton(String singleton) in Model. Also, we set the class type of that class to "singleton", so when we write the UML we can identify that class as a Singleton class, and do the special things for it we need to do.
+	![Alt text](https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj.png "design UML")
 
 Who did what:
 	Max focused on all the design of the singleton and fixing some issues from M3 while Ishank focused on parsing along with looking over design and fixing some issues from M3. Ruying focused on writing test cases and making the manual UML diagrams.
