@@ -49,16 +49,18 @@ Who did what:
 Instructions:
 	To test the sequence diagrams, you will have to type in the class names in the MyMainApp.java for the static field classes. After running the same file, it will generate a GraphForSDEdit.sd file in input_output directory which can now be opened by the SDEdit.jar file (We chose to prefer jar due to all members running different OS).
 --
+
 Milestone 4:
 
 Design Evolution:
-In order to implement the Singleton class, I chek when a new association is added in the MethodVisitorHelper
-class.  When this happens, I check to see if the association is going to and from the same class.  If this
-is the case, then I call addSinleton(String singleton) in Model (which we currenty don't use.)  Also, I
-set the class type of that class to "singleton", so when we write the UML we can identify that class as
-a Singleton class, and do the special things for it we need to do.
+	In order to implement the Singleton class, we check when a new association is added in the MethodVisitorHelper class. When this happens, we check to see if the association is going to and from the same class. If this is the case, then we call addSingleton(String singleton) in Model. Also, we set the class type of that class to "singleton", so when we write the UML we can identify that class as a Singleton class, and do the special things for it we need to do.
+
+Who did what:
+	Max focused on all the design of the singleton and fixing some issues from M3 while Ishank focused on parsing along with looking over design and fixing some issues from M3. Ruying focused on writing test cases and making the manual UML diagrams.
 
 Instructions:
-	Exactly the same as generating any UML class diagram.
+	Exactly the same as generating any UML class diagram but instead we type in class and method name.
+
+
 
 
