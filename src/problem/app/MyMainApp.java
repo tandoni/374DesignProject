@@ -23,10 +23,11 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-			 "headfirst.singleton.chocolate.ChocolateBoiler",
-			 "headfirst.singleton.chocolate.ChocolateController"
+//			 "headfirst.singleton.chocolate.ChocolateBoiler",
+//			 "headfirst.singleton.chocolate.ChocolateController"
 
 //			"java.util.Collections.shuffle(List<T> list)"
+			"problem.asm.DesignParser.main(String[] args)"
 
 			// "analyze.register.Register.checkout(int cashTendered)",
 			// "analyze.register.Sale",

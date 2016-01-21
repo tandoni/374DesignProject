@@ -1,15 +1,8 @@
 digraph example { 
 rankdir=BT;
-ChocolateBoiler [
+DesignParser [
 shape="record",
-color="blue", label = "{ChocolateBoiler
-\<\<Singleton\>\>| - empty : boolean\l- boiled : boolean\l- uniqueInstance : ChocolateBoiler\l|+ getInstance() : ChocolateBoiler\l+ fill() : void\l+ drain() : void\l+ boil() : void\l+ isEmpty() : boolean\l+ isBoiled() : boolean\l}"
+label = "{DesignParser| + model : IModel\l  deb : boolean\l|+ main(String[] ) : void\l}"
 ];
 
-ChocolateController [
-shape="record",
-label = "{ChocolateController| + main(String[] ) : void\l}"
-];
-
-
-ChocolateBoiler -> ChocolateBoiler [arrowhead = "vee"];}
+}
