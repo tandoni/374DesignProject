@@ -1,3 +1,10 @@
-ChocolateBoiler:ChocolateBoiler[a]
-ChocolateController:ChocolateController[a]
-ChocolateBoiler:ChocolateBoiler.main
+Collections:Collections[a]
+List:List[a]
+/Random:Random[a]
+
+Collections:Collections.main
+java.util.Collections:Random.<init>(arg0)
+java.util.Collections:Collections.shuffle(arg0, arg1)
+java.util.Collections:List.size(arg0)
+java.util.Collections:Random.nextInt(arg0)
+java.util.Collections:Collections.swap(arg0, arg1, arg2)

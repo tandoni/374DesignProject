@@ -2,8 +2,7 @@ package problem.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import problem.interfaces.IClass;
@@ -36,7 +35,7 @@ public class SDOutputStream extends VisitorAdapter {
 	public void visit(IModel m) {
 		List<ISequence> seqs = m.getSequences();
 		// For the SD, we need to call getSDClassNames
-		ArrayList<String> SDClassNames = m.getSDClassNames();
+		List<String> SDClassNames = m.getSDClassNames();
 		List<String> createdClasses = m.getCreatedClasses();
 		StringBuilder sb = new StringBuilder();
 
