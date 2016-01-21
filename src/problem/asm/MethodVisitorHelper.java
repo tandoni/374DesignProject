@@ -71,6 +71,10 @@ public class MethodVisitorHelper extends MethodVisitor {
 		String[] ownerSplit = owner.split("/");
 
 		if (this.model.getRecordSeq() && this.model.getCallDepth() < 5) {
+			if (name.equals("<init>")) {
+				System.out.println("a created class");
+				this.model.addCreatedClass(owner.split("/")[owner.split("/").length - 1]);
+			}
 			// System.out.println("adding a sequence");
 			// This is where the sequence is added
 			ISequence sequence = new Sequence(this.model.getCurrentClass(),

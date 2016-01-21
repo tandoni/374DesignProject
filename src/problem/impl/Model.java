@@ -22,7 +22,7 @@ public class Model implements IModel {
 	private int callDepth = 0;
 	public ArrayList<ISequence> sequences;
 	protected ArrayList<String> singletons = new ArrayList<String>();
-	public ArrayList<String> createdClasses;
+	public ArrayList<String> createdClasses = new ArrayList<String>();
 	public Collection<String> classNames;
 	// recordSeq is a boolean used when creating SD. It's set to true when we
 	// have found the correct class and method that was specified at the start
@@ -376,6 +376,11 @@ public class Model implements IModel {
 
 	public void callDepthInc() {
 		this.callDepth++;
+	}
+
+	@Override
+	public void addCreatedClass(String className) {
+		this.createdClasses.add(className);
 	}
 
 }

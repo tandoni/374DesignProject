@@ -21,6 +21,8 @@ public interface IModel extends ITraverser {
 
 	public ArrayList<ISequence> getSequences();
 
+	public void addCreatedClass(String className);
+
 	ArrayList<String> getCreatedClasses();
 
 	Collection<String> getClassNames();

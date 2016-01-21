@@ -46,9 +46,10 @@ public class SDOutputStream extends VisitorAdapter {
 		for (String s : createdClasses) {
 			sb.append(String.format("/%s:%s[a]\n\n", s, s));
 		}
-		
-		sb.append(((IClass) classes.toArray()[0]).getName() + ":" + ((IClass) classes.toArray()[0]).getName() + ".main\n");
-		
+
+		sb.append(((IClass) classes.toArray()[0]).getName() + ":" + ((IClass) classes.toArray()[0]).getName()
+				+ ".main\n");
+
 		for (ISequence s : seqs) {
 			String from = s.getFromClass();
 			String to = s.getToClass();
@@ -59,7 +60,8 @@ public class SDOutputStream extends VisitorAdapter {
 
 			for (int i = 0; i < args.size(); i++) {
 				sb.append("arg" + i);
-				if(i != args.size()-1) sb.append(", ");
+				if (i != args.size() - 1)
+					sb.append(", ");
 			}
 
 			sb.append(")\n");
