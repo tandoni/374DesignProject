@@ -28,11 +28,12 @@ public class DesignParser {
 	 * @throws IOException
 	 */
 	public void main(String[] args) throws IOException {
-
+		System.out.println("args: " + args);
 		for (String className : args) {
 			// ASM's ClassReader does the heavy lifting of parsing the compiled
 			// Java class
-			System.out.println("currentClass: " + this.model.getCurrentClass());
+			// System.out.println("currentClass: " +
+			// this.model.getCurrentClass());
 			if (args.length == 1 && className.contains("(")) {
 				System.out.println("This is a Sequence Diagram method call");
 				String[] splitArg1 = className.split("\\.");
@@ -52,7 +53,7 @@ public class DesignParser {
 				this.model.setStartClass(className);
 			}
 			this.model.setCurrentClass(className);
-			System.out.println("className: " + className);
+			// System.out.println("className: " + className);
 			ClassReader reader = new ClassReader(className);
 
 			// make class declaration visitor to get superclass and interfaces

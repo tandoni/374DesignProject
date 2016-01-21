@@ -29,10 +29,10 @@ public class ClassDeclarationVisitor extends ClassVisitor implements IClassVisit
 		// "+Arrays.toString(interfaces));
 
 		String classType = "normal";
-		System.out.println("ClassDeclarationVisitor class name: " + name);
+		// System.out.println("ClassDeclarationVisitor class name: " + name);
 		String[] cname = name.split("/");
 		this.model.setCurrentClass(name.replace("/", "."));
-		System.out.println("current class: " + this.model.getCurrentClass());
+		// System.out.println("current class: " + this.model.getCurrentClass());
 		// Interface
 		if ((access & Opcodes.ACC_INTERFACE) != 0) {
 			classType = "Interface";

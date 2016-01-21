@@ -30,9 +30,10 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-			"headfirst.singleton.chocolate.ChocolateBoiler", "headfirst.singleton.chocolate.ChocolateController"
+			// "headfirst.singleton.chocolate.ChocolateBoiler",
+			// "headfirst.singleton.chocolate.ChocolateController"
 
-			// "java.util.Collections.shuffle(List<T> list)"
+			"java.util.Collections.shuffle(List<T> list)"
 
 			// "analyze.register.Register.checkout(int cashTendered)",
 			// "analyze.register.Sale",
@@ -71,13 +72,13 @@ public class MyMainApp {
 		String[] argTemp = { "List<*>" };
 		ISequence subM = new Sequence("java.util.Collections", "Collections", "shuffle", argTemp);
 
-		String[] newClasses = null;
-		for (int i = 0; i < 50; i++) {
-			IModel model = parser.model;
-			newClasses = model.getNewClasses(subM, 5);
-
-			parser.main(newClasses);
-		}
+		// String[] newClasses = null;
+		// for (int i = 0; i < 50; i++) {
+		// IModel model = parser.model;
+		// newClasses = model.getNewClasses(subM, 5);
+		//
+		// parser.main(newClasses);
+		// }
 
 		traverser2.acceptSequence(writer2, subM, 5);
 		out2.close();

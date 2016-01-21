@@ -50,17 +50,9 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 		// create relation for association
 		IRelation r = new Relation(this.myClass.getName());
-		System.out.println("this.model.getCurrentClass(): " + this.model.getCurrentClass());
-		// String curClassName2 = this.model.getCurrentClass();
-		// String[] curClassName1 = curClassName2.split("\\.");
-		// String curClassName = curClassName1[curClassName1.length - 1];
-		String curClassName = this.model.getCurrentClass().split("\\.")[this.model.getCurrentClass().split("\\.").length
-				- 1];
-		if (this.myClass.getName().equals(curClassName)) {
-			System.out.println("we have a singleton");
-			this.model.addSingleton(curClassName);
-			this.model.getNamedClass(curClassName).setClassType("singleton");
-		}
+		// System.out.println("this.model.getCurrentClass(): " +
+		// this.model.getCurrentClass());
+
 		r.addAssociations(typeSplit[typeSplit.length - 1]);
 		this.model.addRelation(r);
 	}
@@ -68,17 +60,18 @@ public class MethodVisitorHelper extends MethodVisitor {
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
 		if (this.model.getRecordSeq()) {
-			System.out.println(
-					"visitMethodInsn " + " owner: " + owner + " name: " + name + " desc: " + getArguments(desc));
+			// System.out.println(
+			// "visitMethodInsn " + " owner: " + owner + " name: " + name + "
+			// desc: " + getArguments(desc));
 		}
-		System.out.println("current Class: " + this.model.getCurrentClass());
+		// System.out.println("current Class: " + this.model.getCurrentClass());
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
 		String[] args = getArgumentsType(desc);
 
 		String[] ownerSplit = owner.split("/");
 
 		if (this.model.getRecordSeq()) {
-			System.out.println("adding a sequence");
+			// System.out.println("adding a sequence");
 			// This is where the sequence is added
 			ISequence sequence = new Sequence(this.model.getCurrentClass(),
 					owner.split("/")[owner.split("/").length - 1], name, getArguments(desc).split(","));

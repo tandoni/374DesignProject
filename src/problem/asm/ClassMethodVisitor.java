@@ -59,12 +59,16 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 				// String[] args)
 				// Sequence seq = new Sequence(this.model.getCurrentClass(), "",
 				// )
-				System.out.println("Current Class: " + this.model.getCurrentClass());
-				System.out.println("Start Class: " + this.model.getStartClass());
-				System.out.println(" method: " + name + " start method name: " + this.model.getStartMethodName());
-				System.out.println("getArguments(desc): " + getArguments(desc));
-				System.out.println(
-						"halalell---------------------------------------------------------------------------------------------------------------");
+				// System.out.println("Current Class: " +
+				// this.model.getCurrentClass());
+				// System.out.println("Start Class: " +
+				// this.model.getStartClass());
+				// System.out.println(" method: " + name + " start method name:
+				// " + this.model.getStartMethodName());
+				// System.out.println("getArguments(desc): " +
+				// getArguments(desc));
+				// System.out.println(
+				// "halalell---------------------------------------------------------------------------------------------------------------");
 			}
 		}
 
