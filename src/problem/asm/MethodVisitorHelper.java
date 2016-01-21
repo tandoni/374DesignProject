@@ -1,9 +1,9 @@
 package problem.asm;
 
-import org.objectweb.asm.Type;
 import java.util.ArrayList;
 
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Type;
 
 import problem.impl.Relation;
 import problem.impl.Sequence;
@@ -80,7 +80,9 @@ public class MethodVisitorHelper extends MethodVisitor {
 				// if this isn't a new class, then we add it SDClassNames
 				// because we need it the top of the SD diagram (most likely,
 				// still need to checkt to make sure)
-				this.model.addSDClassName(owner.split("/")[owner.split("/").length - 1]);
+				String temp = owner.split("/")[owner.split("/").length - 1];
+				if(!this.model.getSDClassNames().contains(temp))
+					this.model.addSDClassName(temp);
 			}
 			// System.out.println("adding a sequence");
 			// This is where the sequence is added

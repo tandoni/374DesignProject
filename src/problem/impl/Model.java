@@ -24,7 +24,7 @@ public class Model implements IModel {
 	protected ArrayList<String> singletons = new ArrayList<String>();
 	public ArrayList<String> createdClasses = new ArrayList<String>();
 	// List of class names that are in the SD diagram!!
-	public ArrayList<String> SDClassNames = new ArrayList<String>();
+	public List<String> SDClassNames = new ArrayList<String>();
 	public Collection<String> classNames;
 	// recordSeq is a boolean used when creating SD. It's set to true when we
 	// have found the correct class and method that was specified at the start
@@ -230,12 +230,12 @@ public class Model implements IModel {
 	}
 
 	@Override
-	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+	public void acceptSequence(IVisitor v, int depth) {
 
 		System.out.println("Model : acceptSequence");
 		v.preVisit(this);
 		for (IClass c : this.classes) {
-			c.acceptSequence(v, subMethods, depth);
+			c.acceptSequence(v, depth);
 		}
 		v.visit(this);
 		v.postVisit(this);
@@ -391,7 +391,7 @@ public class Model implements IModel {
 	}
 
 	@Override
-	public ArrayList<String> getSDClassNames() {
+	public List<String> getSDClassNames() {
 		return this.SDClassNames;
 	}
 

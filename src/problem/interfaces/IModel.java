@@ -2,6 +2,7 @@ package problem.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
@@ -17,7 +18,7 @@ public interface IModel extends ITraverser {
 
 	public IClass getNamedClass(String s);
 
-	public void acceptSequence(IVisitor v, ISequence subMethods, int depth);
+	public void acceptSequence(IVisitor v, int depth);
 
 	public ArrayList<ISequence> getSequences();
 
@@ -59,6 +60,6 @@ public interface IModel extends ITraverser {
 
 	public void addSDClassName(String className);
 
-	public ArrayList<String> getSDClassNames();
+	public List<String> getSDClassNames();
 
 }

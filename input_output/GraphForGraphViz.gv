@@ -1,15 +1,8 @@
 digraph example { 
 rankdir=BT;
-ChocolateBoiler [
+Collections [
 shape="record",
-color="blue", label = "{ChocolateBoiler
-\<\<Singleton\>\>| - empty : boolean\l- boiled : boolean\l- uniqueInstance : ChocolateBoiler\l|+ getInstance() : ChocolateBoiler\l+ fill() : void\l+ drain() : void\l+ boil() : void\l+ isEmpty() : boolean\l+ isBoiled() : boolean\l}"
+label = "{Collections| - BINARYSEARCH_THRESHOLD : int\l- REVERSE_THRESHOLD : int\l- SHUFFLE_THRESHOLD : int\l- FILL_THRESHOLD : int\l- ROTATE_THRESHOLD : int\l- COPY_THRESHOLD : int\l- REPLACEALL_THRESHOLD : int\l- INDEXOFSUBLIST_THRESHOLD : int\l- r : Random\l+ EMPTY_SET : Set\l+ EMPTY_LIST : List\l+ EMPTY_MAP : Map\l|+ sort(List ) : void\l+ sort(List ) : void\l+ binarySearch(List ) : int\l- indexedBinarySearch(List ) : int\l- iteratorBinarySearch(List ) : int\l- get(ListIterator ) : Object\l+ binarySearch(List , Object) : int\l- indexedBinarySearch(List , Object) : int\l- iteratorBinarySearch(List , Object) : int\l+ reverse(List ) : void\l+ shuffle(List ) : void\l+ shuffle(List ) : void\l+ swap(List , int) : void\l- swap(Object[] , int) : void\l+ fill(List ) : void\l+ copy(List ) : void\l+ min(Collection ) : Object\l+ min(Collection ) : Object\l+ max(Collection ) : Object\l+ max(Collection ) : Object\l+ rotate(List ) : void\l- rotate1(List ) : void\l- rotate2(List ) : void\l+ replaceAll(List , Object) : boolean\l+ indexOfSubList(List ) : int\l+ lastIndexOfSubList(List ) : int\l+ unmodifiableCollection(Collection ) : Collection\l+ unmodifiableSet(Set ) : Set\l+ unmodifiableSortedSet(SortedSet ) : SortedSet\l+ unmodifiableNavigableSet(NavigableSet ) : NavigableSet\l+ unmodifiableList(List ) : List\l+ unmodifiableMap(Map ) : Map\l+ unmodifiableSortedMap(SortedMap ) : SortedMap\l+ unmodifiableNavigableMap(NavigableMap ) : NavigableMap\l+ synchronizedCollection(Collection ) : Collection\l  synchronizedCollection(Collection ) : Collection\l+ synchronizedSet(Set ) : Set\l  synchronizedSet(Set ) : Set\l+ synchronizedSortedSet(SortedSet ) : SortedSet\l+ synchronizedNavigableSet(NavigableSet ) : NavigableSet\l+ synchronizedList(List ) : List\l  synchronizedList(List ) : List\l+ synchronizedMap(Map ) : Map\l+ synchronizedSortedMap(SortedMap ) : SortedMap\l+ synchronizedNavigableMap(NavigableMap ) : NavigableMap\l+ checkedCollection(Collection ) : Collection\l  zeroLengthArray(Class ) : Object[]\l+ checkedQueue(Queue ) : Queue\l+ checkedSet(Set ) : Set\l+ checkedSortedSet(SortedSet ) : SortedSet\l+ checkedNavigableSet(NavigableSet ) : NavigableSet\l+ checkedList(List ) : List\l+ checkedMap(Map , Class) : Map\l+ checkedSortedMap(SortedMap , Class) : SortedMap\l+ checkedNavigableMap(NavigableMap , Class) : NavigableMap\l+ emptyIterator() : Iterator\l+ emptyListIterator() : ListIterator\l+ emptyEnumeration() : Enumeration\l+ emptySet() : Set\l+ emptySortedSet() : SortedSet\l+ emptyNavigableSet() : NavigableSet\l+ emptyList() : List\l+ emptyMap() : Map\l+ emptySortedMap() : SortedMap\l+ emptyNavigableMap() : NavigableMap\l+ singleton(Object ) : Set\l  singletonIterator(Object ) : Iterator\l  singletonSpliterator(Object ) : Spliterator\l+ singletonList(Object ) : List\l+ singletonMap(Object ) : Map\l+ nCopies(int ) : List\l+ reverseOrder() : Comparator\l+ reverseOrder(Comparator ) : Comparator\l+ enumeration(Collection ) : Enumeration\l+ list(Enumeration ) : ArrayList\l  eq(Object ) : boolean\l+ frequency(Collection ) : int\l+ disjoint(Collection ) : boolean\l+ addAll(Collection ) : boolean\l+ newSetFromMap(Map ) : Set\l+ asLifoQueue(Deque ) : Queue\l  <clinit>() : void\l}"
 ];
 
-ChocolateController [
-shape="record",
-label = "{ChocolateController| + main(String[] ) : void\l}"
-];
-
-
-ChocolateBoiler -> ChocolateBoiler [arrowhead = "vee"];}
+}

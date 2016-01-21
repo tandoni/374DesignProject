@@ -67,7 +67,7 @@ public class Sequence implements ISequence {
 	}
 
 	@Override
-	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+	public void acceptSequence(IVisitor v, int depth) {
 		// TODO Auto-generated method stub
 		
 	}
