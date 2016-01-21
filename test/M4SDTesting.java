@@ -1,7 +1,6 @@
 import static org.junit.Assert.*;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 
@@ -24,12 +23,12 @@ public class M4SDTesting {
 
 	@Test
 	public void test() throws IOException {
-		DesignParser parser= new DesignParser();
+		//DesignParser parser= new DesignParser();
 		String[] classes = {"problem.impl.Class"};
-		//("problem.asm.Class,Class,accept,IModelVisitor", 5, classes);
-		MyMainApp.classes = classes;
+		//("problem.asm.Class,Class,acceptUML,IVisitor", 5, classes);
+		//MyMainApp.classes = classes;
 		MyMainApp.main(classes);
-		parser.main(classes);
+		//parser.main(classes);
 
 		FileReader reader = null;
 		reader = new FileReader("input_output/GraphForSDEdit.sd");
@@ -43,19 +42,22 @@ public class M4SDTesting {
 			file += line;
 		}
 		
-		assertTrue(file.contains("Class:Class[a]"));
-		assertTrue(file.contains("IModelVisitor:IModelVisitor[a]"));
-		assertTrue(file.contains("IField:IField[a]"));
-		assertTrue(file.contains("IMethod:IMethod[a]"));
-		assertTrue(file.contains("Collection:Collection[a]"));
+		System.out.println("file : " + file);
 		
-		assertTrue(file.contains("Class:void=IModelVisitor.preVisit(IClass)"));
-		assertTrue(file.contains("Class:void=IModelVisitor.visit(IClass)"));
-		assertTrue(file.contains("Class:void=IField.accept(IModelVisitor)"));
-		assertTrue(file.contains("Class:boolean=Collection.isEmpty()"));
-		assertTrue(file.contains("Class:void=IModelVisitor.intermediateVisit(IClass)"));
-		assertTrue(file.contains("Class:void=IMethod.accept(IModelVisitor)"));
-		assertTrue(file.contains("Class:void=IModelVisitor.postVisit(IClass)"));
+		assertTrue(file.contains("DesignParser:DesignParser[a]"));
+		assertTrue(file.contains("PrintStream:PrintStream[a]"));
+		assertTrue(file.contains("String:String[a]"));
+		assertTrue(file.contains("StringBuilder:StringBuilder[a]"));
+		
+		assertTrue(file.contains("DesignParser:DesignParser.main"));
+		assertTrue(file.contains("DesignParser:StringBuilder.new(arg0)"));
+		assertTrue(file.contains("DesignParser:StringBuilder.append(arg0)"));
+		assertTrue(file.contains("DesignParser:StringBuilder.toString(arg0)"));
+		assertTrue(file.contains("DesignParser:PrintStream.println(arg0)"));
+		assertTrue(file.contains("DesignParser:String.contains(arg0)"));
+		
+		buffer.close();
+		reader.close();
 	}
 
 }
