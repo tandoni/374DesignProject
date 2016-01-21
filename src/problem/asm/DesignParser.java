@@ -50,6 +50,7 @@ public class DesignParser {
 					className += ".";
 				}
 				className += splitArg1[splitArg1len - 2];
+				this.model.addSDClassName(className.split("\\.")[2]);
 				this.model.setStartClass(className);
 			}
 			this.model.setCurrentClass(className);

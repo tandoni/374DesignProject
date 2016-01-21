@@ -1,0 +1,11 @@
+DesignParser:DesignParser[a]
+PrintStream:PrintStream[a]
+String:String[a]
+/StringBuilder:StringBuilder[a]
+
+DesignParser:DesignParser.main
+DesignParser:StringBuilder.new(arg0)
+DesignParser:StringBuilder.append(arg0)
+DesignParser:StringBuilder.toString(arg0)
+DesignParser:PrintStream.println(arg0)
+DesignParser:String.contains(arg0)

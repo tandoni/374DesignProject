@@ -73,7 +73,7 @@ public class MethodVisitorHelper extends MethodVisitor {
 		if (this.model.getRecordSeq() && this.model.getCallDepth() < 5) {
 			// If the name of the method is init, then we are intitalizing a new
 			// class, and need to record that
-			if (name.equals("<init>")) {
+			if (name.contains("init>")) {
 				System.out.println("a created class");
 				this.model.addCreatedClass(owner.split("/")[owner.split("/").length - 1]);
 			} else {
