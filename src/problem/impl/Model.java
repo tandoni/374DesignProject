@@ -23,6 +23,8 @@ public class Model implements IModel {
 	public ArrayList<ISequence> sequences;
 	protected ArrayList<String> singletons = new ArrayList<String>();
 	public ArrayList<String> createdClasses = new ArrayList<String>();
+	// List of class names that are in the SD diagram!!
+	public ArrayList<String> SDClassNames = new ArrayList<String>();
 	public Collection<String> classNames;
 	// recordSeq is a boolean used when creating SD. It's set to true when we
 	// have found the correct class and method that was specified at the start
@@ -381,6 +383,16 @@ public class Model implements IModel {
 	@Override
 	public void addCreatedClass(String className) {
 		this.createdClasses.add(className);
+	}
+
+	@Override
+	public void addSDClassName(String className) {
+		this.SDClassNames.add(className);
+	}
+
+	@Override
+	public ArrayList<String> getSDClassNames() {
+		return this.SDClassNames;
 	}
 
 }

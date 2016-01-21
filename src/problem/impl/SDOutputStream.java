@@ -2,6 +2,7 @@ package problem.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -34,12 +35,13 @@ public class SDOutputStream extends VisitorAdapter {
 	@Override
 	public void visit(IModel m) {
 		List<ISequence> seqs = m.getSequences();
-		Collection<IClass> classes = m.getClasses();
+		// For the SD, we need to call getSDClassNames
+		ArrayList<String> SDClassNames = m.getSDClassNames();
 		List<String> createdClasses = m.getCreatedClasses();
 		StringBuilder sb = new StringBuilder();
 
-		for (IClass c : classes) {
-			String name = c.getName();
+		for (String c : SDClassNames) {
+			String name = c;
 			if (!createdClasses.contains(name))
 				sb.append(name + ":" + name + "[a]\n");
 		}
@@ -47,8 +49,7 @@ public class SDOutputStream extends VisitorAdapter {
 			sb.append(String.format("/%s:%s[a]\n\n", s, s));
 		}
 
-		sb.append(((IClass) classes.toArray()[0]).getName() + ":" + ((IClass) classes.toArray()[0]).getName()
-				+ ".main\n");
+		sb.append(SDClassNames.get(0) + ":" + SDClassNames.get(0) + ".main\n");
 
 		for (ISequence s : seqs) {
 			String from = s.getFromClass();

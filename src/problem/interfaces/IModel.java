@@ -57,4 +57,8 @@ public interface IModel extends ITraverser {
 
 	public void callDepthInc();
 
+	public void addSDClassName(String className);
+
+	public ArrayList<String> getSDClassNames();
+
 }

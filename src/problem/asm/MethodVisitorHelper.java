@@ -71,9 +71,16 @@ public class MethodVisitorHelper extends MethodVisitor {
 		String[] ownerSplit = owner.split("/");
 
 		if (this.model.getRecordSeq() && this.model.getCallDepth() < 5) {
+			// If the name of the method is init, then we are intitalizing a new
+			// class, and need to record that
 			if (name.equals("<init>")) {
 				System.out.println("a created class");
 				this.model.addCreatedClass(owner.split("/")[owner.split("/").length - 1]);
+			} else {
+				// if this isn't a new class, then we add it SDClassNames
+				// because we need it the top of the SD diagram (most likely,
+				// still need to checkt to make sure)
+				this.model.addSDClassName(owner.split("/")[owner.split("/").length - 1]);
 			}
 			// System.out.println("adding a sequence");
 			// This is where the sequence is added
