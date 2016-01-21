@@ -51,4 +51,8 @@ public interface IModel extends ITraverser {
 
 	public ArrayList<String> getSingletons();
 
+	public int getCallDepth();
+
+	public void callDepthInc();
+
 }
