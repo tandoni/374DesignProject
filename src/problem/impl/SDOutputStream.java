@@ -47,14 +47,14 @@ public class SDOutputStream extends VisitorAdapter {
 		for (String s : createdClasses) {
 			sb.append(String.format("/%s:%s[a]\n\n", s, s));
 		}
-
-		sb.append(SDClassNames.get(0) + ":" + SDClassNames.get(0) + ".main\n");
+		if (!SDClassNames.isEmpty() && SDClassNames != null)
+			sb.append(SDClassNames.get(0) + ":" + SDClassNames.get(0) + ".main\n");
 
 		for (ISequence s : seqs) {
 			String from = s.getFromClass().split("\\.")[2];
 			String to = s.getToClass();
 			String calledMethod = s.getCalledMethod();
-			if(calledMethod.contains("init>")) {
+			if (calledMethod.contains("init>")) {
 				calledMethod = "new";
 			}
 			List<String> args = s.getArguments();
