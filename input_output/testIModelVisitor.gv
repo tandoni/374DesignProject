@@ -1,0 +1,29 @@
+digraph example { 
+rankdir=BT;
+Model [
+shape="record",
+label = "{Model| + classes : Collection\l+ relations : Map\l- callDepth : int\l+ sequences : ArrayList\l# singletons : ArrayList\l+ createdClasses : ArrayList\l+ SDClassNames : ArrayList\l+ classNames : Collection\l- recordSeq : boolean\l- startMethodName : String\l- startMethodArgs : String[]\l- startClass : String\l- currentClass : String\l|+ setClassNames() : void\l+ acceptUML(IVisitor ) : void\l+ addClass(IClass ) : void\l+ getClasses() : Collection\l+ getClassNames() : Collection\l+ addRelation(IRelation ) : void\l+ getRelations() : Collection\l+ getNamedClass(String ) : IClass\l+ toString() : String\l+ getSequences() : ArrayList\l+ getCreatedClasses() : ArrayList\l+ addSequence(ISequence ) : void\l+ getNewClasses(ISequence ) : String[]\l+ acceptSequence(IVisitor , ISequence) : void\l  getArgumentsType(String ) : String[]\l+ setCurrentClass(String ) : void\l+ getCurrentClass() : String\l+ setStartClass(String ) : void\l+ getStartClass() : String\l+ setStartMethod(String ) : void\l+ setStartMethodName(String ) : void\l+ setStartMethodArgs(String[] ) : void\l+ getStartMethodName() : String\l+ getStartMethodArgs() : String[]\l+ setRecordSeq(boolean ) : void\l+ getRecordSeq() : boolean\l+ addSingleton(String ) : void\l+ getSingletons() : ArrayList\l+ getCallDepth() : int\l+ callDepthInc() : void\l+ addCreatedClass(String ) : void\l+ addSDClassName(String ) : void\l+ getSDClassNames() : ArrayList\l}"
+];
+
+IModel [
+shape="record",
+color="red",label = "{\<\<interface\>\>\nIModel| + addClass(IClass ) : void\l+ getClasses() : Collection\l+ addRelation(IRelation ) : void\l+ getRelations() : Collection\l+ getNamedClass(String ) : IClass\l+ acceptSequence(IVisitor , ISequence) : void\l+ getSequences() : ArrayList\l+ addCreatedClass(String ) : void\l+ getCreatedClasses() : ArrayList\l+ getClassNames() : Collection\l+ getNewClasses(ISequence ) : String[]\l+ addSequence(ISequence ) : void\l+ setCurrentClass(String ) : void\l+ getCurrentClass() : String\l+ setStartClass(String ) : void\l+ getStartClass() : String\l+ setStartMethod(String ) : void\l+ getStartMethodName() : String\l+ getStartMethodArgs() : String[]\l+ setRecordSeq(boolean ) : void\l+ getRecordSeq() : boolean\l+ addSingleton(String ) : void\l+ getSingletons() : ArrayList\l+ getCallDepth() : int\l+ callDepthInc() : void\l+ addSDClassName(String ) : void\l+ getSDClassNames() : ArrayList\l}"
+];
+
+IClass [
+shape="record",
+color="red",label = "{\<\<interface\>\>\nIClass| + getName() : String\l+ getMethods() : Collection\l+ getFields() : Collection\l+ getRelations() : Collection\l+ addMethod(IMethod ) : void\l+ addField(IField ) : void\l+ addRelation(IRelation ) : void\l+ getClassType() : String\l+ setClassType(String ) : void\l}"
+];
+
+IRelation [
+shape="record",
+color="red",label = "{\<\<interface\>\>\nIRelation| + getSubClass() : String\l+ getSuperClass() : String\l+ getInterfaces() : Collection\l+ getUses() : Collection\l+ getAssociations() : Collection\l+ addInterfaces(String[] ) : void\l+ addUses(String[] ) : void\l+ addUses(String ) : void\l+ addAssociations(String[] ) : void\l+ addAssociations(String ) : void\l}"
+];
+
+
+IModel -> IClass [arrowhead = "vee", style = "dashed"];
+IModel -> IRelation [arrowhead = "vee", style = "dashed"];
+Model -> IModel [arrowhead="empty", style="dashed"];
+Model -> IClass [arrowhead = "vee"];
+Model -> IRelation [arrowhead = "vee"];
+IClass -> IRelation [arrowhead = "vee", style = "dashed"];}
