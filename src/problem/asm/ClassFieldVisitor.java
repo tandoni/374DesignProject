@@ -41,10 +41,6 @@ public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor {
 		if (fieldName.contains(";")) {
 			fieldName = fieldName.substring(0, fieldName.indexOf(";"));
 		}
-		if (fieldName.equals(curClassName)) {
-			this.model.addSingleton(curClassName);
-			this.model.getNamedClass(curClassName).setClassType("singleton");
-		}
 		this.myClass = this.getBelongedClass();
 
 		IClass namedClass = this.model.getNamedClass(this.myClass.getName());

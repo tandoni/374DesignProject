@@ -63,6 +63,24 @@ public class Class implements IClass {
 	}
 
 	@Override
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		for (IField f : this.fields) {
+			f.acceptUML(v);
+		}
+
+		if (!this.fields.isEmpty()) {
+			v.visitSperator();
+		}
+
+		for (IMethod m : this.methods) {
+			m.acceptUML(v);
+		}
+		v.postVisit(this);
+	}
+
+	@Override
 	public String getName() {
 		return this.name;
 	}

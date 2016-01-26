@@ -76,6 +76,15 @@ public class Model implements IModel {
 		}
 	}
 
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		for (IClass c : this.classes) {
+			c.acceptSpotters(v);
+		}
+		v.visit(this);
+		v.postVisit(this);
+	}
+
 	// This is the code where methods are called to generate the UML output.
 	public void acceptUML(IVisitor v) {
 		v.preVisit(this);

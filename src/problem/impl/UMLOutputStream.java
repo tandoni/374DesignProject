@@ -12,6 +12,7 @@ import problem.interfaces.IField;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
 import problem.visitor.VisitorAdapter;
 
 public class UMLOutputStream extends VisitorAdapter {

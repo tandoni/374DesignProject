@@ -11,7 +11,7 @@ public class Method implements IMethod {
 	private String name;
 	private String description;
 	private String signature;
-	//private String[] exceptions;
+	// private String[] exceptions;
 	private ArrayList<ISequence> subMethods;
 
 	public Method(int access, String name, String desc, String signature, ArrayList<ISequence> subMethod) {
@@ -42,11 +42,11 @@ public class Method implements IMethod {
 		return this.signature;
 	}
 
-//	@Override
-//	public String[] getExceptions() {
-//		return this.exceptions;
-//	}
-	
+	// @Override
+	// public String[] getExceptions() {
+	// return this.exceptions;
+	// }
+
 	@Override
 	public ArrayList<ISequence> getSubMethods() {
 		return subMethods;
@@ -63,6 +63,13 @@ public class Method implements IMethod {
 	public void acceptSequence(IVisitor v, int depth) {
 		System.out.println("Method : acceptSequence");
 		v.visit(this);
+	}
+
+	@Override
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		v.postVisit(this);
 	}
 
 }

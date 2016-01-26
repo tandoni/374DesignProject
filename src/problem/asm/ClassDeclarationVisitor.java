@@ -38,8 +38,6 @@ public class ClassDeclarationVisitor extends ClassVisitor implements IClassVisit
 			classType = "Interface";
 		}
 
-		// TODO: Abstract
-
 		String[] nameSplit = name.split("/");
 		name = nameSplit[nameSplit.length - 1];
 		// this.myClass.addName(name);

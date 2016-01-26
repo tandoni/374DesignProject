@@ -160,16 +160,23 @@ public class Relation implements IRelation {
 			this.associations.add(s);
 	}
 
-//	@Override
-//	public void acceptSequence(IVisitor v) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	// @Override
+	// public void acceptSequence(IVisitor v) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 	@Override
 	public void acceptSequence(IVisitor v, int depth) {
 		// TODO Auto-generated method stub
 		System.out.println("Relation : acceptSequence");
+	}
+
+	@Override
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		v.postVisit(this);
 	}
 
 }

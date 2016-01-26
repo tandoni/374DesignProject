@@ -23,11 +23,10 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-//			 "headfirst.singleton.chocolate.ChocolateBoiler",
-//			 "headfirst.singleton.chocolate.ChocolateController"
+			"headfirst.singleton.chocolate.ChocolateBoiler", "headfirst.singleton.chocolate.ChocolateController"
 
-//			"java.util.Collections.shuffle(List<T> list)"
-			"problem.asm.DesignParser.main(String[] args)"
+			// "java.util.Collections.shuffle(List<T> list)"
+			// "problem.asm.DesignParser.main(String[] args)"
 
 			// "analyze.register.Register.checkout(int cashTendered)",
 			// "analyze.register.Sale",
@@ -62,7 +61,7 @@ public class MyMainApp {
 		OutputStream out2 = new FileOutputStream("./input_output/GraphForSDEdit.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
-		
+
 		traverser2.acceptSequence(writer2, 5);
 		out2.close();
 

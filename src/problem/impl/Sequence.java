@@ -63,12 +63,19 @@ public class Sequence implements ISequence {
 	@Override
 	public void acceptUML(IVisitor v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void acceptSequence(IVisitor v, int depth) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		v.postVisit(this);
 	}
 }

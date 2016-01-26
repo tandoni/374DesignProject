@@ -8,9 +8,12 @@ import org.objectweb.asm.Opcodes;
 
 import problem.impl.Model;
 import problem.interfaces.IModel;
+import problem.spotter.PatternSpotter;
+import problem.spotter.SingletonSpotter;
+import problem.visitor.ITraverser;
 
 public class DesignParser {
-
+	public final static int CALL_DEPTH = 45;
 	public IModel model;
 	boolean deb = false;
 
@@ -66,16 +69,17 @@ public class DesignParser {
 			// DECORATE field visitor with method visitor
 			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, model);
 
-			// TODO: add more DECORATORS here in later milestones to accomplish
-			// specific tasks
-			// specific tasks
-			// Tell the Reader to use our (heavily decorated) ClassVisitor to
-			// visit the class
+			// DECORATE Class method visitor with a decorator that detects
+			// singletons
+			// ClassVisitor singletonVisitor = new SingletonVisitor
 
 			// Tell the Reader to use our (heavily decorated) ClassVisitor to
 			// visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-			System.out.println("just a point");
 		}
+		PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
+		// Visit the pattern spotters here
+		ITraverser traverser = (ITraverser) this.model;
+		traverser.acceptSpotters(singletonSpotter);
 	}
 }

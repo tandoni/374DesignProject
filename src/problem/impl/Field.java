@@ -57,4 +57,11 @@ public class Field implements IField {
 		System.out.println("Field : acceptSequence");
 	}
 
+	@Override
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		v.postVisit(this);
+	}
+
 }
