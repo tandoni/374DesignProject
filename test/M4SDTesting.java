@@ -24,9 +24,9 @@ public class M4SDTesting {
 	@Test
 	public void test() throws IOException {
 		//DesignParser parser= new DesignParser();
-		String[] classes = {"problem.impl.Class"};
+		String[] classes = {"problem.asm.DesignParser.main(String[] args)"};
 		//("problem.asm.Class,Class,acceptUML,IVisitor", 5, classes);
-		//MyMainApp.classes = classes;
+		MyMainApp.classes = classes;
 		MyMainApp.main(classes);
 		//parser.main(classes);
 

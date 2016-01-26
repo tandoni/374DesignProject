@@ -1,6 +1,25 @@
 <improve>
 --
-Ivisitor
-visitor JUnit Test
+// IVisitor
+// visitor JUnit Test
 --
-Documetns: ther should be a UML for each milestone.
+Documents:  should be a UML for each milestone.
+
+—-
+<UML> B
+
+left: impl
+
+middle: model
+
+right: visitor
+—
+<Auto Teasting> B
+write more core for each cases
+
+—
+<Sington> B+
+missing some Singleton test file
+—
+
+
