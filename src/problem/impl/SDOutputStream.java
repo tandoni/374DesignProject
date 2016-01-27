@@ -45,7 +45,8 @@ public class SDOutputStream extends VisitorAdapter {
 				sb.append(name + ":" + name + "[a]\n");
 		}
 		for (String s : createdClasses) {
-			sb.append(String.format("/%s:%s[a]\n\n", s, s));
+			if (!s.toLowerCase().contains("exception"))
+				sb.append(String.format("/%s:%s[a]\n\n", s, s));
 		}
 		if (!SDClassNames.isEmpty() && SDClassNames != null)
 			sb.append(SDClassNames.get(0) + ":" + SDClassNames.get(0) + ".main\n");
@@ -53,21 +54,22 @@ public class SDOutputStream extends VisitorAdapter {
 		for (ISequence s : seqs) {
 			String from = s.getFromClass().split("\\.")[2];
 			String to = s.getToClass();
-			String calledMethod = s.getCalledMethod();
-			if (calledMethod.contains("init>")) {
-				calledMethod = "new";
+			if (!to.toLowerCase().contains("exception")) {
+				String calledMethod = s.getCalledMethod();
+				if (calledMethod.contains("init>")) {
+					calledMethod = "new";
+				}
+				List<String> args = s.getArguments();
+				sb.append(String.format("%s:%s.%s(", from, to, calledMethod));
+
+				for (int i = 0; i < args.size(); i++) {
+					sb.append("arg" + i);
+					if (i != args.size() - 1)
+						sb.append(", ");
+				}
+
+				sb.append(")\n");
 			}
-			List<String> args = s.getArguments();
-
-			sb.append(String.format("%s:%s.%s(", from, to, calledMethod));
-
-			for (int i = 0; i < args.size(); i++) {
-				sb.append("arg" + i);
-				if (i != args.size() - 1)
-					sb.append(", ");
-			}
-
-			sb.append(")\n");
 		}
 		this.write(sb.toString());
 

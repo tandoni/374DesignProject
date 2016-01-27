@@ -1,11 +1,54 @@
-DesignParser:DesignParser[a]
-PrintStream:PrintStream[a]
-String:String[a]
-/StringBuilder:StringBuilder[a]
+Collections:Collections[a]
+List:List[a]
+ListIterator:ListIterator[a]
+Collection:Collection[a]
+Iterator:Iterator[a]
+Comparable:Comparable[a]
+Comparator:Comparator[a]
+/Random:Random[a]
 
-DesignParser:DesignParser.main
-DesignParser:StringBuilder.new(arg0)
-DesignParser:StringBuilder.append(arg0)
-DesignParser:StringBuilder.toString(arg0)
-DesignParser:PrintStream.println(arg0)
-DesignParser:String.contains(arg0)
+Collections:Collections.main
+Collections:Random.new(arg0)
+Collections:Collections.shuffle(arg0, arg1)
+Collections:List.size(arg0)
+Collections:Random.nextInt(arg0)
+Collections:Collections.swap(arg0, arg1, arg2)
+Collections:List.toArray(arg0)
+Collections:Random.nextInt(arg0)
+Collections:Collections.swap(arg0, arg1, arg2)
+Collections:List.listIterator(arg0)
+Collections:ListIterator.next(arg0)
+Collections:ListIterator.set(arg0)
+Collections:List.get(arg0)
+Collections:List.set(arg0, arg1)
+Collections:List.set(arg0, arg1)
+Collections:List.size(arg0)
+Collections:List.set(arg0, arg1)
+Collections:List.listIterator(arg0)
+Collections:ListIterator.next(arg0)
+Collections:ListIterator.set(arg0)
+Collections:List.size(arg0)
+Collections:List.size(arg0)
+Collections:List.get(arg0)
+Collections:List.set(arg0, arg1)
+Collections:List.listIterator(arg0)
+Collections:List.listIterator(arg0)
+Collections:ListIterator.next(arg0)
+Collections:ListIterator.next(arg0)
+Collections:ListIterator.set(arg0)
+Collections:Collection.iterator(arg0)
+Collections:Iterator.next(arg0)
+Collections:Iterator.hasNext(arg0)
+Collections:Iterator.next(arg0)
+Collections:Comparable.compareTo(arg0)
+Collections:Collections.min(arg0)
+Collections:Collection.iterator(arg0)
+Collections:Iterator.next(arg0)
+Collections:Iterator.hasNext(arg0)
+Collections:Iterator.next(arg0)
+Collections:Comparator.compare(arg0, arg1)
+Collections:Collection.iterator(arg0)
+Collections:Iterator.next(arg0)
+Collections:Iterator.hasNext(arg0)
+Collections:Iterator.next(arg0)
+Collections:Comparable.compareTo(arg0)
