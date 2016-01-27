@@ -9,6 +9,13 @@ import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public abstract class PatternSpotter implements IVisitor {
+	protected IModel model;
+	protected String curClass = "";
+
+	public PatternSpotter(IModel model) {
+		this.model = model;
+	}
+
 	public void visit() {
 	}
 
@@ -16,6 +23,9 @@ public abstract class PatternSpotter implements IVisitor {
 	}
 
 	public void visit(IClass c) {
+		this.curClass = c.getName();
+		// We need to know the current class so that we can see if the field is
+		// also this class for various applications.
 	}
 
 	public void postVisit(IClass c) {

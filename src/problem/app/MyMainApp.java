@@ -23,10 +23,13 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-//			"headfirst.singleton.chocolate.ChocolateBoiler", "headfirst.singleton.chocolate.ChocolateController"
+			// "headfirst.singleton.chocolate.ChocolateBoiler",
+			// "headfirst.singleton.chocolate.ChocolateController"
 
-//			 "java.util.Collections.shuffle(List<T> list)"
-			 "problem.asm.DesignParser.main(String[] args)"
+			// "java.util.Collections.shuffle(List<T> list)"
+			// "problem.asm.DesignParser.main(String[] args)"
+			// "problem.asm.ClassMethodVisitor.visitMethod(int access, String
+			// name, String desc, String signature, String[] exceptions)"
 
 			// "analyze.register.Register.checkout(int cashTendered)",
 			// "analyze.register.Sale",
@@ -34,8 +37,26 @@ public class MyMainApp {
 
 			// "java.util.Collections.shuffle(List<T> list)"
 			// "analyze.register.Register.checkout(int cashTendered)"
-			// "problem.asm.DesignParser.main(String[] args)"
+			"problem.asm.DesignParser.main(String[] args)"
 			// "analyze.oneone.DataStandardizerApp.main(String[] args)"
+
+			// adapter tests
+			// "problem.z.adapter.IteratorToEnumerationAdapter"
+
+			// Most of our own project
+			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
+			// "problem.asm.ClassFieldVisitor",
+			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
+			// "problem.asm.IClassVisitor",
+			// "problem.asm.MethodVisitorHelper", "problem.impl.Class",
+			// "problem.impl.Field", "problem.impl.Method",
+			// "problem.impl.Model", "problem.impl.Relation",
+			// "problem.impl.SDOutputStream", "problem.impl.Sequence",
+			// "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
+			// "problem.interfaces.IField",
+			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
+			// "problem.interfaces.IRelation",
+			// "problem.interfaces.ISequence"
 
 	};
 
@@ -62,7 +83,7 @@ public class MyMainApp {
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
 
-		traverser2.acceptSequence(writer2, 5);
+		traverser2.acceptSequence(writer2, DesignParser.CALL_DEPTH);
 		out2.close();
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");

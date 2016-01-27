@@ -7,10 +7,12 @@ import org.objectweb.asm.Type;
 
 import problem.impl.Method;
 import problem.impl.Relation;
+import problem.impl.Sequence;
 import problem.interfaces.IClass;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
 
 public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 
@@ -69,6 +71,40 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 				// getArguments(desc));
 				// System.out.println(
 				// "halalell---------------------------------------------------------------------------------------------------------------");
+			}
+		}
+
+		if (this.model.getRecordSeq() && this.model.getCallDepth() < DesignParser.CALL_DEPTH) {
+			// If the name of the method is init, then we are intitalizing a
+			// new
+			// class, and need to record that
+			if (name.contains("init>")) {
+				System.out.println("a created class");
+				// this.model.addCreatedClass(owner.split("/")[owner.split("/").length
+				// - 1]);
+			} else {
+				// if this isn't a new class, then we add it SDClassNames
+				// because we need it the top of the SD diagram (most
+				// likely,
+				// still need to checkt to make sure)
+				// String temp = owner.split("/")[owner.split("/").length - 1];
+				// if (!this.model.getSDClassNames().contains(temp))
+				// this.model.addSDClassName(temp);
+				// }
+				// System.out.println("adding a sequence");
+				// This is where the sequence is added
+				// ISequence sequence = new
+				// Sequence(this.model.getCurrentClass(),
+				// owner.split("/")[owner.split("/").length - 1], name,
+				// getArguments(desc).split(","));
+				// this.model.addSequence(sequence);
+				// Increment the call depth by 1, since we added another
+				// Sequence to
+				// the SD.
+				// this.model.callDepthInc();
+				// if (!(name.equals("<init>"))) {
+				// this.subMethods.add(sequence);
+				// }
 			}
 		}
 

@@ -1,5 +1,6 @@
 package problem.asm;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.objectweb.asm.MethodVisitor;
@@ -92,9 +93,31 @@ public class MethodVisitorHelper extends MethodVisitor {
 			// Increment the call depth by 1, since we added another Sequence to
 			// the SD.
 			this.model.callDepthInc();
-			// if (!(name.equals("<init>"))) {
-			// this.subMethods.add(sequence);
-			// }
+			// Now we must traverse through this method call.
+			if (!(name.equals("<init>"))) {
+				DesignParser parser = new DesignParser();
+				String str = owner.replace("/", ".") + "." + sequence.getCalledMethod() + "(";
+				ArrayList<String> args2 = sequence.getArguments();
+				int size = args2.size();
+				if (args2.get(0) == "") {
+					System.out.println("should be here empty");
+				}
+				if (!(size == 1 && args2.get(0) == "")) {
+					for (int i = 0; i < size - 1; i++) {
+						str = str + args2.get(i) + " arg" + i + ", ";
+					}
+					str = str + args2.get(size - 1) + " arg";
+				}
+				str = str + ")";
+				String[] start = { str };
+				try {
+					parser.main(start);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
 		}
 	}
 

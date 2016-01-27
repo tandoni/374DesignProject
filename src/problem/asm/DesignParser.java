@@ -8,12 +8,13 @@ import org.objectweb.asm.Opcodes;
 
 import problem.impl.Model;
 import problem.interfaces.IModel;
+import problem.spotter.AdapterSpotter;
 import problem.spotter.PatternSpotter;
 import problem.spotter.SingletonSpotter;
 import problem.visitor.ITraverser;
 
 public class DesignParser {
-	public final static int CALL_DEPTH = 45;
+	public final static int CALL_DEPTH = 20;
 	public IModel model;
 	boolean deb = false;
 
@@ -53,7 +54,11 @@ public class DesignParser {
 					className += ".";
 				}
 				className += splitArg1[splitArg1len - 2];
-				this.model.addSDClassName(className.split("\\.")[2]);
+				if (className.contains("\\.")) {
+					this.model.addSDClassName(className.split("\\.")[2]);
+				} else {
+					this.model.addSDClassName(className);
+				}
 				this.model.setStartClass(className);
 			}
 			this.model.setCurrentClass(className);
@@ -78,8 +83,12 @@ public class DesignParser {
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		}
 		PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
+		// Decorate the adapterSpotter with the SingletonSpotter, so that we can
+		// do both visits in one iteration
+		PatternSpotter adapterSpotter = new AdapterSpotter(this.model);
 		// Visit the pattern spotters here
 		ITraverser traverser = (ITraverser) this.model;
 		traverser.acceptSpotters(singletonSpotter);
+		// traverser.acceptSpotters(adapterSpotter);
 	}
 }
