@@ -17,6 +17,7 @@ public class DecoratorSpotter extends PatternSpotterDec {
 	// are the classes that call this method. If multiple classes call the same
 	// method, we should be suspicious that this is a decorator.
 	static Map<String, Collection<String>> meths = new ConcurrentHashMap<String, Collection<String>>();
+	static ArrayList<String> decorates = new ArrayList<String>();
 
 	public DecoratorSpotter(IModel model, PatternSpotter spotter) {
 		super(model, spotter);
