@@ -1,0 +1,20 @@
+digraph example { 
+rankdir=BT;
+IteratorToEnumerationAdapter [
+shape="record",
+label = "{IteratorToEnumerationAdapter\n\<\<adapter\>\>|- itr : Iterator\l|+ hasMoreElements() : boolean\l+ nextElement() : Object\l}"
+];
+
+Enumeration [
+shape="record",
+fillcolor=red, style=filled,label = "{\<\<interface\>\>\nEnumeration\n\<\<target\>\>|+ hasMoreElements() : boolean\l+ nextElement() : Object\l}"
+];
+
+Iterator [
+shape="record",
+fillcolor=red, style=filled,label = "{\<\<interface\>\>\nIterator\n\<\<adaptee\>\>|+ hasNext() : boolean\l+ next() : Object\l+ remove() : void\l+ forEachRemaining(Consumer ) : void\l}"
+];
+
+
+IteratorToEnumerationAdapter -> Enumeration [arrowhead="empty", style="dashed"];
+IteratorToEnumerationAdapter -> Iterator [arrowhead = "vee"];}
