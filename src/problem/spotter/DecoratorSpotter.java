@@ -52,6 +52,9 @@ public class DecoratorSpotter extends PatternSpotterDec {
 			// this isn't the first sequence being generated, then it will
 			// already be at its previous max
 			parser.model.setCallDepth(0);
+			// get the size of the sequences, so that we know where to look for
+			// ours (since the sequences variable in Model is static).
+			int seqSize = parser.model.getSequences().size();
 			String[] str = new String[2];
 			// This is the class and method where we want to start the method
 			// tracing

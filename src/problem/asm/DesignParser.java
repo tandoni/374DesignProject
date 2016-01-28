@@ -119,24 +119,26 @@ public class DesignParser {
 				// visit the class
 				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			}
+
+			// Whichever pattern spotter is the first one (the one below this
+			// comment), it must extend PatternSpotterInit, while the rest of
+			// the
+			// pattern spotters must extend PatternSpotterDec
+			PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
+			// Decorate the adapterSpotter with the SingletonSpotter, so that we
+			// can
+			// do both visits in one iteration
+			PatternSpotter adapterSpotter = new AdapterSpotter(this.model, singletonSpotter);
+			// The spotterfinder finds the class
+			// PatternSpotter decoratorSpotterFinder = new
+			// DecoratorSpotterFinder(this.model, adapterSpotter);
+			// PatternSpotter decoratorSpotter = new
+			// DecoratorSpotter(this.model, adapterSpotter);
+			// Visit the pattern spotters here
+			ITraverser traverser = (ITraverser) this.model;
+			traverser.acceptSpotters(adapterSpotter);
 		}
-		// Whichever pattern spotter is the first one (the one below this
-		// comment), it must extend PatternSpotterInit, while the rest of the
-		// pattern spotters must extend PatternSpotterDec
-		// PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
-		// // Decorate the adapterSpotter with the SingletonSpotter, so that we
-		// can
-		// // do both visits in one iteration
-		// PatternSpotter adapterSpotter = new AdapterSpotter(this.model,
-		// singletonSpotter);
-		// // The spotterfinder finds the class
-		// // PatternSpotter decoratorSpotterFinder = new
-		// // DecoratorSpotterFinder(this.model, adapterSpotter);
-		// PatternSpotter decoratorSpotter = new DecoratorSpotter(this.model,
-		// adapterSpotter);
-		// // Visit the pattern spotters here
-		// ITraverser traverser = (ITraverser) this.model;
-		// traverser.acceptSpotters(decoratorSpotter);
+		System.out.println("done");
 	}
 
 	public int getCallDepth() {
