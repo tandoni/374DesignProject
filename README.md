@@ -48,7 +48,6 @@ Who did what:
 
 Instructions:
 	To test the sequence diagrams, you will have to type in the class names in the MyMainApp.java for the static field classes. After running the same file, it will generate a GraphForSDEdit.sd file in input_output directory which can now be opened by the SDEdit.jar file (We chose to prefer jar due to all members running different OS).
---
 
 Milestone 4:
 
@@ -73,6 +72,3 @@ Who did what:
 
 Instructions:
 	There are comments in MyMainApp.java specifying what to uncomment in order to run that. By uncommenting those and running the program, it generates a .gv file which can be opened by graphviz.
-
-
-https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj_M5.png
