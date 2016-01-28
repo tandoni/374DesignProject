@@ -39,7 +39,7 @@ The MyMainApp reads the files that are referenced on the static String array nam
 
 
 Milestone 3:
-
+--
 Design Improvements:
 	In order to extend our app to support sequence diagrams, we had to add a Sequence class which stores the information of from class, to class, the method being called, its arguments internally. Later this class is referred by SDOutputStream to get this info and parse it to create the file to be used by SDEdit. A method to add the sequences was needed in the Model class to basically add the sequences to a List too.
 
@@ -50,7 +50,7 @@ Instructions:
 	To test the sequence diagrams, you will have to type in the class names in the MyMainApp.java for the static field classes. After running the same file, it will generate a GraphForSDEdit.sd file in input_output directory which can now be opened by the SDEdit.jar file (We chose to prefer jar due to all members running different OS).
 
 Milestone 4:
-
+--
 Design Evolution:
 	In order to implement the Singleton class, we check when a new association is added in the MethodVisitorHelper class. When this happens, we check to see if the association is going to and from the same class. If this is the case, then we call addSingleton(String singleton) in Model. Also, we set the class type of that class to "singleton", so when we write the UML we can identify that class as a Singleton class, and do the special things for it we need to do.
 	![Alt text](https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj.png "design UML")
@@ -63,6 +63,7 @@ Instructions:
 
 
 Milestone 5:
+--
 Design Evolution:
 	In order to implement pattern recognition, we have a PatternSpotter which is an abstract class to hold our static string names and any special information pertaining to patter spotters. Our PatternSpotterDec extends this class and visits the classes to spot patterns. We then create a separate concrete class for each Pattern stopper. For example, for adapter, we have a class AdapterSpotter which extends PatterSpotterDec. Similarly for Decorate pattern spotter, we have DecoratorSpotter. We also had to add an accept spotter method in our class.java and getters and setters for stored info.
 	![Alt text](https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj_M5.png "design UML")
