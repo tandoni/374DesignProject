@@ -1,7 +1,6 @@
 package problem.impl;
 
 import problem.interfaces.IField;
-import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Field implements IField {

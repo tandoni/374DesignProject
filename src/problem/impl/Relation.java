@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import problem.app.MyMainApp;
 import problem.interfaces.IRelation;
-import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Relation implements IRelation {

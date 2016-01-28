@@ -7,12 +7,9 @@ import org.objectweb.asm.Type;
 
 import problem.impl.Method;
 import problem.impl.Relation;
-import problem.impl.Sequence;
 import problem.interfaces.IClass;
-import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
-import problem.interfaces.ISequence;
 
 public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 

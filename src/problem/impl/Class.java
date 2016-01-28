@@ -9,7 +9,6 @@ import problem.interfaces.IClass;
 import problem.interfaces.IField;
 import problem.interfaces.IMethod;
 import problem.interfaces.IRelation;
-import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Class implements IClass {

@@ -6,8 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import problem.interfaces.IClass;
-import problem.interfaces.IField;
-import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 

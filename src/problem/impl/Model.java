@@ -1,11 +1,12 @@
 package problem.impl;
 
-import org.objectweb.asm.Type;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.objectweb.asm.Type;
 
 import problem.app.MyMainApp;
 import problem.interfaces.IClass;
@@ -341,15 +342,15 @@ public class Model implements IModel {
 	}
 
 	public int getCallDepth() {
-		return this.callDepth;
+		return Model.callDepth;
 	}
 
 	public void callDepthInc() {
-		this.callDepth++;
+		Model.callDepth++;
 	}
 	
 	public void setCallDepth(int i){
-		this.callDepth = i;
+		Model.callDepth = i;
 	}
 
 	@Override

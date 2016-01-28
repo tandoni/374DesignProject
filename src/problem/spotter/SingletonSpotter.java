@@ -1,8 +1,5 @@
 package problem.spotter;
 
-import org.objectweb.asm.Type;
-
-import problem.interfaces.IClass;
 import problem.interfaces.IField;
 import problem.interfaces.IModel;
 
@@ -25,7 +22,6 @@ public class SingletonSpotter extends PatternSpotterInit {
 	// pattern and makes the necessary changes to the Model class.
 	@Override
 	public void visit(IField f) {
-		String type = Type.getType(f.getDescription()).getClassName();
 		// The check to see if a private static instance of the class is
 		// instantiated inside of itself (means this is a singleton)
 		// System.out.println("f.getDescription(): " + f.getDescription());

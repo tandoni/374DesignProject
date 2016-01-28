@@ -1,19 +1,15 @@
 package problem.spotter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-import problem.asm.DesignParser;
 import problem.interfaces.IClass;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
-import problem.interfaces.ISequence;
 
 public class DecoratorSpotter extends PatternSpotterDec {
 	// This is map where the key is the name of the method, and the Collection
@@ -124,7 +120,6 @@ public class DecoratorSpotter extends PatternSpotterDec {
 	}
 
 	private void removeMethsWithOneClass() {
-		@SuppressWarnings("unchecked")
 		Set<String> keys = DecoratorSpotter.meths.keySet();
 		for (String key : keys) {
 			if (DecoratorSpotter.meths.get(key).size() == 1) {

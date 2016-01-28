@@ -67,9 +67,6 @@ public class MethodVisitorHelper extends MethodVisitor {
 		}
 		// System.out.println("current Class: " + this.model.getCurrentClass());
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
-		String[] args = getArgumentsType(desc);
-
-		String[] ownerSplit = owner.split("/");
 
 		if (this.model.getRecordSeq() && this.model.getCallDepth() < DesignParser.MAX_CALL_DEPTH) {
 			// If the name of the method is init, then we are intitalizing a new

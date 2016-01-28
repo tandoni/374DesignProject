@@ -14,7 +14,6 @@ import problem.interfaces.IModel;
 import problem.spotter.AdapterSpotter;
 import problem.spotter.DecoratorSpotter;
 import problem.spotter.PatternSpotter;
-import problem.spotter.PatternSpotterInit;
 import problem.spotter.SingletonSpotter;
 import problem.visitor.ITraverser;
 
