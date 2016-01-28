@@ -2,6 +2,7 @@ package problem.spotter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,7 +17,6 @@ public class DecoratorSpotter extends PatternSpotterDec {
 	// are the classes that call this method. If multiple classes call the same
 	// method, we should be suspicious that this is a decorator.
 	static Map<String, Collection<String>> meths = new ConcurrentHashMap<String, Collection<String>>();
-	private static Collection<String> decorates = new ArrayList<String>();
 
 	public DecoratorSpotter(IModel model, PatternSpotter spotter) {
 		super(model, spotter);
@@ -98,6 +98,7 @@ public class DecoratorSpotter extends PatternSpotterDec {
 			// stored), then we know this is an adapter
 			ArrayList<String> interfaces = new ArrayList<String>();
 			String extender = "";
+
 			if (relations != null) {
 				interfaces = (ArrayList<String>) relations.getInterfaces();
 				extender = relations.getSuperClass();
