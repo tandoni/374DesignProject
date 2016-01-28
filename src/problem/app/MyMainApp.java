@@ -23,8 +23,8 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-			// "headfirst.singleton.chocolate.ChocolateBoiler",
-			// "headfirst.singleton.chocolate.ChocolateController"
+			 "headfirst.singleton.chocolate.ChocolateBoiler",
+			 "headfirst.singleton.chocolate.ChocolateController"
 
 			// "java.util.Collections.shuffle(List<T> list)"
 			// "problem.asm.DesignParser.main(String[] args)"
@@ -38,19 +38,19 @@ public class MyMainApp {
 			// "java.util.Collections.shuffle(List<T> list)", "5"
 			// "analyze.register.Register.checkout(int cashTendered)"
 			// "problem.asm.DesignParser.main(String[] args)"
-//			 "analyze.oneone.DataStandardizerApp.main(String[] args)"
+			// "analyze.oneone.DataStandardizerApp.main(String[] args)"
 
 			// decorator tests
 			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
 			// "problem.z.decorator.Soy.getDescription()", "5"
-			 "problem.z.decorator.Beverage",
-			 "problem.z.decorator.CondimentDecorator",
-			 "problem.z.decorator.DarkRoast",
-			 "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
-			 "problem.z.decorator.HouseBlend",
-			 "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
-			 "problem.z.decorator.StarbuzzCoffee",
-			 "problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			// "problem.z.decorator.Beverage",
+			// "problem.z.decorator.CondimentDecorator",
+			// "problem.z.decorator.DarkRoast",
+			// "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
+			// "problem.z.decorator.HouseBlend",
+			// "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
+			// "problem.z.decorator.StarbuzzCoffee",
+			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
 //			"problem.z.adapter.IteratorToEnumerationAdapter", "java.util.Enumeration", "java.util.Iterator"
@@ -68,7 +68,13 @@ public class MyMainApp {
 			// "problem.interfaces.IField",
 			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
 			// "problem.interfaces.IRelation",
-			// "problem.interfaces.ISequence"
+			// "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
+			// "problem.spotter.DecoratorSpotter",
+			// "problem.spotter.PatternSpotter",
+			// "problem.spotter.PatternSPotterDec",
+			// "problem.spotter.PatternSpotterInit",
+			// "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+			// "problem.visitor.VisitorAdapter"
 
 	};
 

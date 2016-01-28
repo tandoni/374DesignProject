@@ -37,7 +37,7 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 		if (owner.equals(this.myClass.getName())) {
 			// create relation for association
-			IRelation r = new Relation(ownerSplit[ownerSplit.length - 1]);
+			IRelation r = new Relation(owner);
 			r.addAssociations(fieldSplit[fieldSplit.length - 1]);
 			this.model.addRelation(r);
 		}

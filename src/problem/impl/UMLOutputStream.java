@@ -43,19 +43,19 @@ public class UMLOutputStream extends VisitorAdapter {
 		String color = "white";
 		String adap = "";
 		String deco = "";
-		
+
 		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
 			String type = c.getClassTypes2().get(PatternSpotter.ADAPTERSTR);
 			adap = String.format("\\n\\<\\<%s\\>\\>", type);
 			color = "red";
 		}
-		
-		if(c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
+
+		if (c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
 			String type = c.getClassTypes2().get(PatternSpotter.DECORATORSTR);
 			deco = String.format("\\n\\<\\<%s\\>\\>", type);
 			color = "green";
 		}
-		
+
 		if (c.getClassType().equalsIgnoreCase("Interface")) {
 			s = String.format("fillcolor=%s, style=filled,label = \"{\\<\\<interface\\>\\>\\n%s", color, c.getName());
 		} else if (c.getClassType().equalsIgnoreCase("Abstract")) {
@@ -67,15 +67,15 @@ public class UMLOutputStream extends VisitorAdapter {
 			// class a different color. You can probably do that here, but if
 			// not just see if c.getClassType() == "Singleton". If it does, then
 			// do it there.
-			s = String.format("fillcolor=%s, style=filled, label = \"{%s\n\\<\\<Singleton\\>\\>", color, c.getName());
+			s = String.format("color=blue, label = \"{%s\\n\\<\\<Singleton\\>\\>", c.getName());
 		} else {
 			s = String.format("fillcolor=%s, style=filled, label = \"{%s", color, c.getName());
 		}
 		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
 			s += adap;
 		}
-		if(c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
-			s+= deco;
+		if (c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
+			s += deco;
 		}
 
 		s += "|";

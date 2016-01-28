@@ -51,7 +51,6 @@ public class AdapterSpotter extends PatternSpotterDec {
 	public void visit(IClass c) {
 		super.visit(c);
 		findInterfaces();
-		System.out.println("here");
 		// I'm checking to see if this class has any interfaces (that are in the
 		// UML) and if this
 		// class has any relations (to classes in this UML)

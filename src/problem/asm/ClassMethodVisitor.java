@@ -118,6 +118,7 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		for (String s : splitArgs) {
 			if (s != "") {
 				IRelation r = new Relation(this.myClass.getName());
+				System.out.println("this.myClass.getName(): " + this.myClass.getFullName());
 				r.addUses(s);
 				this.model.addRelation(r);
 			}

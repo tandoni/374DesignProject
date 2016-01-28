@@ -27,8 +27,9 @@ public class DecoratorSpotter extends PatternSpotterDec {
 	public void visit(IMethod m) {
 		super.visit(m);
 		// If its a constructor, jsut give up now
-		if (m.getName().equals("<init>"))
+		if (m.getName().contains("init>")) {
 			return;
+		}
 		// Add this class to the classes which have the method of the same name
 		if (!DecoratorSpotter.meths.containsKey(m.getName())) {
 			DecoratorSpotter.meths.put(m.getName(), new ArrayList<String>());
@@ -76,14 +77,13 @@ public class DecoratorSpotter extends PatternSpotterDec {
 			// IModel tempMod = parser.model;
 			// ArrayList<ISequence> seq = model.getSequences();
 			// System.out.println("seq");
-			// if (!DecoratorSpotter.decorates.contains(this.curClass)) {
-			// DecoratorSpotter.decorates.add(this.curClass);
-			// this.model.getNamedClass(this.curClass).addClassTypes2(PatternSpotter.DECORATORSTR,
-			// "decorator");
-			// }
+			if (!DecoratorSpotter.decorates.contains(this.curClass)
+					&& !this.model.getNamedClass(curClass).getClassTypes2().containsKey(ADAPTERSTR)) {
+				DecoratorSpotter.decorates.add(this.curClass);
+				this.model.getNamedClass(this.curClass).addClassTypes2(PatternSpotter.DECORATORSTR, "decorator");
+			}
 		}
 
-		System.out.println("ehre");
 	}
 
 	@Override
@@ -97,25 +97,24 @@ public class DecoratorSpotter extends PatternSpotterDec {
 			// associations (we know only associations to classes in the UML are
 			// stored), then we know this is an adapter
 			ArrayList<String> interfaces = new ArrayList<String>();
+			String extender = "";
 			if (relations != null) {
 				interfaces = (ArrayList<String>) relations.getInterfaces();
+				extender = relations.getSuperClass();
 			}
 
-			// if (c.getClassTypes2().containsKey(DECORATORSTR)) {
-			// if (!c.getClassTypes2().get(DECORATORSTR).contains("decorator")
-			// && c.getClass().getSuperclass() == null
-			// && interfaces.size() == 0) {
-			System.out.println("c.getClass().getSuperclass(): " + c.getClass().getSuperclass());
-			if (!c.getClassTypes2().containsKey(DECORATORSTR)
-					&& c.getClass().getSuperclass().toString().contains("java.lang.Object") && interfaces.size() == 0) {
+			// If the class is not decorated already, and it does not extend any
+			// classes
+			if (!c.getClassTypes2().containsKey(ADAPTERSTR) && interfaces.size() == 0) {
 				Collection<IMethod> met = c.getMethods();
 				for (IMethod me : met) {
 					if (meths.containsKey(me.getName())) {
-						if (!this.model.getNamedClass(c.getName()).getClassTypes2().containsKey(ADAPTERSTR))
+						if (!this.model.getNamedClass(c.getName()).getClassTypes2().containsKey(ADAPTERSTR)
+								&& !c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
 							this.model.getNamedClass(c.getName()).addClassTypes2(PatternSpotter.DECORATORSTR,
 									"component");
+						}
 					}
-					// }
 				}
 			}
 		}
