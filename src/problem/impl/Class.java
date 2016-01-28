@@ -17,6 +17,8 @@ public class Class implements IClass {
 	private Collection<IField> fields;
 	private Collection<IRelation> relations;
 	private String classType;
+	// ClassType2 is for special things used in decorators.
+	private ArrayList<String> classTypes2 = new ArrayList<String>();
 
 	// public Class() {
 	// this.methods = new ArrayList<IMethod>();
@@ -128,6 +130,17 @@ public class Class implements IClass {
 	@Override
 	public void setClassType(String s) {
 		this.classType = s;
+	}
+
+	// ClassType2 is for special things used in decorators.
+	@Override
+	public void addClassTypes2(String addon) {
+		this.classTypes2.add(addon);
+	}
+
+	@Override
+	public ArrayList<String> getClassTypes2() {
+		return this.classTypes2;
 	}
 
 	// @Override

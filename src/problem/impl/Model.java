@@ -144,6 +144,10 @@ public class Model implements IModel {
 	// this.relations.put(r.getSubClass(), r);
 	// }
 
+	public Map<String, IRelation> getRelationsMap() {
+		return Model.relations;
+	}
+
 	@Override
 	public Collection<IRelation> getRelations() {
 

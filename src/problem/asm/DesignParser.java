@@ -6,6 +6,9 @@ import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
 
+import problem.asm.seq.ClassDeclarationVisitorSeq;
+import problem.asm.seq.ClassFieldVisitorSeq;
+import problem.asm.seq.ClassMethodVisitorSeq;
 import problem.impl.Model;
 import problem.interfaces.IModel;
 import problem.spotter.AdapterSpotter;
@@ -34,6 +37,7 @@ public class DesignParser {
 	public void main(String[] args) throws IOException {
 		System.out.println("args: " + args);
 		for (String className : args) {
+			this.model.setCurrentClass(className);
 			// ASM's ClassReader does the heavy lifting of parsing the compiled
 			// Java class
 			// System.out.println("currentClass: " +
@@ -60,27 +64,51 @@ public class DesignParser {
 					this.model.addSDClassName(className);
 				}
 				this.model.setStartClass(className);
+
+				// System.out.println("className: " + className);
+				ClassReader reader = new ClassReader(className);
+
+				// make class declaration visitor to get superclass and
+				// interfaces
+				ClassVisitor decVisitor = new ClassDeclarationVisitorSeq(Opcodes.ASM5, model);
+
+				// DECORATE declaration visitor with field visitor
+				ClassVisitor fieldVisitor = new ClassFieldVisitorSeq(Opcodes.ASM5, decVisitor, model);
+
+				// DECORATE field visitor with method visitor
+				ClassVisitor methodVisitor = new ClassMethodVisitorSeq(Opcodes.ASM5, fieldVisitor, model);
+
+				// DECORATE Class method visitor with a decorator that detects
+				// singletons
+				// ClassVisitor singletonVisitor = new SingletonVisitor
+
+				// Tell the Reader to use our (heavily decorated) ClassVisitor
+				// to
+				// visit the class
+				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+			} else {
+				// System.out.println("className: " + className);
+				ClassReader reader = new ClassReader(className);
+
+				// make class declaration visitor to get superclass and
+				// interfaces
+				ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
+
+				// DECORATE declaration visitor with field visitor
+				ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, model);
+
+				// DECORATE field visitor with method visitor
+				ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, model);
+
+				// DECORATE Class method visitor with a decorator that detects
+				// singletons
+				// ClassVisitor singletonVisitor = new SingletonVisitor
+
+				// Tell the Reader to use our (heavily decorated) ClassVisitor
+				// to
+				// visit the class
+				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			}
-			this.model.setCurrentClass(className);
-			// System.out.println("className: " + className);
-			ClassReader reader = new ClassReader(className);
-
-			// make class declaration visitor to get superclass and interfaces
-			ClassVisitor decVisitor = new ClassDeclarationVisitor(Opcodes.ASM5, model);
-
-			// DECORATE declaration visitor with field visitor
-			ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5, decVisitor, model);
-
-			// DECORATE field visitor with method visitor
-			ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5, fieldVisitor, model);
-
-			// DECORATE Class method visitor with a decorator that detects
-			// singletons
-			// ClassVisitor singletonVisitor = new SingletonVisitor
-
-			// Tell the Reader to use our (heavily decorated) ClassVisitor to
-			// visit the class
-			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 		}
 		PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
 		// Decorate the adapterSpotter with the SingletonSpotter, so that we can
@@ -89,6 +117,6 @@ public class DesignParser {
 		// Visit the pattern spotters here
 		ITraverser traverser = (ITraverser) this.model;
 		traverser.acceptSpotters(singletonSpotter);
-		// traverser.acceptSpotters(adapterSpotter);
+		traverser.acceptSpotters(adapterSpotter);
 	}
 }

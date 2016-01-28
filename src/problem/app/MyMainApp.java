@@ -16,9 +16,9 @@ import problem.visitor.IVisitor;
 public class MyMainApp {
 
 	public static String[] classes = {
+			// Test classes
 			// "analyze.AbstractClassTwoAbstractMethods",
-			// "analyze.ClassPrivate",
-			// "analyze.ClassWithJustMainMethod",
+			// "analyze.ClassPrivate", "analyze.ClassWithJustMainMethod",
 			// "analyze.ClassWithOneVariable", "analyze.Interface",
 			// "analyze.ProtectedClass"
 
@@ -37,11 +37,11 @@ public class MyMainApp {
 
 			// "java.util.Collections.shuffle(List<T> list)"
 			// "analyze.register.Register.checkout(int cashTendered)"
-			"problem.asm.DesignParser.main(String[] args)"
+			// "problem.asm.DesignParser.main(String[] args)"
 			// "analyze.oneone.DataStandardizerApp.main(String[] args)"
 
 			// adapter tests
-			// "problem.z.adapter.IteratorToEnumerationAdapter"
+			"problem.z.adapter.IteratorToEnumerationAdapter", "java.util.Enumeration", "java.util.Iterator"
 
 			// Most of our own project
 			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",

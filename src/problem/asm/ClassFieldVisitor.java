@@ -5,9 +5,11 @@ import org.objectweb.asm.FieldVisitor;
 //import org.objectweb.asm.Type;
 
 import problem.impl.Field;
+import problem.impl.Relation;
 import problem.interfaces.IClass;
 import problem.interfaces.IField;
 import problem.interfaces.IModel;
+import problem.interfaces.IRelation;
 
 public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor {
 
@@ -35,8 +37,7 @@ public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor {
 		// if(decorated instanceof IClassVisitor){
 		// this.myClass = ((IClassVisitor) decorated).getBelongedClass();
 		// }
-		String curClassName = this.model.getCurrentClass().split("\\.")[this.model.getCurrentClass().split("\\.").length
-				- 1];
+
 		String fieldName = desc.split("/")[desc.split("/").length - 1];
 		if (fieldName.contains(";")) {
 			fieldName = fieldName.substring(0, fieldName.indexOf(";"));
@@ -45,6 +46,11 @@ public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor {
 
 		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
 		namedClass.addField(f);
+		if (this.model.getClassNames().contains(fieldName)) {
+			IRelation r = new Relation(this.myClass.getName());
+			r.addAssociations(fieldName);
+			this.model.addRelation(r);
+		}
 
 		return toDecorate;
 	}

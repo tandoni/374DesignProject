@@ -3,6 +3,7 @@ package problem.interfaces;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import problem.visitor.ITraverser;
 import problem.visitor.IVisitor;
@@ -15,6 +16,8 @@ public interface IModel extends ITraverser {
 	public void addRelation(IRelation r);
 
 	public Collection<IRelation> getRelations();
+
+	public Map<String, IRelation> getRelationsMap();
 
 	public IClass getNamedClass(String s);
 

@@ -45,6 +45,7 @@ public class Relation implements IRelation {
 		this.superClass = "";
 		this.interfaces = new ArrayList<String>();
 		setClassNames();
+		// add what this class implements
 		for (String s : interfaces) {
 			if (this.classNames.contains(getPureName(s)))
 				this.interfaces.add(s);
@@ -62,6 +63,7 @@ public class Relation implements IRelation {
 		if (this.classNames.contains(getPureName(superClass)))
 			this.superClass = superClass;
 		this.interfaces = new ArrayList<String>();
+		// add what this class implements
 		for (String s : interfaces) {
 			if (this.classNames.contains(getPureName(s)))
 				this.interfaces.add(s);
@@ -149,8 +151,9 @@ public class Relation implements IRelation {
 	@Override
 	public void addAssociations(String[] associationsName) {
 		for (String s : associationsName) {
-			if (!this.associations.contains(s) && this.classNames.contains(getPureName(s)))
-				this.associations.add(s);
+			 if (!this.associations.contains(s) &&
+			 this.classNames.contains(getPureName(s)))
+			this.associations.add(s);
 		}
 	}
 

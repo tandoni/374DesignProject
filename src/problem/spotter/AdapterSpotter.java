@@ -13,7 +13,11 @@ import problem.interfaces.IRelation;
 
 public class AdapterSpotter extends PatternSpotter {
 	Collection<IRelation> r;
-	Map<String, Collection<String>> thisInterfaces = new HashMap<String, Collection<String>>();
+	// It shouldn't matter that this is static, since we should only have one
+	// instance of AdapterSpotter at any time, but it's good to do just to
+	// possibly prevent headaches.
+	static Map<String, Collection<String>> thisInterfaces = new HashMap<String, Collection<String>>();
+	static Map<String, Collection<String>> thisFields = new HashMap<String, Collection<String>>();
 
 	public AdapterSpotter(IModel model) {
 		super(model);
@@ -23,25 +27,57 @@ public class AdapterSpotter extends PatternSpotter {
 	// Visit the methods. If the method is a method of an interface being
 	// implemented by this class, and that method uses a field, then this might
 	// be an Adapter pattern.
-	@Override
-	public void visit(IMethod m) {
-		System.out.println("visitng");
-	}
+	// @Override
+	// public void visit(IMethod m) {
+	// if (!thisInterfaces.isEmpty()) {
+	//
+	// }
+	// System.out.println("visitng");
+	// }
 
-	@Override
-	public void visit(IField f) {
-		String fieldType2 = f.getDescription();
-		String fieldType1 = f.getDescription().split("/")[f.getDescription().split("/").length - 1];
-		String fieldType = fieldType1.substring(0, fieldType1.length() - 1);
-		if (thisInterfaces.containsKey(fieldType)) {
-			System.out.println("victory");
-		}
-	}
+	// @Override
+	// public void visit(IField f) {
+	// String fieldType2 = f.getDescription();
+	// String fieldType1 =
+	// f.getDescription().split("/")[f.getDescription().split("/").length - 1];
+	// String fieldType = fieldType1.substring(0, fieldType1.length() - 1);
+	// if (!thisFields.containsKey(curClass)) {
+	// thisFields.put(curClass, new ArrayList<String>());
+	// }
+	// ArrayList<String> list = (ArrayList<String>) thisFields.get(curClass);
+	// list.add(fieldType);
+	// thisFields.put(curClass, list);
+	// }
 
 	@Override
 	public void visit(IClass c) {
 		super.visit(c);
 		findInterfaces();
+		System.out.println("here");
+		// I'm checking to see if this class has any interfaces (that are in the
+		// UML) and if this
+		// class has any relations (to classes in this UML)
+		if (thisInterfaces.containsKey(c.getName()) && this.model.getRelationsMap().containsKey(c.getName())) {
+			// I'm getting the IRelation that holds all relations for this class
+			// I'm visiting.
+			IRelation relations = this.model.getRelationsMap().get(c.getName());
+			// Get all associations for this class. If there are any
+			// associations (we know only associations to classes in the UML are
+			// stored), then we know this is an adapter
+			ArrayList<String> assocs = (ArrayList<String>) relations.getAssociations();
+			if (!assocs.isEmpty()) {
+				// The current class we're in is the "adapter"
+				this.model.getNamedClass(c.getName()).addClassTypes2("adapter");
+
+				// The interface we are trying to emulate is the "target"
+				ArrayList<String> interf = (ArrayList<String>) thisInterfaces.get(c.getName());
+				this.model.getNamedClass(interf.get(0)).addClassTypes2("target");
+
+				// The class we're taking into the adapter to be used as if it
+				// is another class is the "adaptee"
+				this.model.getNamedClass(assocs.get(0)).addClassTypes2("adaptee");
+			}
+		}
 	}
 
 	private void findInterfaces() {
