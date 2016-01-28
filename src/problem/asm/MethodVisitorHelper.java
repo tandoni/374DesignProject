@@ -71,7 +71,7 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 		String[] ownerSplit = owner.split("/");
 
-		if (this.model.getRecordSeq() && this.model.getCallDepth() < DesignParser.CALL_DEPTH) {
+		if (this.model.getRecordSeq() && this.model.getCallDepth() < DesignParser.MAX_CALL_DEPTH) {
 			// If the name of the method is init, then we are intitalizing a new
 			// class, and need to record that
 			if (name.contains("init>")) {

@@ -75,40 +75,6 @@ public class ClassMethodVisitorSeq extends ClassVisitor implements IClassVisitor
 			}
 		}
 
-		if (this.model.getRecordSeq() && this.model.getCallDepth() < DesignParser.CALL_DEPTH) {
-			// If the name of the method is init, then we are intitalizing a
-			// new
-			// class, and need to record that
-			if (name.contains("init>")) {
-				System.out.println("a created class");
-				// this.model.addCreatedClass(owner.split("/")[owner.split("/").length
-				// - 1]);
-			} else {
-				// if this isn't a new class, then we add it SDClassNames
-				// because we need it the top of the SD diagram (most
-				// likely,
-				// still need to checkt to make sure)
-				// String temp = owner.split("/")[owner.split("/").length - 1];
-				// if (!this.model.getSDClassNames().contains(temp))
-				// this.model.addSDClassName(temp);
-				// }
-				// System.out.println("adding a sequence");
-				// This is where the sequence is added
-				// ISequence sequence = new
-				// Sequence(this.model.getCurrentClass(),
-				// owner.split("/")[owner.split("/").length - 1], name,
-				// getArguments(desc).split(","));
-				// this.model.addSequence(sequence);
-				// Increment the call depth by 1, since we added another
-				// Sequence to
-				// the SD.
-				// this.model.callDepthInc();
-				// if (!(name.equals("<init>"))) {
-				// this.subMethods.add(sequence);
-				// }
-			}
-		}
-
 		this.myClass = this.getBelongedClass();
 
 		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
@@ -117,15 +83,6 @@ public class ClassMethodVisitorSeq extends ClassVisitor implements IClassVisitor
 		// addReturnType(desc);
 
 		String[] splitArgs = getArguments(desc).split("/");
-		// System.out.println("splitArgs: " + splitArgs[0]);
-
-		// for (String s : splitArgs) {
-		// if (s != "") {
-		// IRelation r = new Relation(this.myClass.getName());
-		// r.addUses(s);
-		// this.model.addRelation(r);
-		// }
-		// }
 
 		MethodVisitor newToDecorate = new MethodVisitorHelperSeq(Opcodes.ASM5, this.model, toDecorate, this.myClass);
 		// getSubMethods() will get the method for the sequence.
@@ -133,7 +90,6 @@ public class ClassMethodVisitorSeq extends ClassVisitor implements IClassVisitor
 		namedClass.addMethod(m);
 
 		return newToDecorate;
-
 	}
 	//
 	// void addAccessLevel(int access){

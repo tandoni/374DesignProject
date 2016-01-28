@@ -20,7 +20,7 @@ import problem.visitor.ITraverser;
 
 public class DesignParser {
 	public final static int DEFAULT_CALL_DEPTH = 5;
-	public static int CALL_DEPTH = 5;
+	public static int MAX_CALL_DEPTH = 5;
 	public IModel model;
 	boolean deb = false;
 
@@ -40,10 +40,10 @@ public class DesignParser {
 	public void main(String[] args) throws IOException {
 		System.out.println("args: " + args);
 		if (args.length == 1 && args[0].contains("(")) {
-			this.CALL_DEPTH = this.DEFAULT_CALL_DEPTH;
+			DesignParser.MAX_CALL_DEPTH = DesignParser.DEFAULT_CALL_DEPTH;
 		}
 		if (args.length == 2 && args[0].contains("(")) {
-			this.CALL_DEPTH = Integer.parseInt(args[1]);
+			DesignParser.MAX_CALL_DEPTH = Integer.parseInt(args[1]);
 		}
 		if (args[0].contains("(")) {
 			String className;
@@ -81,10 +81,6 @@ public class DesignParser {
 
 			// DECORATE field visitor with method visitor
 			ClassVisitor methodVisitor = new ClassMethodVisitorSeq(Opcodes.ASM5, fieldVisitor, model);
-
-			// DECORATE Class method visitor with a decorator that detects
-			// singletons
-			// ClassVisitor singletonVisitor = new SingletonVisitor
 
 			// Tell the Reader to use our (heavily decorated) ClassVisitor
 			// to
@@ -132,16 +128,15 @@ public class DesignParser {
 			// The spotterfinder finds the class
 			// PatternSpotter decoratorSpotterFinder = new
 			// DecoratorSpotterFinder(this.model, adapterSpotter);
-			// PatternSpotter decoratorSpotter = new
-			// DecoratorSpotter(this.model, adapterSpotter);
+			PatternSpotter decoratorSpotter = new DecoratorSpotter(this.model, adapterSpotter);
 			// Visit the pattern spotters here
 			ITraverser traverser = (ITraverser) this.model;
-			traverser.acceptSpotters(adapterSpotter);
+			traverser.acceptSpotters(decoratorSpotter);
 		}
 		System.out.println("done");
 	}
 
 	public int getCallDepth() {
-		return CALL_DEPTH;
+		return MAX_CALL_DEPTH;
 	}
 }

@@ -84,7 +84,7 @@ public class Class implements IClass {
 		v.preVisit(this);
 		v.visit(this);
 		for (IField f : this.fields) {
-			f.acceptUML(v);
+			f.acceptSpotters(v);
 		}
 
 		if (!this.fields.isEmpty()) {
@@ -92,7 +92,7 @@ public class Class implements IClass {
 		}
 
 		for (IMethod m : this.methods) {
-			m.acceptUML(v);
+			m.acceptSpotters(v);
 		}
 		v.postVisit(this);
 	}
