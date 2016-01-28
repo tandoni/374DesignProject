@@ -2,12 +2,12 @@ digraph example {
 rankdir=BT;
 IteratorToEnumerationAdapter [
 shape="record",
-label = "{IteratorToEnumerationAdapter\n\<\<adapter\>\>|- itr : Iterator\l|+ hasMoreElements() : boolean\l+ nextElement() : Object\l}"
+fillcolor=green, style=filled, label = "{IteratorToEnumerationAdapter\n\<\<adapter\>\>\n\<\<component\>\>|- itr : Iterator\l|+ hasMoreElements() : boolean\l+ nextElement() : Object\l}"
 ];
 
 Enumeration [
 shape="record",
-fillcolor=red, style=filled,label = "{\<\<interface\>\>\nEnumeration\n\<\<target\>\>|+ hasMoreElements() : boolean\l+ nextElement() : Object\l}"
+fillcolor=green, style=filled,label = "{\<\<interface\>\>\nEnumeration\n\<\<target\>\>\n\<\<decorator\>\>|+ hasMoreElements() : boolean\l+ nextElement() : Object\l}"
 ];
 
 Iterator [

@@ -12,7 +12,6 @@ import problem.interfaces.IField;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
-import problem.interfaces.ISequence;
 import problem.spotter.PatternSpotter;
 import problem.visitor.VisitorAdapter;
 
@@ -43,11 +42,18 @@ public class UMLOutputStream extends VisitorAdapter {
 		String s;
 		String color = "white";
 		String adap = "";
+		String deco = "";
 		
 		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
 			String type = c.getClassTypes2().get(PatternSpotter.ADAPTERSTR);
 			adap = String.format("\\n\\<\\<%s\\>\\>", type);
 			color = "red";
+		}
+		
+		if(c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
+			String type = c.getClassTypes2().get(PatternSpotter.DECORATORSTR);
+			deco = String.format("\\n\\<\\<%s\\>\\>", type);
+			color = "green";
 		}
 		
 		if (c.getClassType().equalsIgnoreCase("Interface")) {
@@ -63,10 +69,13 @@ public class UMLOutputStream extends VisitorAdapter {
 			// do it there.
 			s = String.format("fillcolor=%s, style=filled, label = \"{%s\n\\<\\<Singleton\\>\\>", color, c.getName());
 		} else {
-			s = String.format("label = \"{%s", c.getName());
+			s = String.format("fillcolor=%s, style=filled, label = \"{%s", color, c.getName());
 		}
 		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
 			s += adap;
+		}
+		if(c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
+			s+= deco;
 		}
 
 		s += "|";
