@@ -30,7 +30,6 @@ public class ClassDeclarationVisitor extends ClassVisitor implements IClassVisit
 
 		String classType = "normal";
 		// System.out.println("ClassDeclarationVisitor class name: " + name);
-		String[] cname = name.split("/");
 		this.model.setCurrentClass(name.replace("/", "."));
 		// System.out.println("current class: " + this.model.getCurrentClass());
 		// Interface
@@ -39,10 +38,10 @@ public class ClassDeclarationVisitor extends ClassVisitor implements IClassVisit
 		}
 
 		String[] nameSplit = name.split("/");
-		name = nameSplit[nameSplit.length - 1];
+		String nameS = nameSplit[nameSplit.length - 1];
 		// this.myClass.addName(name);
 		// this.myClass.setClassType(classType);
-		this.myClass = new Class(name, classType);
+		this.myClass = new Class(name, nameS, classType);
 
 		IRelation r;
 		if ((classType == "Interface") && (interfaces.length > 0)) {

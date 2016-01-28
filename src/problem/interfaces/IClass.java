@@ -32,4 +32,6 @@ public interface IClass extends ITraverser {
 
 	HashMap<String, String> getClassTypes2();
 
+	String getFullName();
+
 }

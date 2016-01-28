@@ -42,13 +42,10 @@ public class MyMainApp {
 
 			// decorator tests
 			// "problem.z.decorator.Soy.getDescription()", "0"
-			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator",
-			// "problem.z.decorator.DarkRoast",
-			// "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
-			// "problem.z.decorator.HouseBlend",
-			// "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
-			"problem.z.decorator.Soy",
-			// "problem.z.decorator.StarbuzzCoffee", "problem.z.decorator.Whip"
+			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator", "problem.z.decorator.DarkRoast",
+			"problem.z.decorator.Decaf", "problem.z.decorator.Espresso", "problem.z.decorator.HouseBlend",
+			"problem.z.decorator.Milk", "problem.z.decorator.Mocha", "problem.z.decorator.StarbuzzCoffee",
+			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
 			// "problem.z.adapter.IteratorToEnumerationAdapter",

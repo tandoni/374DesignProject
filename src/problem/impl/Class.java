@@ -13,7 +13,8 @@ import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Class implements IClass {
-
+	// used to call a SD from this class
+	private String fullName = "";
 	private String name;
 	private Collection<IMethod> methods;
 	private Collection<IField> fields;
@@ -47,6 +48,16 @@ public class Class implements IClass {
 		this.relations = new ArrayList<IRelation>();
 		// "Interface", "Abstract"
 		this.classType = classType;
+	}
+
+	public Class(String fullname, String name, String classType) {
+		this.name = name;
+		this.methods = new ArrayList<IMethod>();
+		this.fields = new ArrayList<IField>();
+		this.relations = new ArrayList<IRelation>();
+		// "Interface", "Abstract"
+		this.classType = classType;
+		this.fullName = fullname;
 	}
 
 	// This is where the code to write the UML for this class is called
@@ -89,6 +100,11 @@ public class Class implements IClass {
 	@Override
 	public String getName() {
 		return this.name;
+	}
+
+	@Override
+	public String getFullName() {
+		return this.fullName;
 	}
 
 	@Override

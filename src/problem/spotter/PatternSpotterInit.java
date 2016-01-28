@@ -11,7 +11,6 @@ import problem.visitor.IVisitor;
 public abstract class PatternSpotterInit extends PatternSpotter implements IVisitor {
 	protected IModel model;
 	protected String curClass = "";
-	public static final String ADAPTERSTR = "Adapter";
 
 	public PatternSpotterInit(IModel model) {
 		this.model = model;

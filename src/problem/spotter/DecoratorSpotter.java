@@ -25,13 +25,16 @@ public class DecoratorSpotter extends PatternSpotterDec {
 	@Override
 	public void visit(IMethod m) {
 		super.visit(m);
+		// If its a constructor, jsut give up now
+		if (m.getName().equals("<init>"))
+			return;
 		// Add this class to the classes which have the method of the same name
 		if (!this.meths.containsKey(m.getName())) {
 			this.meths.put(m.getName(), new ArrayList<String>());
 		}
 		ArrayList<String> list = (ArrayList<String>) this.meths.get(m.getName());
 		int size = list.size();
-		list.add(this.curClass);
+		list.add(this.curClassFull);
 		// If list is empty, then we know that this is isn't able to be
 		// decorated, so we simply add the current class as the first class
 		// which calls this method.
@@ -52,9 +55,9 @@ public class DecoratorSpotter extends PatternSpotterDec {
 			String[] str = new String[2];
 			// This is the class and method where we want to start the method
 			// tracing
-			str[0] = this.curClass + m.getName() + "()";
+			str[0] = this.curClassFull.replace("/", ".") + "." + m.getName() + "()";
 			// Call depth of 1
-			str[1] = "1";
+			str[1] = "5";
 			try {
 				parser.main(str);
 			} catch (IOException e) {

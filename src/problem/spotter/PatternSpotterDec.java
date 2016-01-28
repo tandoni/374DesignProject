@@ -12,6 +12,7 @@ public abstract class PatternSpotterDec extends PatternSpotter implements IVisit
 	protected IModel model;
 	private IVisitor decorated;
 	protected String curClass = "";
+	protected String curClassFull = "";
 
 	public PatternSpotterDec(IModel model, IVisitor decoratedd) {
 		this.decorated = decoratedd;
@@ -23,6 +24,7 @@ public abstract class PatternSpotterDec extends PatternSpotter implements IVisit
 
 	public void preVisit(IClass c) {
 		decorated.preVisit(c);
+		this.curClassFull = c.getFullName();
 		this.curClass = c.getName();
 		// We need to know the current class so that we can see if the field is
 		// also this class for various applications.
