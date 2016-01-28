@@ -2,6 +2,7 @@ package problem.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 import problem.visitor.ITraverser;
 
@@ -27,8 +28,8 @@ public interface IClass extends ITraverser {
 	// public void setClassType(String s);
 	void setClassType(String s);
 
-	void addClassTypes2(String addon);
+	void addClassTypes2(String spotter, String addon);
 
-	ArrayList<String> getClassTypes2();
+	HashMap<String, String> getClassTypes2();
 
 }

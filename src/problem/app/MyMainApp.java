@@ -40,8 +40,19 @@ public class MyMainApp {
 			// "problem.asm.DesignParser.main(String[] args)"
 			// "analyze.oneone.DataStandardizerApp.main(String[] args)"
 
+			// decorator tests
+			// "problem.z.decorator.Soy.getDescription()", "0"
+			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator",
+			// "problem.z.decorator.DarkRoast",
+			// "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
+			// "problem.z.decorator.HouseBlend",
+			// "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
+			"problem.z.decorator.Soy",
+			// "problem.z.decorator.StarbuzzCoffee", "problem.z.decorator.Whip"
+
 			// adapter tests
-			"problem.z.adapter.IteratorToEnumerationAdapter", "java.util.Enumeration", "java.util.Iterator"
+			// "problem.z.adapter.IteratorToEnumerationAdapter",
+			// "java.util.Enumeration", "java.util.Iterator"
 
 			// Most of our own project
 			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
@@ -83,7 +94,7 @@ public class MyMainApp {
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
 
-		traverser2.acceptSequence(writer2, DesignParser.CALL_DEPTH);
+		traverser2.acceptSequence(writer2, parser.getCallDepth());
 		out2.close();
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");

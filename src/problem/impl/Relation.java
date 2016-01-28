@@ -73,6 +73,8 @@ public class Relation implements IRelation {
 	}
 
 	public String getPureName(String s) {
+		if (s == null)
+			return "";
 		String[] split = s.split("/");
 		return split[split.length - 1];
 	}
@@ -151,9 +153,8 @@ public class Relation implements IRelation {
 	@Override
 	public void addAssociations(String[] associationsName) {
 		for (String s : associationsName) {
-			 if (!this.associations.contains(s) &&
-			 this.classNames.contains(getPureName(s)))
-			this.associations.add(s);
+			if (!this.associations.contains(s) && this.classNames.contains(getPureName(s)))
+				this.associations.add(s);
 		}
 	}
 

@@ -6,7 +6,7 @@ import problem.interfaces.IClass;
 import problem.interfaces.IField;
 import problem.interfaces.IModel;
 
-public class SingletonSpotter extends PatternSpotter {
+public class SingletonSpotter extends PatternSpotterInit {
 
 	// @Override
 	// public void visit(IClass c) {
@@ -35,7 +35,7 @@ public class SingletonSpotter extends PatternSpotter {
 			super.model.addSingleton(this.curClass);
 			this.model.getNamedClass(this.curClass).setClassType("singleton");
 		}
-//		System.out.println("here");
+		// System.out.println("here");
 	}
 
 }

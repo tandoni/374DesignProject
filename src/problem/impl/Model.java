@@ -248,47 +248,6 @@ public class Model implements IModel {
 		v.visit(this);
 		v.postVisit(this);
 
-		// if (depth > 0) {
-		// // System.out.println("Flag1");
-		// for (IClass clazz : this.classes) {
-		// for (IMethod m : clazz.getMethods()) {
-		// if ((m.getName()).equals(subMethods.getCalledMethod())) {
-		// // System.out.println("Flag2");
-		// String[] argTemp = this.getArgumentsType(m.getDescription());
-		// // System.out.println("argTemp " + argTemp);
-		// // System.out.println(subMethods.getFromClass() + " " +
-		// // subMethods.getToClass() + " " +
-		// // subMethods.getCalledMethod() + " " +
-		// // subMethods.getArguments());;
-		//
-		// List<String> all = new ArrayList<String>();
-		// for (String s : argTemp) {
-		// all.add(s);
-		// }
-		// List<String> subs = subMethods.getArguments();
-		// List<String> subsFinal = new ArrayList<String>();
-		// for (String s : subs) {
-		// if (s.contains("<")) {
-		// String a = s.substring(0, s.indexOf("<"));
-		// subsFinal.add(a);
-		// if (s.contains("*"))
-		// subsFinal.add("Random");
-		// }
-		// }
-		//
-		// // if (argTemp.equals(subsMethod.getArgs())) {
-		// // System.out.println("Flag3");
-		// for (ISequence innerSubM : m.getSubMethods()) {
-		// System.out.println(innerSubM.getCalledMethod() +
-		// innerSubM.getArguments());
-		// this.acceptSequence(v, innerSubM, depth - 1);
-		// // }
-		//
-		// }
-		// }
-		// }
-		// }
-		// }
 		return;
 	}
 
@@ -382,11 +341,15 @@ public class Model implements IModel {
 	}
 
 	public int getCallDepth() {
-		return Model.callDepth;
+		return this.callDepth;
 	}
 
 	public void callDepthInc() {
-		Model.callDepth++;
+		this.callDepth++;
+	}
+	
+	public void setCallDepth(int i){
+		this.callDepth = i;
 	}
 
 	@Override

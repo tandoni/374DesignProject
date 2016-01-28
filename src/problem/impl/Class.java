@@ -2,6 +2,8 @@ package problem.impl;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import problem.interfaces.IClass;
 import problem.interfaces.IField;
@@ -18,7 +20,9 @@ public class Class implements IClass {
 	private Collection<IRelation> relations;
 	private String classType;
 	// ClassType2 is for special things used in decorators.
-	private ArrayList<String> classTypes2 = new ArrayList<String>();
+	// The key is the adapter pattern we are storing the element for.
+	// The value is the actual class type attribute we want to get.
+	private Map<String, String> classTypes2 = new HashMap<String, String>();
 
 	// public Class() {
 	// this.methods = new ArrayList<IMethod>();
@@ -134,13 +138,13 @@ public class Class implements IClass {
 
 	// ClassType2 is for special things used in decorators.
 	@Override
-	public void addClassTypes2(String addon) {
-		this.classTypes2.add(addon);
+	public void addClassTypes2(String spotter, String addon) {
+		this.classTypes2.put(spotter, addon);
 	}
 
 	@Override
-	public ArrayList<String> getClassTypes2() {
-		return this.classTypes2;
+	public HashMap<String, String> getClassTypes2() {
+		return (HashMap<String, String>) this.classTypes2;
 	}
 
 	// @Override

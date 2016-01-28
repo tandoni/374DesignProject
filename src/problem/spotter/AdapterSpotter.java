@@ -11,7 +11,7 @@ import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 
-public class AdapterSpotter extends PatternSpotter {
+public class AdapterSpotter extends PatternSpotterDec {
 	Collection<IRelation> r;
 	// It shouldn't matter that this is static, since we should only have one
 	// instance of AdapterSpotter at any time, but it's good to do just to
@@ -19,8 +19,8 @@ public class AdapterSpotter extends PatternSpotter {
 	static Map<String, Collection<String>> thisInterfaces = new HashMap<String, Collection<String>>();
 	static Map<String, Collection<String>> thisFields = new HashMap<String, Collection<String>>();
 
-	public AdapterSpotter(IModel model) {
-		super(model);
+	public AdapterSpotter(IModel model, PatternSpotter spotter) {
+		super(model, spotter);
 		this.r = super.model.getRelations();
 	}
 
@@ -67,15 +67,15 @@ public class AdapterSpotter extends PatternSpotter {
 			ArrayList<String> assocs = (ArrayList<String>) relations.getAssociations();
 			if (!assocs.isEmpty()) {
 				// The current class we're in is the "adapter"
-				this.model.getNamedClass(c.getName()).addClassTypes2("adapter");
+				this.model.getNamedClass(c.getName()).addClassTypes2(AdapterSpotter.ADAPTERSTR, "adapter");
 
 				// The interface we are trying to emulate is the "target"
 				ArrayList<String> interf = (ArrayList<String>) thisInterfaces.get(c.getName());
-				this.model.getNamedClass(interf.get(0)).addClassTypes2("target");
+				this.model.getNamedClass(interf.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR, "target");
 
 				// The class we're taking into the adapter to be used as if it
 				// is another class is the "adaptee"
-				this.model.getNamedClass(assocs.get(0)).addClassTypes2("adaptee");
+				this.model.getNamedClass(assocs.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR, "adaptee");
 			}
 		}
 	}
