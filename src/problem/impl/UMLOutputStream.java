@@ -41,10 +41,19 @@ public class UMLOutputStream extends VisitorAdapter {
 	@Override
 	public void visit(IClass c) {
 		String s;
+		String color = "white";
+		String adap = "";
+		
+		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
+			String type = c.getClassTypes2().get(PatternSpotter.ADAPTERSTR);
+			adap = String.format("\\n\\<\\<%s\\>\\>", type);
+			color = "red";
+		}
+		
 		if (c.getClassType().equalsIgnoreCase("Interface")) {
-			s = String.format("color=\"red\",label = \"{\\<\\<interface\\>\\>\\n%s ", c.getName());
+			s = String.format("fillcolor=%s, style=filled,label = \"{\\<\\<interface\\>\\>\\n%s", color, c.getName());
 		} else if (c.getClassType().equalsIgnoreCase("Abstract")) {
-			s = String.format("color=\"green\",label = \"{\\<\\<Abstract\\>\\>\\n%s ", c.getName());
+			s = String.format("fillcolor=%s, style=filled,label = \"{\\<\\<Abstract\\>\\>\\n%s", color, c.getName());
 		} else if (c.getClassType().equalsIgnoreCase("Singleton")) {
 			// To-DO Ishank please format this so that the class name comes
 			// first and <<singleton>> comes below it. Look at M4 for example.
@@ -52,15 +61,14 @@ public class UMLOutputStream extends VisitorAdapter {
 			// class a different color. You can probably do that here, but if
 			// not just see if c.getClassType() == "Singleton". If it does, then
 			// do it there.
-			s = String.format("color=\"blue\", label = \"{%s\n\\<\\<Singleton\\>\\> ", c.getName());
+			s = String.format("fillcolor=%s, style=filled, label = \"{%s\n\\<\\<Singleton\\>\\>", color, c.getName());
 		} else {
-			s = String.format("label = \"{%s ", c.getName());
+			s = String.format("label = \"{%s", c.getName());
 		}
-		
 		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
-			String type = c.getClassTypes2().get(PatternSpotter.ADAPTERSTR);
-			s += String.format("\\n\\<\\<%s\\>\\>",type);
+			s += adap;
 		}
+
 		s += "|";
 		this.write(s);
 	}
@@ -117,8 +125,15 @@ public class UMLOutputStream extends VisitorAdapter {
 			String s = "";
 
 			String n = r.getSubClass();
+			if (n.contains("/")) {
+				String[] temp = n.split("/");
+				n = temp[temp.length - 1];
+			} else if (n.contains(".")) {
+				String[] temp = n.split("\\.");
+				n = temp[temp.length - 1];
+			}
 			// System.out.println(r.getSuperClass());
-			if (r.getSuperClass() != null) {
+			if (r.getSuperClass() != null && !r.getSuperClass().isEmpty()) {
 				String[] superClass = r.getSuperClass().split("/");
 				s += "\n" + n + " -> " + superClass[superClass.length - 1] + " [arrowhead=\"empty\"];";
 			}
