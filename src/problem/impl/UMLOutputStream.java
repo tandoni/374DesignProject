@@ -13,6 +13,7 @@ import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 import problem.interfaces.ISequence;
+import problem.spotter.PatternSpotter;
 import problem.visitor.VisitorAdapter;
 
 public class UMLOutputStream extends VisitorAdapter {
@@ -41,9 +42,9 @@ public class UMLOutputStream extends VisitorAdapter {
 	public void visit(IClass c) {
 		String s;
 		if (c.getClassType().equalsIgnoreCase("Interface")) {
-			s = String.format("color=\"red\",label = \"{\\<\\<interface\\>\\>\\n%s| ", c.getName());
+			s = String.format("color=\"red\",label = \"{\\<\\<interface\\>\\>\\n%s ", c.getName());
 		} else if (c.getClassType().equalsIgnoreCase("Abstract")) {
-			s = String.format("color=\"green\",label = \"{\\<\\<Abstract\\>\\>\\n%s| ", c.getName());
+			s = String.format("color=\"green\",label = \"{\\<\\<Abstract\\>\\>\\n%s ", c.getName());
 		} else if (c.getClassType().equalsIgnoreCase("Singleton")) {
 			// To-DO Ishank please format this so that the class name comes
 			// first and <<singleton>> comes below it. Look at M4 for example.
@@ -51,11 +52,16 @@ public class UMLOutputStream extends VisitorAdapter {
 			// class a different color. You can probably do that here, but if
 			// not just see if c.getClassType() == "Singleton". If it does, then
 			// do it there.
-			s = String.format("color=\"blue\", label = \"{%s\n\\<\\<Singleton\\>\\>| ", c.getName());
+			s = String.format("color=\"blue\", label = \"{%s\n\\<\\<Singleton\\>\\> ", c.getName());
 		} else {
-			s = String.format("label = \"{%s| ", c.getName());
+			s = String.format("label = \"{%s ", c.getName());
 		}
-
+		
+		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
+			String type = c.getClassTypes2().get(PatternSpotter.ADAPTERSTR);
+			s += String.format("\\n\\<\\<%s\\>\\>",type);
+		}
+		s += "|";
 		this.write(s);
 	}
 
