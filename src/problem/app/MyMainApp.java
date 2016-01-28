@@ -35,7 +35,7 @@ public class MyMainApp {
 			// "analyze.register.Sale",
 			// "analyze.register.Payment"
 
-			// "java.util.Collections.shuffle(List<T> list)"
+			// "java.util.Collections.shuffle(List<T> list)", "5"
 			// "analyze.register.Register.checkout(int cashTendered)"
 			// "problem.asm.DesignParser.main(String[] args)"
 			// "analyze.oneone.DataStandardizerApp.main(String[] args)"

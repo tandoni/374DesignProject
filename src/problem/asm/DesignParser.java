@@ -19,6 +19,7 @@ import problem.spotter.SingletonSpotter;
 import problem.visitor.ITraverser;
 
 public class DesignParser {
+	public final static int DEFAULT_CALL_DEPTH = 5;
 	public static int CALL_DEPTH = 5;
 	public IModel model;
 	boolean deb = false;
@@ -38,9 +39,14 @@ public class DesignParser {
 	 */
 	public void main(String[] args) throws IOException {
 		System.out.println("args: " + args);
+		if (args.length == 1 && args[0].contains("(")) {
+			this.CALL_DEPTH = this.DEFAULT_CALL_DEPTH;
+		}
 		if (args.length == 2 && args[0].contains("(")) {
-			String className;
 			this.CALL_DEPTH = Integer.parseInt(args[1]);
+		}
+		if (args[0].contains("(")) {
+			String className;
 			System.out.println("This is a Sequence Diagram method call");
 			String[] splitArg1 = args[0].split("\\.");
 			int splitArg1len = splitArg1.length;
