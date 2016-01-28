@@ -76,10 +76,11 @@ public class DecoratorSpotter extends PatternSpotterDec {
 			// IModel tempMod = parser.model;
 			// ArrayList<ISequence> seq = model.getSequences();
 			// System.out.println("seq");
-			if (!DecoratorSpotter.decorates.contains(this.curClass)) {
-				DecoratorSpotter.decorates.add(this.curClass);
-				this.model.getNamedClass(this.curClass).addClassTypes2(PatternSpotter.DECORATORSTR, "decorator");
-			}
+			// if (!DecoratorSpotter.decorates.contains(this.curClass)) {
+			// DecoratorSpotter.decorates.add(this.curClass);
+			// this.model.getNamedClass(this.curClass).addClassTypes2(PatternSpotter.DECORATORSTR,
+			// "decorator");
+			// }
 		}
 
 		System.out.println("ehre");
@@ -110,7 +111,9 @@ public class DecoratorSpotter extends PatternSpotterDec {
 				Collection<IMethod> met = c.getMethods();
 				for (IMethod me : met) {
 					if (meths.containsKey(me.getName())) {
-						this.model.getNamedClass(c.getName()).addClassTypes2(PatternSpotter.DECORATORSTR, "component");
+						if (!this.model.getNamedClass(c.getName()).getClassTypes2().containsKey(ADAPTERSTR))
+							this.model.getNamedClass(c.getName()).addClassTypes2(PatternSpotter.DECORATORSTR,
+									"component");
 					}
 					// }
 				}

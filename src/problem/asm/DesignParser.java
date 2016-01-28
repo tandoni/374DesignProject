@@ -120,17 +120,11 @@ public class DesignParser {
 			// the
 			// pattern spotters must extend PatternSpotterDec
 			PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
-			// Decorate the adapterSpotter with the SingletonSpotter, so that we
-			// can
-			// do both visits in one iteration
-			PatternSpotter adapterSpotter = new AdapterSpotter(this.model, singletonSpotter);
-			// The spotterfinder finds the class
-			// PatternSpotter decoratorSpotterFinder = new
-			// DecoratorSpotterFinder(this.model, adapterSpotter);
-			PatternSpotter decoratorSpotter = new DecoratorSpotter(this.model, adapterSpotter);
-			// Visit the pattern spotters here
+			PatternSpotter decoratorSpotter = new DecoratorSpotter(this.model, singletonSpotter);
+			PatternSpotter adapterSpotter = new AdapterSpotter(this.model, decoratorSpotter);
+
 			ITraverser traverser = (ITraverser) this.model;
-			traverser.acceptSpotters(decoratorSpotter);
+			traverser.acceptSpotters(adapterSpotter);
 		}
 		System.out.println("done");
 	}

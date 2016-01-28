@@ -38,34 +38,37 @@ public class MyMainApp {
 			// "java.util.Collections.shuffle(List<T> list)", "5"
 			// "analyze.register.Register.checkout(int cashTendered)"
 			// "problem.asm.DesignParser.main(String[] args)"
-			// "analyze.oneone.DataStandardizerApp.main(String[] args)"
+//			 "analyze.oneone.DataStandardizerApp.main(String[] args)"
 
 			// decorator tests
-//			 "problem.z.decorator.CondimentDecorator.getDescription()", "5"
-//			 "problem.z.decorator.Soy.getDescription()", "5"
-//			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator", "problem.z.decorator.DarkRoast",
-//			"problem.z.decorator.Decaf", "problem.z.decorator.Espresso", "problem.z.decorator.HouseBlend",
-//			"problem.z.decorator.Milk", "problem.z.decorator.Mocha", "problem.z.decorator.StarbuzzCoffee",
-//			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
+			// "problem.z.decorator.Soy.getDescription()", "5"
+			 "problem.z.decorator.Beverage",
+			 "problem.z.decorator.CondimentDecorator",
+			 "problem.z.decorator.DarkRoast",
+			 "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
+			 "problem.z.decorator.HouseBlend",
+			 "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
+			 "problem.z.decorator.StarbuzzCoffee",
+			 "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-			 "problem.z.adapter.IteratorToEnumerationAdapter",
-			 "java.util.Enumeration", "java.util.Iterator"
+//			"problem.z.adapter.IteratorToEnumerationAdapter", "java.util.Enumeration", "java.util.Iterator"
 
 			// Most of our own project
-//			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
-//			 "problem.asm.ClassFieldVisitor",
-//			 "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
-//			 "problem.asm.IClassVisitor",
-//			 "problem.asm.MethodVisitorHelper", "problem.impl.Class",
-//			 "problem.impl.Field", "problem.impl.Method",
-//			 "problem.impl.Model", "problem.impl.Relation",
-//			 "problem.impl.SDOutputStream", "problem.impl.Sequence",
-//			 "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
-//			 "problem.interfaces.IField",
-//			 "problem.interfaces.IMethod", "problem.interfaces.IModel",
-//			 "problem.interfaces.IRelation",
-//			 "problem.interfaces.ISequence"
+			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
+			// "problem.asm.ClassFieldVisitor",
+			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
+			// "problem.asm.IClassVisitor",
+			// "problem.asm.MethodVisitorHelper", "problem.impl.Class",
+			// "problem.impl.Field", "problem.impl.Method",
+			// "problem.impl.Model", "problem.impl.Relation",
+			// "problem.impl.SDOutputStream", "problem.impl.Sequence",
+			// "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
+			// "problem.interfaces.IField",
+			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
+			// "problem.interfaces.IRelation",
+			// "problem.interfaces.ISequence"
 
 	};
 
@@ -87,7 +90,6 @@ public class MyMainApp {
 		out.close();
 
 		// SDEdit
-
 		OutputStream out2 = new FileOutputStream("./input_output/GraphForSDEdit.sd");
 		IVisitor writer2 = new SDOutputStream(out2);
 		ITraverser traverser2 = (ITraverser) parser.model;
