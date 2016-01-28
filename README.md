@@ -66,6 +66,7 @@ Instructions:
 Milestone 5:
 Design Evolution:
 	In order to implement pattern recognition, we have a PatternSpotter which is an abstract class to hold our static string names and any special information pertaining to patter spotters. Our PatternSpotterDec extends this class and visits the classes to spot patterns. We then create a separate concrete class for each Pattern stopper. For example, for adapter, we have a class AdapterSpotter which extends PatterSpotterDec. Similarly for Decorate pattern spotter, we have DecoratorSpotter. We also had to add an accept spotter method in our class.java and getters and setters for stored info.
+	![Alt text](https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj_M5.png "design UML")
 
 Who did what:
 	Max focused on the design implementing it fixing issues from M3 and M4 as well. Ishank focused on parsing and connecting the design to the parser as well as fixing errors from M3 and M4. Ishank also did some code cleanup. Ruying worked on test cases for M4.
@@ -74,4 +75,4 @@ Instructions:
 	There are comments in MyMainApp.java specifying what to uncomment in order to run that. By uncommenting those and running the program, it generates a .gv file which can be opened by graphviz.
 
 
-
+https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj_M5.png
