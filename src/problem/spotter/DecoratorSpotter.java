@@ -2,6 +2,7 @@ package problem.spotter;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
@@ -16,8 +17,6 @@ public class DecoratorSpotter extends PatternSpotterDec {
 	// are the classes that call this method. If multiple classes call the same
 	// method, we should be suspicious that this is a decorator.
 	static Map<String, Collection<String>> meths = new ConcurrentHashMap<String, Collection<String>>();
-	private static Collection<String> decorates = new ArrayList<String>();
-
 	public DecoratorSpotter(IModel model, PatternSpotter spotter) {
 		super(model, spotter);
 		// TODO Auto-generated constructor stub
@@ -27,7 +26,7 @@ public class DecoratorSpotter extends PatternSpotterDec {
 	public void visit(IMethod m) {
 		super.visit(m);
 		// If its a constructor, jsut give up now
-		if (m.getName().equals("<init>"))
+		if (m.getName().contains("init>"))
 			return;
 		// Add this class to the classes which have the method of the same name
 		if (!DecoratorSpotter.meths.containsKey(m.getName())) {
@@ -96,7 +95,7 @@ public class DecoratorSpotter extends PatternSpotterDec {
 			// Get all associations for this class. If there are any
 			// associations (we know only associations to classes in the UML are
 			// stored), then we know this is an adapter
-			ArrayList<String> interfaces = new ArrayList<String>();
+			List<String> interfaces = new ArrayList<String>();
 			if (relations != null) {
 				interfaces = (ArrayList<String>) relations.getInterfaces();
 			}
