@@ -12,7 +12,6 @@ public abstract class PatternSpotterDec extends PatternSpotter implements IVisit
 	protected IModel model;
 	private IVisitor decorated;
 	protected String curClass = "";
-	public static final String ADAPTERSTR = "Adapter";
 
 	public PatternSpotterDec(IModel model, IVisitor decoratedd) {
 		this.decorated = decoratedd;
