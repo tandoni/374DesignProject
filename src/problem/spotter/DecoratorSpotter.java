@@ -115,18 +115,24 @@ public class DecoratorSpotter extends PatternSpotterDec {
 						// Collection<IRelation> rels = clas.getRelations();
 						IRelation relations = this.model.getRelationsMap().get(fromClassS);
 						String superFull = relations.getSuperClass();
-						superFull = superFull.split("/")[superFull.split("/").length - 1];
-						IClass next = this.model.getNamedClass(superFull);
-						while (!next.getName().equals(component)) {
-							next.addClassTypes2(DECORATORSTR, "decorator");
-							String supClass = this.model.getRelationsMap().get(next.getFullName()).getSuperClass();
-							if (supClass.equals("")) {
-								ArrayList<String> inter = (ArrayList<String>) this.model.getRelationsMap()
-										.get(next.getName()).getInterfaces();
-								next = this.model.getNamedClass(inter.get(0));
-							} else {
-								supClass = supClass.split("/")[supClass.split("/").length - 1];
-								next = this.model.getNamedClass(supClass);
+						if (superFull != null) {
+							superFull = superFull.split("/")[superFull.split("/").length - 1];
+							IClass next = this.model.getNamedClass(superFull);
+							while (!next.getName().equals(component)) {
+								next.addClassTypes2(DECORATORSTR, "decorator");
+								String supClass = this.model.getRelationsMap().get(next.getFullName()).getSuperClass();
+								if (supClass == null) {
+									break;
+								}
+								if (supClass.equals("")) {
+									ArrayList<String> inter = (ArrayList<String>) this.model.getRelationsMap()
+											.get(next.getName()).getInterfaces();
+									next = this.model.getNamedClass(inter.get(0));
+								} else {
+									supClass = supClass.split("/")[supClass.split("/").length - 1];
+									next = this.model.getNamedClass(supClass);
+								}
+
 							}
 						}
 					}
