@@ -8,7 +8,7 @@ import problem.interfaces.IRelation;
 import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
-public abstract class PatternSpotterInit extends PatternSpotter implements IVisitor {
+public abstract class PatternSpotterInit extends PatternSpotter {
 	protected IModel model;
 	protected String curClass = "";
 

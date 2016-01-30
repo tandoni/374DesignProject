@@ -50,7 +50,7 @@ public class MethodVisitorHelper extends MethodVisitor {
 		String[] typeSplit = type.split("/");
 
 		// create relation for association
-		IRelation r = new Relation(this.myClass.getName());
+		IRelation r = new Relation(this.myClass.getFullName());
 		// System.out.println("this.model.getCurrentClass(): " +
 		// this.model.getCurrentClass());
 

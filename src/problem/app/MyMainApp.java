@@ -23,11 +23,11 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-//			"headfirst.singleton.classic.Singleton"
-//			 "headfirst.singleton.stat.Singleton",
-//			 "headfirst.singleton.stat.SingletonClient"
-//			 "problem.z.singleton.ChocolateBoiler",
-//			 "problem.z.singleton.ChocolateController"
+			// "headfirst.singleton.classic.Singleton"
+			// "headfirst.singleton.stat.Singleton",
+			// "headfirst.singleton.stat.SingletonClient"
+			// "problem.z.singleton.ChocolateBoiler",
+			// "problem.z.singleton.ChocolateController"
 
 			// "headfirst.singleton.subclass.CoolerSingleton",
 			// "headfirst.singleton.subclass.HotterSingleton",
@@ -49,20 +49,18 @@ public class MyMainApp {
 			// "analyze.oneone.DataStandardizerApp.main(String[] args)"
 
 			// decorator tests
+//			"problem.z.decorator.Milk.cost()", "5"
+//			"problem.z.decorator.Mocha.cost()", "5"
 			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
-			// "problem.z.decorator.Soy.getDescription()", "5"
-//			 "problem.z.decorator.Beverage",
-//			 "problem.z.decorator.CondimentDecorator",
-//			 "problem.z.decorator.DarkRoast",
-//			 "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
-//			 "problem.z.decorator.HouseBlend",
-//			 "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
-//			 "problem.z.decorator.StarbuzzCoffee",
-//			 "problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			// "problem.z.decorator.Milk.cost()", "10"
+			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator", "problem.z.decorator.DarkRoast",
+			"problem.z.decorator.Decaf", "problem.z.decorator.Espresso", "problem.z.decorator.HouseBlend",
+			"problem.z.decorator.Milk", "problem.z.decorator.Mocha", "problem.z.decorator.StarbuzzCoffee",
+			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-			 "problem.z.adapter.IteratorToEnumerationAdapter",
-			 "java.util.Enumeration", "java.util.Iterator"
+			// "problem.z.adapter.IteratorToEnumerationAdapter",
+			// "java.util.Enumeration", "java.util.Iterator"
 
 			// Most of our own project
 			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",

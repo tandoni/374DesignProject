@@ -55,7 +55,7 @@ public class ClassDeclarationVisitorSeq extends ClassVisitor implements IClassVi
 		}
 		// this.myClass.addRelation(r);
 //		this.model.addRelation(r);
-		this.model.addClass(myClass);
+//		this.model.addClass(myClass);
 
 		// TODO: construct an internal representation of the class for later use
 		// by decorators

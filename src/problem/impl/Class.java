@@ -171,7 +171,6 @@ public class Class implements IClass {
 	@Override
 	public void acceptSequence(IVisitor v, int depth) {
 		// TODO Auto-generated method stub
-		System.out.println("CLass : acceptSequence");
 	}
 
 }

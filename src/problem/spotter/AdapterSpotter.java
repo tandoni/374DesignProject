@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import problem.interfaces.IClass;
+import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 
@@ -55,24 +56,46 @@ public class AdapterSpotter extends PatternSpotterDec {
 		// UML) and if this
 		// class has any relations (to classes in this UML)
 		if (thisInterfaces.containsKey(c.getName()) && this.model.getRelationsMap().containsKey(c.getName())) {
-			// I'm getting the IRelation that holds all relations for this class
-			// I'm visiting.
-			IRelation relations = this.model.getRelationsMap().get(c.getName());
-			// Get all associations for this class. If there are any
-			// associations (we know only associations to classes in the UML are
-			// stored), then we know this is an adapter
-			ArrayList<String> assocs = (ArrayList<String>) relations.getAssociations();
-			if (!assocs.isEmpty()) {
-				// The current class we're in is the "adapter"
-				this.model.getNamedClass(c.getName()).addClassTypes2(AdapterSpotter.ADAPTERSTR, "adapter");
+			if (thisInterfaces.get(c.getName()).size() == 1) {
+				// I'm getting the IRelation that holds all relations for this
+				// class
+				// I'm visiting.
+				IRelation relations = this.model.getRelationsMap().get(c.getName());
+				// Get all associations for this class. If there are any
+				// associations (we know only associations to classes in the UML
+				// are
+				// stored), then we know this is an adapter
+				ArrayList<String> assocs = (ArrayList<String>) relations.getAssociations();
+				String extender = relations.getSuperClass();
+				if (assocs.size() >= 1 && extender.equals("")) {
+					ArrayList<String> interf = (ArrayList<String>) thisInterfaces.get(c.getName());
+					Collection<IMethod> adapterMethods = this.model.getNamedClass(c.getName()).getMethods();
+					Collection<IMethod> targetMethods = this.model.getNamedClass(interf.get(0)).getMethods();
+					ArrayList<String> adapterMethodsList = new ArrayList<String>();
+					ArrayList<String> targetMethodsList = new ArrayList<String>();
+					for (IMethod adapterMethod : adapterMethods) {
+						adapterMethodsList.add(adapterMethod.getName());
+					}
+					for (IMethod targetMethod : targetMethods) {
+						targetMethodsList.add(targetMethod.getName());
+					}
+					if ((adapterMethodsList.size() - 1) == targetMethodsList.size()) {
+						if (adapterMethodsList.containsAll(targetMethodsList)) {
 
-				// The interface we are trying to emulate is the "target"
-				ArrayList<String> interf = (ArrayList<String>) thisInterfaces.get(c.getName());
-				this.model.getNamedClass(interf.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR, "target");
+							// The current class we're in is the "adapter"
+							this.model.getNamedClass(c.getName()).addClassTypes2(AdapterSpotter.ADAPTERSTR, "adapter");
 
-				// The class we're taking into the adapter to be used as if it
-				// is another class is the "adaptee"
-				this.model.getNamedClass(assocs.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR, "adaptee");
+							// The interface we are trying to emulate is the
+							// "target"
+							this.model.getNamedClass(interf.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR, "target");
+
+							// The class we're taking into the adapter to be
+							// used as if it is another class is the "adaptee"
+							this.model.getNamedClass(assocs.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR,
+									"adaptee");
+						}
+					}
+				}
 			}
 		}
 	}
@@ -85,7 +108,7 @@ public class AdapterSpotter extends PatternSpotterDec {
 					// Put the interface into the interface map, and associate
 					// it with the String
 					// that is the name of class that is implementing it.
-					if (this.thisInterfaces.containsKey(super.curClass)) {
+					if (AdapterSpotter.thisInterfaces.containsKey(super.curClass)) {
 						thisInterfaces.put(super.curClass, new ArrayList<String>());
 					}
 					ArrayList<String> list = (ArrayList<String>) thisInterfaces.get(super.curClass);

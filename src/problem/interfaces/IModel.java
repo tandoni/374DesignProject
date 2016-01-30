@@ -67,4 +67,6 @@ public interface IModel extends ITraverser {
 
 	public List<String> getSDClassNames();
 
+	public void clearSequences();
+
 }

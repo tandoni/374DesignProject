@@ -113,7 +113,7 @@ public class Model implements IModel {
 			Model.relations.put(r.getSubClass(), r);
 
 		} else {
-
+			// get the relation we want to modify
 			IRelation modify = Model.relations.get(r.getSubClass());
 			Collection<String> modify_uses = modify.getUses();
 			Collection<String> modify_ass = modify.getAssociations();
@@ -162,7 +162,14 @@ public class Model implements IModel {
 	}
 
 	@Override
+	// pass in short name
 	public IClass getNamedClass(String s) {
+		if (s.contains("/")) {
+			s = s.split("/")[s.split("/").length - 1];
+		}
+		if (s.contains(".")) {
+			s = s.split("\\.")[s.split("\\.").length - 1];
+		}
 		for (IClass clazz : Model.classes) {
 			if (clazz.getName().equals(s)) {
 				return clazz;
@@ -348,8 +355,8 @@ public class Model implements IModel {
 	public void callDepthInc() {
 		Model.callDepth++;
 	}
-	
-	public void setCallDepth(int i){
+
+	public void setCallDepth(int i) {
 		Model.callDepth = i;
 	}
 
@@ -366,6 +373,11 @@ public class Model implements IModel {
 	@Override
 	public List<String> getSDClassNames() {
 		return Model.SDClassNames;
+	}
+
+	@Override
+	public void clearSequences() {
+		Model.sequences = new ArrayList<ISequence>();
 	}
 
 }

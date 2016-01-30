@@ -1,16 +1,20 @@
 package problem.spotter;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
+import problem.asm.DesignParser;
 import problem.interfaces.IClass;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
 
 public class DecoratorSpotter extends PatternSpotterDec {
 	// This is map where the key is the name of the method, and the Collection
@@ -35,92 +39,102 @@ public class DecoratorSpotter extends PatternSpotterDec {
 		if (!DecoratorSpotter.meths.containsKey(m.getName())) {
 			DecoratorSpotter.meths.put(m.getName(), new ArrayList<String>());
 		}
+		// list is the list of all classes that call the method of this name
 		ArrayList<String> list = (ArrayList<String>) DecoratorSpotter.meths.get(m.getName());
-		int size = list.size();
 		list.add(this.curClassFull);
-		// If list is empty, then we know that this is isn't able to be
-		// decorated, so we simply add the current class as the first class
-		// which calls this method.
-		if (size == 0) {
-			DecoratorSpotter.meths.put(m.getName(), list);
-		} else {
-			// add this class to the list of classes that call this method
-			DecoratorSpotter.meths.put(m.getName(), list);
-			// Since we know that there's at least one other class that calls
-			// this method, it seems like a good time to make some sequences and
-			// see if we call the same method on another class. If we do, then
-			// we know that this is a decorated thing.
-			// DesignParser parser = new DesignParser();
-			// // Since the call depth is static, we must reset it to 0, because
-			// if
-			// // this isn't the first sequence being generated, then it will
-			// // already be at its previous max
-			// parser.model.setCallDepth(0);
-			// // get the size of the sequences, so that we know where to look
-			// for
-			// // ours (since the sequences variable in Model is static).
-			// int seqSize = parser.model.getSequences().size();
-			// String[] str = new String[2];
-			// // This is the class and method where we want to start the method
-			// // tracing
-			// str[0] = this.curClassFull.replace("/", ".") + "." + m.getName()
-			// + "()";
-			// // Call depth of 1
-			// str[1] = "15";
-			// try {
-			// parser.main(str);
-			// } catch (IOException e) {
-			// // TODO Auto-generated catch block
-			// e.printStackTrace();
-			// }
-			// // Inside of this else, we need to make sure we use parser.model,
-			// // since we want the model that is stored with the parser
-			// IModel tempMod = parser.model;
-			// ArrayList<ISequence> seq = model.getSequences();
-			// System.out.println("seq");
-			if (!DecoratorSpotter.decorates.contains(this.curClass)
-					&& !this.model.getNamedClass(curClass).getClassTypes2().containsKey(ADAPTERSTR)) {
-				DecoratorSpotter.decorates.add(this.curClass);
-				this.model.getNamedClass(this.curClass).addClassTypes2(PatternSpotter.DECORATORSTR, "decorator");
-			}
-		}
-
+		DecoratorSpotter.meths.put(m.getName(), list);
 	}
+
+	// if (!DecoratorSpotter.decorates.contains(this.curClass)
+	// &&
+	// !this.model.getNamedClass(curClass).getClassTypes2().containsKey(ADAPTERSTR))
+	// {
+	// DecoratorSpotter.decorates.add(this.curClass);
+	// this.model.getNamedClass(this.curClass).addClassTypes2(PatternSpotter.DECORATORSTR,
+	// "decorator");
+	// }
 
 	@Override
 	public void postVisit(IModel m) {
-		super.postVisit(m);
-		removeMethsWithOneClass();
-		Collection<IClass> classes = this.model.getClasses();
-		for (IClass c : classes) {
-			IRelation relations = this.model.getRelationsMap().get(c.getName());
-			// Get all associations for this class. If there are any
-			// associations (we know only associations to classes in the UML are
-			// stored), then we know this is an adapter
-			ArrayList<String> interfaces = new ArrayList<String>();
-			String extender = "";
+		Iterator it = DecoratorSpotter.meths.entrySet().iterator();
+		while (it.hasNext()) {
+			Map.Entry pair = (Map.Entry) it.next();
+			ArrayList<String> list = (ArrayList<String>) pair.getValue();
+			for (String c : list) {
+				// Since we know that there's at least one other class that
+				// calls
+				// this method, it seems like a good time to make some
+				// sequences
+				// and
+				// see if we call the same method on another class. If we
+				// do,
+				// then
+				// we know that this is a decorated thing.
+				DesignParser parser = new DesignParser();
+				// Since the call depth is static, we must reset it to 0,
+				// because if
+				// this isn't the first sequence being generated, then it
+				// will already be at its previous max
+				parser.model.setCallDepth(0);
+				// get the size of the sequences, so that we know where to look
+				// for ours (since the sequences variable in Model is static).
+				parser.model.clearSequences();
+				parser.model.setRecordSeq(false);
+				String[] str = new String[2];
+				// This is the class and method where we want to start the
+				// method
+				// tracing
+				str[0] = c.replace("/", ".") + "." + pair.getKey() + "()";
+				// str[0] = "problem.z.decorator.Mocha.cost()";
+				// Call depth of x
+				str[1] = "5";
+				try {
+					parser.main(str);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				// Inside of this else, we need to make sure we use
+				// parser.model,
+				// since we want the model that is stored with the parser
 
-			if (relations != null) {
-				interfaces = (ArrayList<String>) relations.getInterfaces();
-				extender = relations.getSuperClass();
-			}
-
-			// If the class is not decorated already, and it does not extend any
-			// classes
-			if (!c.getClassTypes2().containsKey(ADAPTERSTR) && interfaces.size() == 0) {
-				Collection<IMethod> met = c.getMethods();
-				for (IMethod me : met) {
-					if (meths.containsKey(me.getName())) {
-						if (!this.model.getNamedClass(c.getName()).getClassTypes2().containsKey(ADAPTERSTR)
-								&& !c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
-							this.model.getNamedClass(c.getName()).addClassTypes2(PatternSpotter.DECORATORSTR,
-									"component");
+				IModel tempMod = parser.model;
+				ArrayList<ISequence> seq = model.getSequences();
+				if (seq.isEmpty()) {
+				} else {
+					if (seq.get(0).getCalledMethod().equals(pair.getKey())) {
+						String component = seq.get(0).getToClass();
+						String fromClass = seq.get(0).getFromClass();
+						String[] fromSplit = fromClass.split("\\.");
+						String fromClassShortName = fromSplit[fromSplit.length - 1];
+						this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
+						this.model.getNamedClass(fromClassShortName).addClassTypes2(DECORATORSTR, "decorator");
+						String fromClassS = fromClass.replace(".", "/");
+						// IClass clas =
+						// this.model.getNamedClass(fromClassShortName);
+						// Collection<IRelation> rels = clas.getRelations();
+						IRelation relations = this.model.getRelationsMap().get(fromClassS);
+						String superFull = relations.getSuperClass();
+						superFull = superFull.split("/")[superFull.split("/").length - 1];
+						IClass next = this.model.getNamedClass(superFull);
+						while (!next.getName().equals(component)) {
+							next.addClassTypes2(DECORATORSTR, "decorator");
+							String supClass = this.model.getRelationsMap().get(next.getFullName()).getSuperClass();
+							if (supClass.equals("")) {
+								ArrayList<String> inter = (ArrayList<String>) this.model.getRelationsMap()
+										.get(next.getName()).getInterfaces();
+								next = this.model.getNamedClass(inter.get(0));
+							} else {
+								supClass = supClass.split("/")[supClass.split("/").length - 1];
+								next = this.model.getNamedClass(supClass);
+							}
 						}
 					}
+					System.out.println("seq");
 				}
+
 			}
 		}
-
 	}
 
 	private void removeMethsWithOneClass() {

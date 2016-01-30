@@ -87,7 +87,7 @@ public class ClassMethodVisitorSeq extends ClassVisitor implements IClassVisitor
 		MethodVisitor newToDecorate = new MethodVisitorHelperSeq(Opcodes.ASM5, this.model, toDecorate, this.myClass);
 		// getSubMethods() will get the method for the sequence.
 		Method m = new Method(access, name, desc, signature, ((MethodVisitorHelperSeq) newToDecorate).getSubMethods());
-		namedClass.addMethod(m);
+//		namedClass.addMethod(m);
 
 		return newToDecorate;
 	}

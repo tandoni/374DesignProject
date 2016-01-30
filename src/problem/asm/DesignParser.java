@@ -18,8 +18,8 @@ import problem.spotter.SingletonSpotter;
 import problem.visitor.ITraverser;
 
 public class DesignParser {
-	public final static int DEFAULT_CALL_DEPTH = 5;
-	public static int MAX_CALL_DEPTH = 5;
+	public final static int DEFAULT_CALL_DEPTH = 10;
+	public static int MAX_CALL_DEPTH = 10;
 	public IModel model;
 	boolean deb = false;
 
@@ -37,7 +37,6 @@ public class DesignParser {
 	 * @throws IOException
 	 */
 	public void main(String[] args) throws IOException {
-		System.out.println("args: " + args);
 		if (args.length == 1 && args[0].contains("(")) {
 			DesignParser.MAX_CALL_DEPTH = DesignParser.DEFAULT_CALL_DEPTH;
 		}
@@ -46,12 +45,9 @@ public class DesignParser {
 		}
 		if (args[0].contains("(")) {
 			String className;
-			System.out.println("This is a Sequence Diagram method call");
 			String[] splitArg1 = args[0].split("\\.");
 			int splitArg1len = splitArg1.length;
 			this.model.setStartMethod(splitArg1[splitArg1len - 1]);
-			System.out.println("startMethodName: " + this.model.getStartMethodName());
-			System.out.println("startMethodArgs[0]: " + this.model.getStartMethodArgs()[0]);
 
 			// Since the className also contained the method, we must get
 			// rid of the method part
@@ -68,7 +64,6 @@ public class DesignParser {
 			}
 			this.model.setStartClass(className);
 
-			// System.out.println("className: " + className);
 			ClassReader reader = new ClassReader(className);
 
 			// make class declaration visitor to get superclass and
@@ -91,9 +86,6 @@ public class DesignParser {
 				// ASM's ClassReader does the heavy lifting of parsing the
 				// compiled
 				// Java class
-				// System.out.println("currentClass: " +
-				// this.model.getCurrentClass());
-				// System.out.println("className: " + className);
 				ClassReader reader = new ClassReader(className);
 
 				// make class declaration visitor to get superclass and
@@ -126,7 +118,6 @@ public class DesignParser {
 			ITraverser traverser = (ITraverser) this.model;
 			traverser.acceptSpotters(adapterSpotter);
 		}
-		System.out.println("done");
 	}
 
 	public int getCallDepth() {

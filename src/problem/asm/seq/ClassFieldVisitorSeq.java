@@ -28,23 +28,23 @@ public class ClassFieldVisitorSeq extends ClassVisitor implements IClassVisitorS
 
 	public FieldVisitor visitField(int access, String name, String desc, String signature, Object value) {
 		FieldVisitor toDecorate = super.visitField(access, name, desc, signature, value);
-		// String type = Type.getType(desc).getClassName();
-		IField f = new Field(access, name, desc, signature, value);
-		// System.out.println(" "+type+" "+ name);
-
-		// if(decorated instanceof IClassVisitor){
-		// this.myClass = ((IClassVisitor) decorated).getBelongedClass();
-		// }
-		String curClassName = this.model.getCurrentClass().split("\\.")[this.model.getCurrentClass().split("\\.").length
-				- 1];
-		String fieldName = desc.split("/")[desc.split("/").length - 1];
-		if (fieldName.contains(";")) {
-			fieldName = fieldName.substring(0, fieldName.indexOf(";"));
-		}
-		this.myClass = this.getBelongedClass();
-
-		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
-		namedClass.addField(f);
+//		// String type = Type.getType(desc).getClassName();
+//		IField f = new Field(access, name, desc, signature, value);
+//		// System.out.println(" "+type+" "+ name);
+//
+//		// if(decorated instanceof IClassVisitor){
+//		// this.myClass = ((IClassVisitor) decorated).getBelongedClass();
+//		// }
+//		String curClassName = this.model.getCurrentClass().split("\\.")[this.model.getCurrentClass().split("\\.").length
+//				- 1];
+//		String fieldName = desc.split("/")[desc.split("/").length - 1];
+//		if (fieldName.contains(";")) {
+//			fieldName = fieldName.substring(0, fieldName.indexOf(";"));
+//		}
+//		this.myClass = this.getBelongedClass();
+//
+//		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
+//		namedClass.addField(f);
 
 		return toDecorate;
 	}
