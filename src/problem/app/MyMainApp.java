@@ -59,29 +59,29 @@ public class MyMainApp {
 //			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-			// "problem.z.adapter.IteratorToEnumerationAdapter",
-			// "java.util.Enumeration", "java.util.Iterator"
+			 "problem.z.adapter.IteratorToEnumerationAdapter",
+			 "java.util.Enumeration", "java.util.Iterator"
 
 			// our own project
-			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
-			 "problem.asm.ClassFieldVisitor",
-			 "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
-			 "problem.asm.IClassVisitor",
-			 "problem.asm.MethodVisitorHelper", "problem.impl.Class",
-			 "problem.impl.Field", "problem.impl.Method",
-			 "problem.impl.Model", "problem.impl.Relation",
-			 "problem.impl.SDOutputStream", "problem.impl.Sequence",
-			 "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
-			 "problem.interfaces.IField",
-			 "problem.interfaces.IMethod", "problem.interfaces.IModel",
-			 "problem.interfaces.IRelation",
-			 "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
-			 "problem.spotter.DecoratorSpotter",
-			 "problem.spotter.PatternSpotter",
-			 "problem.spotter.PatternSPotterDec",
-			 "problem.spotter.PatternSpotterInit",
-			 "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-			 "problem.visitor.VisitorAdapter"
+//			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
+//			 "problem.asm.ClassFieldVisitor",
+//			 "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
+//			 "problem.asm.IClassVisitor",
+//			 "problem.asm.MethodVisitorHelper", "problem.impl.Class",
+//			 "problem.impl.Field", "problem.impl.Method",
+//			 "problem.impl.Model", "problem.impl.Relation",
+//			 "problem.impl.SDOutputStream", "problem.impl.Sequence",
+//			 "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
+//			 "problem.interfaces.IField",
+//			 "problem.interfaces.IMethod", "problem.interfaces.IModel",
+//			 "problem.interfaces.IRelation",
+//			 "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
+//			 "problem.spotter.DecoratorSpotter",
+//			 "problem.spotter.PatternSpotter",
+//			 "problem.spotter.PatternSPotterDec",
+//			 "problem.spotter.PatternSpotterInit",
+//			 "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+//			 "problem.visitor.VisitorAdapter"
 
 	};
 
