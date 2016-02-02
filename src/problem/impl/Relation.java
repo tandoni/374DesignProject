@@ -172,7 +172,6 @@ public class Relation implements IRelation {
 	@Override
 	public void acceptSequence(IVisitor v, int depth) {
 		// TODO Auto-generated method stub
-		System.out.println("Relation : acceptSequence");
 	}
 
 	@Override

@@ -61,7 +61,6 @@ public class Method implements IMethod {
 
 	@Override
 	public void acceptSequence(IVisitor v, int depth) {
-		System.out.println("Method : acceptSequence");
 		v.visit(this);
 	}
 

@@ -248,7 +248,6 @@ public class Model implements IModel {
 	@Override
 	public void acceptSequence(IVisitor v, int depth) {
 
-		System.out.println("Model : acceptSequence");
 		v.preVisit(this);
 		for (IClass c : Model.classes) {
 			c.acceptSequence(v, depth);

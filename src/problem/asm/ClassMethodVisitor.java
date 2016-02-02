@@ -76,7 +76,6 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 			// new
 			// class, and need to record that
 			if (name.contains("init>")) {
-				System.out.println("a created class");
 				// this.model.addCreatedClass(owner.split("/")[owner.split("/").length
 				// - 1]);
 			} else {
@@ -118,7 +117,6 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		for (String s : splitArgs) {
 			if (s != "") {
 				IRelation r = new Relation(this.myClass.getName());
-				System.out.println("this.myClass.getName(): " + this.myClass.getFullName());
 				r.addUses(s);
 				this.model.addRelation(r);
 			}

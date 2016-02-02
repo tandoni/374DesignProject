@@ -31,7 +31,6 @@ public class AdapterSpotter extends PatternSpotterDec {
 	// if (!thisInterfaces.isEmpty()) {
 	//
 	// }
-	// System.out.println("visitng");
 	// }
 
 	// @Override
@@ -118,7 +117,6 @@ public class AdapterSpotter extends PatternSpotterDec {
 					list.add(in.split("/")[in.split("/").length - 1]);
 					thisInterfaces.put(super.curClass, list);
 				}
-				System.out.println("an interface");
 			}
 		}
 	}

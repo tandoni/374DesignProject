@@ -12,6 +12,7 @@ import problem.asm.seq.ClassMethodVisitorSeq;
 import problem.impl.Model;
 import problem.interfaces.IModel;
 import problem.spotter.AdapterSpotter;
+import problem.spotter.CompositeSpotter;
 import problem.spotter.DecoratorSpotter;
 import problem.spotter.PatternSpotter;
 import problem.spotter.SingletonSpotter;
@@ -114,7 +115,7 @@ public class DesignParser {
 			PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
 			PatternSpotter decoratorSpotter = new DecoratorSpotter(this.model, singletonSpotter);
 			PatternSpotter adapterSpotter = new AdapterSpotter(this.model, decoratorSpotter);
-			PatternSpotter compositeSpotter = new AdapterSpotter(this.model, adapterSpotter);
+			PatternSpotter compositeSpotter = new CompositeSpotter(this.model, adapterSpotter);
 
 			ITraverser traverser = (ITraverser) this.model;
 			traverser.acceptSpotters(compositeSpotter);

@@ -76,7 +76,6 @@ public class MethodVisitorHelperSeq extends MethodVisitor {
 			// If the name of the method is init, then we are intitalizing a new
 			// class, and need to record that
 			if (name.contains("init>")) {
-				System.out.println("a created class");
 				this.model.addCreatedClass(owner.split("/")[owner.split("/").length - 1]);
 			} else {
 				// if this isn't a new class, then we add it SDClassNames
@@ -101,7 +100,6 @@ public class MethodVisitorHelperSeq extends MethodVisitor {
 				ArrayList<String> args2 = sequence.getArguments();
 				int size = args2.size();
 				if (args2.get(0) == "") {
-					System.out.println("should be here empty");
 				}
 				if (!(size == 1 && args2.get(0) == "")) {
 					for (int i = 0; i < size - 1; i++) {
