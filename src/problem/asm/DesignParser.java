@@ -114,9 +114,10 @@ public class DesignParser {
 			PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
 			PatternSpotter decoratorSpotter = new DecoratorSpotter(this.model, singletonSpotter);
 			PatternSpotter adapterSpotter = new AdapterSpotter(this.model, decoratorSpotter);
+			PatternSpotter compositeSpotter = new AdapterSpotter(this.model, adapterSpotter);
 
 			ITraverser traverser = (ITraverser) this.model;
-			traverser.acceptSpotters(adapterSpotter);
+			traverser.acceptSpotters(compositeSpotter);
 		}
 	}
 
