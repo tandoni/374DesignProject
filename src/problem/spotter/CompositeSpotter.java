@@ -30,13 +30,15 @@ public class CompositeSpotter extends PatternSpotterDec {
 		// get all c's associations
 		Collection<String> ass = rel.getAssociations();
 
-		// does associations contains sc?
+		// does associations contain the superclass?
 		if (ass.contains(sc)) {
 			// if yes color c and sc
 			this.model.getNamedClass(sc).addClassTypes2(COMPOSITESTR, "component");
 			this.model.getNamedClass(c.getName()).addClassTypes2(COMPOSITESTR, "composite");
 
 			ArrayList<String> cNames = (ArrayList<String>) this.model.getClassNames();
+			// Iterate through classes, and see if they are composite or leaf by
+			// seeing if they extend component
 			for (String s : cNames) {
 				IRelation r = this.model.getRelationsMap().get(s);
 				String thisSupClass = r.getSuperClass();
@@ -67,13 +69,13 @@ public class CompositeSpotter extends PatternSpotterDec {
 		// component. THere should only be one component.
 		ArrayList<IClass> classes = (ArrayList<IClass>) m.getClasses();
 		for (IClass c : classes) {
+			IRelation r = this.model.getRelationsMap().get(c.getFullName());
+			String supClass = r.getSuperClass();
 			// If this class already contains a composite string, we don't need
 			// to run this check.
-			if (c.getClassTypes2().containsKey(COMPOSITESTR)) {
+			if (c.getClassTypes2().containsKey(COMPOSITESTR) || supClass == null) {
 
 			} else {
-				IRelation r = this.model.getRelationsMap().get(c.getFullName());
-				String supClass = r.getSuperClass();
 				HashMap<String, String> map = this.model.getNamedClass(supClass).getClassTypes2();
 				// If the map (for the superclass) contains a composite mapping,
 				// we need to see if it is a leaf. If it is, we need to change
@@ -81,9 +83,22 @@ public class CompositeSpotter extends PatternSpotterDec {
 				// composite pattern, then so is this class.
 				if (map.containsKey(COMPOSITESTR)) {
 					if (map.get(COMPOSITESTR).equals("leaf")) {
-						map.put(COMPOSITESTR, "composite");
+						c.getClassTypes2().put(COMPOSITESTR, "leaf");
+						// map.put(COMPOSITESTR, "composite");
+					} else if (map.get(COMPOSITESTR).equals("composite")) {
+						c.getClassTypes2().put(COMPOSITESTR, "composite");
+					} else if (map.get(COMPOSITESTR).equals("component")) {
+						ArrayList<String> assocs = (ArrayList<String>) r.getAssociations();
+						// If the current class associates with the component,
+						// then the current class is a composite (this should've
+						// been checked already when visiting each class, but
+						// just to make sure)
+						if (assocs.contains(supClass)) {
+							c.getClassTypes2().put(COMPOSITESTR, "composite");
+						} else {
+							c.getClassTypes2().put(COMPOSITESTR, "leaf");
+						}
 					}
-					c.getClassTypes2().put(COMPOSITESTR, "leaf");
 				}
 			}
 		}

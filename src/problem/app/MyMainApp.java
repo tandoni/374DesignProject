@@ -68,7 +68,10 @@ public class MyMainApp {
 
 			// Composite tests
 			// java.awt
-			"java.awt.Component", "java.awt.Container", "java.awt.Panel", "java.awt.Window", "java.awt.Frame"
+			// "java.awt.Component", "java.awt.Container", "java.awt.Panel",
+			// "java.awt.Window", "java.awt.Frame",
+			"javax.swing.JComponent", "javax.swing.JLabel", "javax.swing.JPanel", "javax.swing.AbstractButton",
+			"javax.swing.JButton"
 
 			// our own project
 			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
