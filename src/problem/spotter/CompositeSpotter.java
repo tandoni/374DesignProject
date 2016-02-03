@@ -17,7 +17,6 @@ public class CompositeSpotter extends PatternSpotterDec {
 		super(model, decoratedd);
 	}
 
-	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public void visit(IClass c) {
 		super.visit(c);

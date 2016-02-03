@@ -43,6 +43,7 @@ public class UMLOutputStream extends VisitorAdapter {
 		String color = "white";
 		String adap = "";
 		String deco = "";
+		String comp = "";
 
 		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
 			String type = c.getClassTypes2().get(PatternSpotter.ADAPTERSTR);
@@ -54,6 +55,12 @@ public class UMLOutputStream extends VisitorAdapter {
 			String type = c.getClassTypes2().get(PatternSpotter.DECORATORSTR);
 			deco = String.format("\\n\\<\\<%s\\>\\>", type);
 			color = "green";
+		}
+		
+		if (c.getClassTypes2().containsKey(PatternSpotter.COMPOSITESTR)) {
+			String type = c.getClassTypes2().get(PatternSpotter.COMPOSITESTR);
+			comp = String.format("\\n\\<\\<%s\\>\\>", type);
+			color = "yellow";
 		}
 
 		if (c.getClassType().equalsIgnoreCase("Interface")) {
@@ -76,6 +83,9 @@ public class UMLOutputStream extends VisitorAdapter {
 		}
 		if (c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
 			s += deco;
+		}
+		if (c.getClassTypes2().containsKey(PatternSpotter.COMPOSITESTR)) {
+			s += comp;
 		}
 
 		s += "|";
