@@ -75,16 +75,33 @@ public class MyMainApp {
 			// "javax.swing.JPanel", "javax.swing.AbstractButton",
 			// "javax.swing.JButton"
 
+			"problem.z.composite.AbstractSprite", "problem.z.composite.AnimationPanel",
+			"problem.z.composite.AnimatorApp", "problem.z.composite.CircleSprite",
+			"problem.z.composite.CompositeSprite", "problem.z.composite.CompositeSpriteIterator",
+			"problem.z.composite.CrystalBall", "problem.z.composite.ISprite", "problem.z.composite.MainWindow",
+			"problem.z.composite.NullSpriteIterator", "problem.z.composite.RectangleSprite",
+			"problem.z.composite.RectangleTower", "problem.z.composite.SpriteFactory"
+
 			// our own project
-			"problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor", "problem.asm.ClassFieldVisitor",
-			"problem.asm.ClassMethodVisitor", "problem.asm.DesignParser", "problem.asm.IClassVisitor",
-			"problem.asm.MethodVisitorHelper", "problem.impl.Class", "problem.impl.Field", "problem.impl.Method",
-			"problem.impl.Model", "problem.impl.Relation", "problem.impl.SDOutputStream", "problem.impl.Sequence",
-			"problem.impl.UMLOutputStream", "problem.interfaces.IClass", "problem.interfaces.IField",
-			"problem.interfaces.IMethod", "problem.interfaces.IModel", "problem.interfaces.IRelation",
-			"problem.interfaces.ISequence", "problem.spotter.AdapterSpotter", "problem.spotter.DecoratorSpotter",
-			"problem.spotter.SingletonSpotter", "problem.spotter.CompositeSpotter", "problem.spotter.PatternSpotter",
-			"problem.visitor.ITraverser", "problem.visitor.IVisitor", "problem.visitor.VisitorAdapter"
+			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
+			// "problem.asm.ClassFieldVisitor",
+			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
+			// "problem.asm.IClassVisitor",
+			// "problem.asm.MethodVisitorHelper", "problem.impl.Class",
+			// "problem.impl.Field", "problem.impl.Method",
+			// "problem.impl.Model", "problem.impl.Relation",
+			// "problem.impl.SDOutputStream", "problem.impl.Sequence",
+			// "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
+			// "problem.interfaces.IField",
+			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
+			// "problem.interfaces.IRelation",
+			// "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
+			// "problem.spotter.DecoratorSpotter",
+			// "problem.spotter.SingletonSpotter",
+			// "problem.spotter.CompositeSpotter",
+			// "problem.spotter.PatternSpotter",
+			// "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+			// "problem.visitor.VisitorAdapter"
 
 	};
 
