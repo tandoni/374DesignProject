@@ -60,7 +60,7 @@ public class CompositeSpotter extends PatternSpotter {
 
 	@Override
 	public void postVisit(IModel m) {
-		super.visit(m);
+		super.postVisit(m);
 		// First, get all of the classes which extend composites, leafs or the
 		// component. We have to worry about all of them. Once you find a class
 		// that extends

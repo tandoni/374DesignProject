@@ -120,7 +120,7 @@ public class DesignParser {
 			ITraverser traverser = (ITraverser) this.model;
 			// traverser.acceptSpotters(singletonSpotter);
 			// traverser.acceptSpotters(decoratorSpotter);
-			// traverser.acceptSpotters(adapterSpotter);
+//			 traverser.acceptSpotters(adapterSpotter);
 			traverser.acceptSpotters(compositeSpotter);
 		}
 	}
