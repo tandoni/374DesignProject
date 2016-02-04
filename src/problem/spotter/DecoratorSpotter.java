@@ -39,7 +39,7 @@ public class DecoratorSpotter extends PatternSpotter {
 		// in our sequence generator
 		String methName = m.getName() + "(";
 		String desc = m.getDescription();
-		if (!(!desc.contains(";") && desc.contains(")"))) {
+		if (!((!desc.contains(";") && desc.contains(")")) || desc.contains("()"))) {
 			desc = desc.split("/")[desc.split("/").length - 1];
 			methName = methName + desc.substring(0, desc.indexOf(";")) + " arg0";
 		}
@@ -118,7 +118,13 @@ public class DecoratorSpotter extends PatternSpotter {
 						String seq0 = seq.get(0).getCalledMethod();
 						ArrayList<String> args = seq.get(0).getArguments();
 						if (args.size() > 0) {
-							seq0 = seq0 + "(" + args.get(0) + " arg0)";
+							if (!args.get(0).equals("")) {
+								seq0 = seq0 + "(" + args.get(0) + " arg0)";
+							} else {
+								seq0 = seq0 + "()";
+							}
+						} else {
+							seq0 = seq0 + "()";
 						}
 						if (seq0.equals(pair.getKey())) {
 							String component = seq.get(0).getToClass();

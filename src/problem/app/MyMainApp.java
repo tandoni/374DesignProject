@@ -69,22 +69,20 @@ public class MyMainApp {
 
 			// Composite tests
 			// java.awt
-			// "java.awt.Component", "java.awt.Container", "java.awt.Panel",
-			// "java.awt.Window", "java.awt.Frame",
-			// "javax.swing.JComponent", "javax.swing.JLabel",
-			// "javax.swing.JPanel", "javax.swing.AbstractButton",
-			// "javax.swing.JButton"
+			"java.awt.Component", "java.awt.Container", "java.awt.Panel", "java.awt.Window", "java.awt.Frame",
+//			"javax.swing.JComponent", "javax.swing.JLabel", "javax.swing.JPanel", "javax.swing.AbstractButton",
+//			"javax.swing.JButton"
 
 			// our own project
-			"problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor", "problem.asm.ClassFieldVisitor",
-			"problem.asm.ClassMethodVisitor", "problem.asm.DesignParser", "problem.asm.IClassVisitor",
-			"problem.asm.MethodVisitorHelper", "problem.impl.Class", "problem.impl.Field", "problem.impl.Method",
-			"problem.impl.Model", "problem.impl.Relation", "problem.impl.SDOutputStream", "problem.impl.Sequence",
-			"problem.impl.UMLOutputStream", "problem.interfaces.IClass", "problem.interfaces.IField",
-			"problem.interfaces.IMethod", "problem.interfaces.IModel", "problem.interfaces.IRelation",
-			"problem.interfaces.ISequence", "problem.spotter.AdapterSpotter", "problem.spotter.DecoratorSpotter",
-			"problem.spotter.SingletonSpotter", "problem.spotter.CompositeSpotter", "problem.spotter.PatternSpotter",
-			"problem.visitor.ITraverser", "problem.visitor.IVisitor", "problem.visitor.VisitorAdapter"
+//			"problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor", "problem.asm.ClassFieldVisitor",
+//			"problem.asm.ClassMethodVisitor", "problem.asm.DesignParser", "problem.asm.IClassVisitor",
+//			"problem.asm.MethodVisitorHelper", "problem.impl.Class", "problem.impl.Field", "problem.impl.Method",
+//			"problem.impl.Model", "problem.impl.Relation", "problem.impl.SDOutputStream", "problem.impl.Sequence",
+//			"problem.impl.UMLOutputStream", "problem.interfaces.IClass", "problem.interfaces.IField",
+//			"problem.interfaces.IMethod", "problem.interfaces.IModel", "problem.interfaces.IRelation",
+//			"problem.interfaces.ISequence", "problem.spotter.AdapterSpotter", "problem.spotter.DecoratorSpotter",
+//			"problem.spotter.SingletonSpotter", "problem.spotter.CompositeSpotter", "problem.spotter.PatternSpotter",
+//			"problem.visitor.ITraverser", "problem.visitor.IVisitor", "problem.visitor.VisitorAdapter"
 
 	};
 
