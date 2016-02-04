@@ -24,6 +24,7 @@ public class CompositeSpotter extends PatternSpotter {
 		// get c's superClass : sc
 		IRelation rel = this.model.getRelationsMap().get(c.getFullName());
 		String sc = rel.getSuperClass();
+		ArrayList<String> inter = (ArrayList<String>) rel.getInterfaces();
 		if (!(sc == null))
 			if (sc.contains("/"))
 				sc = sc.split("/")[sc.split("/").length - 1];
