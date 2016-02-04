@@ -60,9 +60,4 @@ public class M6Test {
 		assertEquals("leaf", abstractbutton.getClassTypes2().get(PatternSpotter.COMPOSITESTR));
 
 	}
-
-	@Test
-	public final void testParser() {
-
-	}
 }
