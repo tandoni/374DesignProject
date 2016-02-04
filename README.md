@@ -65,7 +65,7 @@ Instructions:
 Milestone 5:
 --
 Design Evolution:
-	In order to implement pattern recognition, we have a PatternSpotter which is an abstract class to hold our static string names and any special information pertaining to patter spotters. Our PatternSpotterDec extends this class and visits the classes to spot patterns. We then create a separate concrete class for each Pattern stopper. For example, for adapter, we have a class AdapterSpotter which extends PatterSpotterDec. Similarly for Decorate pattern spotter, we have DecoratorSpotter. We also had to add an accept spotter method in our class.java and getters and setters for stored info.
+	In order to implement pattern recognition, we have a PatternSpotter which is an abstract class to hold our static string names and any special information pertaining to patter spotters. Our PatternSpotterDec extends this class and visits the classes to spot patterns. We then create a separate concrete class for each Pattern spotter. For example, for adapter, we have a class AdapterSpotter which extends PatterSpotterDec. Similarly for Decorate pattern spotter, we have DecoratorSpotter. We also had to add an accept spotter method in our class.java and getters and setters for stored info.
 	![Alt text](https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj_M5.png "design UML")
 
 Who did what:
@@ -73,3 +73,17 @@ Who did what:
 
 Instructions:
 	There are comments in MyMainApp.java specifying what to uncomment in order to run that. By uncommenting those and running the program, it generates a .gv file which can be opened by graphviz.
+
+
+Milestone 6:
+--
+Design Evolution:
+	In order to implement pattern recognition, we have a PatternSpotter which is an abstract class to hold our static string names and any special information pertaining to patter spotters. We deleted PatternSpotterDec which was being extended by this class. We then create a separate concrete class for each Pattern spotter. For example, for adapter, we have a class AdapterSpotter which extends PatternSpotter. Similarly for Decorate pattern spotter, we have DecoratorSpotter. And for Composite, we have a CompositeSpotter extending PatternSpotter. We also had to add an accept spotter method in our class.java and getters and setters for stored info.
+
+Who did what:
+	Max, Ishank, and Ruying did the design with Max taking the lead for it. Ruying wrote test cases for the milestone as well. Max also wrote test cases. Ishank worked on the parsing and wrote some test cases.
+
+Instructions:
+	There are comments in MyMainApp.java specifying what to uncomment in order to run that. By uncommenting those and running the program, it generates a .gv file which can be opened by graphviz.
+
+
