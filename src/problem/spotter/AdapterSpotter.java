@@ -10,7 +10,7 @@ import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 
-public class AdapterSpotter extends PatternSpotterDec {
+public class AdapterSpotter extends PatternSpotter {
 	Collection<IRelation> r;
 	// It shouldn't matter that this is static, since we should only have one
 	// instance of AdapterSpotter at any time, but it's good to do just to

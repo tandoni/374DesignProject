@@ -16,7 +16,7 @@ import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 import problem.interfaces.ISequence;
 
-public class DecoratorSpotter extends PatternSpotterDec {
+public class DecoratorSpotter extends PatternSpotter {
 	// This is map where the key is the name of the method, and the Collection
 	// are the classes that call this method. If multiple classes call the same
 	// method, we should be suspicious that this is a decorator.
@@ -35,14 +35,23 @@ public class DecoratorSpotter extends PatternSpotterDec {
 		if (m.getName().contains("init>")) {
 			return;
 		}
+		// We need the method to be the name and the parameters for it to work
+		// in our sequence generator
+		String methName = m.getName() + "(";
+		String desc = m.getDescription();
+		if (!(!desc.contains(";") && desc.contains(")"))) {
+			desc = desc.split("/")[desc.split("/").length - 1];
+			methName = methName + desc.substring(0, desc.indexOf(";")) + " arg0";
+		}
+		methName = methName + ")";
 		// Add this class to the classes which have the method of the same name
-		if (!DecoratorSpotter.meths.containsKey(m.getName())) {
-			DecoratorSpotter.meths.put(m.getName(), new ArrayList<String>());
+		if (!DecoratorSpotter.meths.containsKey(methName)) {
+			DecoratorSpotter.meths.put(methName, new ArrayList<String>());
 		}
 		// list is the list of all classes that call the method of this name
-		ArrayList<String> list = (ArrayList<String>) DecoratorSpotter.meths.get(m.getName());
+		ArrayList<String> list = (ArrayList<String>) DecoratorSpotter.meths.get(methName);
 		list.add(this.curClassFull);
-		DecoratorSpotter.meths.put(m.getName(), list);
+		DecoratorSpotter.meths.put(methName, list);
 	}
 
 	// if (!DecoratorSpotter.decorates.contains(this.curClass)
@@ -88,7 +97,7 @@ public class DecoratorSpotter extends PatternSpotterDec {
 					// This is the class and method where we want to start the
 					// method
 					// tracing
-					str[0] = c.replace("/", ".") + "." + pair.getKey() + "()";
+					str[0] = c.replace("/", ".") + "." + pair.getKey();
 					// str[0] = "problem.z.decorator.Mocha.cost()";
 					// Call depth of x
 					str[1] = "5";
@@ -106,7 +115,12 @@ public class DecoratorSpotter extends PatternSpotterDec {
 					ArrayList<ISequence> seq = model.getSequences();
 					if (seq.isEmpty()) {
 					} else {
-						if (seq.get(0).getCalledMethod().equals(pair.getKey())) {
+						String seq0 = seq.get(0).getCalledMethod();
+						ArrayList<String> args = seq.get(0).getArguments();
+						if (args.size() > 0) {
+							seq0 = seq0 + "(" + args.get(0) + " arg0)";
+						}
+						if (seq0.equals(pair.getKey())) {
 							String component = seq.get(0).getToClass();
 							String fromClass = seq.get(0).getFromClass();
 							String[] fromSplit = fromClass.split("\\.");

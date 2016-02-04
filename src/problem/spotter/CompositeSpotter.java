@@ -11,7 +11,7 @@ import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
 import problem.visitor.IVisitor;
 
-public class CompositeSpotter extends PatternSpotterDec {
+public class CompositeSpotter extends PatternSpotter {
 
 	public CompositeSpotter(IModel model, IVisitor decoratedd) {
 		super(model, decoratedd);

@@ -3,7 +3,7 @@ package problem.spotter;
 import problem.interfaces.IField;
 import problem.interfaces.IModel;
 
-public class SingletonSpotter extends PatternSpotterInit {
+public class SingletonSpotter extends PatternSpotter {
 
 	// @Override
 	// public void visit(IClass c) {
