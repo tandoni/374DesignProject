@@ -111,38 +111,43 @@ public class DecoratorSpotter extends PatternSpotterDec {
 							String fromClass = seq.get(0).getFromClass();
 							String[] fromSplit = fromClass.split("\\.");
 							String fromClassShortName = fromSplit[fromSplit.length - 1];
-							this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
-							this.model.getNamedClass(fromClassShortName).addClassTypes2(DECORATORSTR, "decorator");
-							String fromClassS = fromClass.replace(".", "/");
-							// IClass clas =
-							// this.model.getNamedClass(fromClassShortName);
-							// Collection<IRelation> rels = clas.getRelations();
-							IRelation relations = this.model.getRelationsMap().get(fromClassS);
-							String superFull = relations.getSuperClass();
-							if (superFull != null) {
-								superFull = superFull.split("/")[superFull.split("/").length - 1];
-								IClass next = this.model.getNamedClass(superFull);
-								while (!next.getName().equals(component)) {
-									next.addClassTypes2(DECORATORSTR, "decorator");
-									String supClass = this.model.getRelationsMap().get(next.getFullName())
-											.getSuperClass();
-									if (supClass == null) {
-										break;
-									}
-									if (supClass.equals("")) {
-										ArrayList<String> inter = (ArrayList<String>) this.model.getRelationsMap()
-												.get(next.getName()).getInterfaces();
-										next = this.model.getNamedClass(inter.get(0));
-									} else {
-										supClass = supClass.split("/")[supClass.split("/").length - 1];
-										next = this.model.getNamedClass(supClass);
-									}
 
+							if (this.model.getClassNames().contains(component)) {
+
+								this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
+
+								this.model.getNamedClass(fromClassShortName).addClassTypes2(DECORATORSTR, "decorator");
+								String fromClassS = fromClass.replace(".", "/");
+								// IClass clas =
+								// this.model.getNamedClass(fromClassShortName);
+								// Collection<IRelation> rels =
+								// clas.getRelations();
+								IRelation relations = this.model.getRelationsMap().get(fromClassS);
+								String superFull = relations.getSuperClass();
+								if (superFull != null) {
+									superFull = superFull.split("/")[superFull.split("/").length - 1];
+									IClass next = this.model.getNamedClass(superFull);
+									while (!next.getName().equals(component)) {
+										next.addClassTypes2(DECORATORSTR, "decorator");
+										String supClass = this.model.getRelationsMap().get(next.getFullName())
+												.getSuperClass();
+										if (supClass == null) {
+											break;
+										}
+										if (supClass.equals("")) {
+											ArrayList<String> inter = (ArrayList<String>) this.model.getRelationsMap()
+													.get(next.getName()).getInterfaces();
+											next = this.model.getNamedClass(inter.get(0));
+										} else {
+											supClass = supClass.split("/")[supClass.split("/").length - 1];
+											next = this.model.getNamedClass(supClass);
+										}
+
+									}
 								}
 							}
 						}
 					}
-
 				}
 			}
 		}
