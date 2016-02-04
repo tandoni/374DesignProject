@@ -79,6 +79,8 @@ Milestone 6:
 --
 Design Evolution:
 	In order to implement pattern recognition, we have a PatternSpotter which is an abstract class to hold our static string names and any special information pertaining to patter spotters. We deleted PatternSpotterDec which was being extended by this class. We then create a separate concrete class for each Pattern spotter. For example, for adapter, we have a class AdapterSpotter which extends PatternSpotter. Similarly for Decorate pattern spotter, we have DecoratorSpotter. And for Composite, we have a CompositeSpotter extending PatternSpotter. We also had to add an accept spotter method in our class.java and getters and setters for stored info.
+	![Alt text](	https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj-M6.png "design UML")
+
 
 Who did what:
 	Max, Ishank, and Ruying did the design with Max taking the lead for it. Ruying wrote test cases for the milestone as well. Max also wrote test cases. Ishank worked on the parsing and wrote some test cases.
