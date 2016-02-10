@@ -112,8 +112,8 @@ public class Class implements IClass {
 	}
 
 	@Override
-	public Collection<IField> getFields() {
-		return this.fields;
+	public ArrayList<IField> getFields() {
+		return (ArrayList<IField>) this.fields;
 	}
 
 	@Override

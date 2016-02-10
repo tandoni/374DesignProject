@@ -119,6 +119,9 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 				IRelation r = new Relation(this.myClass.getName());
 				r.addUses(s);
 				this.model.addRelation(r);
+				IRelation r2 = new Relation(this.myClass.getFullName());
+				r2.addUses(s);
+				this.model.addRelation(r2);
 			}
 		}
 

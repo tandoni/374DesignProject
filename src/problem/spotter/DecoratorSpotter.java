@@ -11,6 +11,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import problem.asm.DesignParser;
 import problem.interfaces.IClass;
+import problem.interfaces.IField;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
@@ -29,6 +30,8 @@ public class DecoratorSpotter extends PatternSpotter {
 	}
 
 	@Override
+	// Gathers all methods with more than one class that calls it, and stores
+	// those methods here.
 	public void visit(IMethod m) {
 		super.visit(m);
 		// If its a constructor, jsut give up now
@@ -128,16 +131,41 @@ public class DecoratorSpotter extends PatternSpotter {
 						}
 						if (seq0.equals(pair.getKey())) {
 							String component = seq.get(0).getToClass();
-							String fromClass = seq.get(0).getFromClass();
-							String[] fromSplit = fromClass.split("\\.");
+							String fromClassStr = seq.get(0).getFromClass();
+							String[] fromSplit = fromClassStr.split("\\.");
 							String fromClassShortName = fromSplit[fromSplit.length - 1];
-
-							if (this.model.getClassNames().contains(component)) {
+							IClass cClass = this.model.getNamedClass(c);
+							ArrayList<String> toInter = new ArrayList<String>();
+							if (this.model.getRelationsMap().containsKey(component)) {
+								toInter = (ArrayList<String>) this.model.getRelationsMap().get(component)
+										.getInterfaces();
+							}
+							// We need to determine if the class that is getting
+							// the same method called inside of this class is
+							// also a field of this class
+							boolean toIsField = false;
+							String componentShort = component.split("/")[component.split("/").length - 1];
+							ArrayList<IField> fields = cClass.getFields();
+							for (IField field : fields) {
+								if (field.getName().equalsIgnoreCase(componentShort)
+										&& field.getDescription().contains(componentShort))
+									toIsField = true;
+							}
+							// We need to determine if any of the interfaces of
+							// the class that was called inside of this class
+							// are a field of this class
+							for (String interf : toInter) {
+								if (cClass.getFields().contains(interf)) {
+									toIsField = true;
+								}
+							}
+							// Add the decorator labels below
+							if (this.model.getClassNames().contains(componentShort) && toIsField) {
 
 								this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
 
 								this.model.getNamedClass(fromClassShortName).addClassTypes2(DECORATORSTR, "decorator");
-								String fromClassS = fromClass.replace(".", "/");
+								String fromClassS = fromClassStr.replace(".", "/");
 								// IClass clas =
 								// this.model.getNamedClass(fromClassShortName);
 								// Collection<IRelation> rels =

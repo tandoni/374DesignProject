@@ -30,29 +30,53 @@ public class CompositeSpotter extends PatternSpotter {
 				sc = sc.split("/")[sc.split("/").length - 1];
 		// get all c's associations
 		Collection<String> ass = rel.getAssociations();
+		Collection<String> uses = rel.getUses();
+		// Need a boolean to determine if any of the interfaces this class
+		// extends is also a relation for this class.
+		boolean interIsField = false;
+		String interComponent = "";
+		for (String interf : inter) {
+			if (uses.contains(interf.split("/")[interf.split("/").length - 1])) {
+				interIsField = true;
+				interComponent = interf;
+			}
+		}
 
 		// does associations contain the superclass?
-		if (ass.contains(sc)) {
-			// if yes color c and sc
-			this.model.getNamedClass(sc).addClassTypes2(COMPOSITESTR, "component");
+		if (ass.contains(sc) || interIsField) {
+			if (!interIsField) {
+				// if yes color c and sc
+				this.model.getNamedClass(sc).addClassTypes2(COMPOSITESTR, "component");
+			} else {
+				this.model.getNamedClass(interComponent).addClassTypes2(COMPOSITESTR, "component");
+			}
 			this.model.getNamedClass(c.getName()).addClassTypes2(COMPOSITESTR, "composite");
 
-			ArrayList<String> cNames = (ArrayList<String>) this.model.getClassNames();
+			ArrayList<IClass> cNames = (ArrayList<IClass>) this.model.getClasses();
 			// Iterate through classes, and see if they are composite or leaf by
 			// seeing if they extend component
-			for (String s : cNames) {
-				IRelation r = this.model.getRelationsMap().get(s);
+			for (IClass s : cNames) {
+				IRelation r = this.model.getRelationsMap().get(s.getFullName());
 				String thisSupClass = r.getSuperClass();
 				Collection<String> assoc = r.getAssociations();
-				// If the super class of this string is the component, then it
-				// is either a composite or a leaf
-				if (thisSupClass.equals(sc)) {
-					// If this class also associates with the component, we
-					// assume it is a composite
-					if (assoc.contains(sc)) {
-						this.model.getNamedClass(s).addClassTypes2(COMPOSITESTR, "composite");
-					} else {
-						this.model.getNamedClass(s).addClassTypes2(COMPOSITESTR, "leaf");
+				if (!interIsField) {
+					if (s.getClassTypes2().containsKey(COMPOSITESTR)) {
+						if (!s.getClassTypes2().get(COMPOSITESTR).equals("component")) {
+							// If the super class of this string is the
+							// component, then
+							// it
+							// is either a composite or a leaf
+							if (thisSupClass.equals(sc)) {
+								// If this class also associates with the
+								// component, we
+								// assume it is a composite
+								if (assoc.contains(sc)) {
+									s.addClassTypes2(COMPOSITESTR, "composite");
+								} else {
+									s.addClassTypes2(COMPOSITESTR, "leaf");
+								}
+							}
+						}
 					}
 				}
 			}

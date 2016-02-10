@@ -50,6 +50,9 @@ public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor {
 			IRelation r = new Relation(this.myClass.getName());
 			r.addAssociations(fieldName);
 			this.model.addRelation(r);
+			IRelation r2 = new Relation(this.myClass.getFullName());
+			r2.addAssociations(fieldName);
+			this.model.addRelation(r2);
 		}
 
 		return toDecorate;

@@ -88,7 +88,7 @@ public class MethodVisitorHelperSeq extends MethodVisitor {
 			// System.out.println("adding a sequence");
 			// This is where the sequence is added
 			ISequence sequence = new Sequence(this.model.getCurrentClass(),
-					owner.split("/")[owner.split("/").length - 1], name, getArguments(desc).split(","));
+					owner, name, getArguments(desc).split(","));
 			this.model.addSequence(sequence);
 			// Increment the call depth by 1, since we added another Sequence to
 			// the SD.

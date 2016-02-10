@@ -48,6 +48,10 @@ public class Sequence implements ISequence {
 		return this.toClass;
 	}
 
+	public String getToClassShort() {
+		return this.toClass.split("/")[this.toClass.split("/").length - 1];
+	}
+
 	public String getCalledMethod() {
 		return this.calledMethod;
 	}

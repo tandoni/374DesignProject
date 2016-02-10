@@ -12,7 +12,7 @@ public interface IClass extends ITraverser {
 
 	public Collection<IMethod> getMethods();
 
-	public Collection<IField> getFields();
+	public ArrayList<IField> getFields();
 
 	public Collection<IRelation> getRelations();
 
