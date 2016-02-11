@@ -111,18 +111,16 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		// addAccessLevel(access);
 		// addReturnType(desc);
 
-		String[] splitArgs = getArguments(desc).split("/");
+		String s = getArguments(desc);
 		// System.out.println("splitArgs: " + splitArgs[0]);
 
-		for (String s : splitArgs) {
-			if (s != "") {
-				IRelation r = new Relation(this.myClass.getName());
-				r.addUses(s);
-				this.model.addRelation(r);
-				IRelation r2 = new Relation(this.myClass.getFullName());
-				r2.addUses(s);
-				this.model.addRelation(r2);
-			}
+		if (s != "") {
+			// IRelation r = new Relation(this.myClass.getName());
+			// r.addUses(s);
+			// this.model.addRelation(r);
+			IRelation r2 = new Relation(this.myClass.getFullName());
+			r2.addUses(s);
+			this.model.addRelation(r2);
 		}
 
 		MethodVisitor newToDecorate = new MethodVisitorHelper(Opcodes.ASM5, this.model, toDecorate, this.myClass);
@@ -173,11 +171,13 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 
 		Type[] args = Type.getArgumentTypes(desc);
 		for (int i = 0; i < args.length; i++) {
-			String[] typeSplit = args[i].getClassName().split("\\.");
-			result += typeSplit[typeSplit.length - 1] + ",";
+			String typeSplit = args[i].getClassName().replace(".", "/");
+			// String typeSplit = args[i];
+			// if (typeSplit.contains("/")) {
+			// typeSplit = typeSplit.substring(2, typeSplit.length() - 2);
+			// }
+			result += typeSplit + ",";
 		}
-		if (result != "")
-			result = result.substring(0, result.length() - 1);
 		return result;
 	}
 

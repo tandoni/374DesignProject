@@ -1,5 +1,7 @@
 package problem.asm;
 
+import java.util.ArrayList;
+
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.FieldVisitor;
 //import org.objectweb.asm.Type;
@@ -39,21 +41,28 @@ public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor {
 		// }
 
 		String fieldName = desc.split("/")[desc.split("/").length - 1];
-		if (fieldName.contains(";")) {
-			fieldName = fieldName.substring(0, fieldName.indexOf(";"));
+		String fieldNameFull = desc;
+		if (fieldNameFull.contains(";")) {
+			fieldNameFull = fieldNameFull.substring(0, fieldNameFull.indexOf(";"));
 		}
 		this.myClass = this.getBelongedClass();
 
 		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
 		namedClass.addField(f);
-		if (this.model.getClassNames().contains(fieldName)) {
-			IRelation r = new Relation(this.myClass.getName());
-			r.addAssociations(fieldName);
-			this.model.addRelation(r);
-			IRelation r2 = new Relation(this.myClass.getFullName());
-			r2.addAssociations(fieldName);
-			this.model.addRelation(r2);
+		boolean fieldIsClass = false;
+		ArrayList<IClass> classes = (ArrayList<IClass>) this.model.getClasses();
+		for (IClass c : classes) {
+			if (c.getFullName().equals(fieldNameFull))
+				fieldIsClass = true;
 		}
+		// if (this.model.getClassNames().contains(fieldNameFull)) {
+		// IRelation r = new Relation(this.myClass.getName());
+		// r.addAssociations(fieldName);
+		// this.model.addRelation(r);
+		IRelation r2 = new Relation(this.myClass.getFullName());
+		r2.addAssociations(fieldNameFull);
+		this.model.addRelation(r2);
+		// }
 
 		return toDecorate;
 	}

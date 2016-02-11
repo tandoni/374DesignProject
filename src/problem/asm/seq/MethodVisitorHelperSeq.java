@@ -38,9 +38,9 @@ public class MethodVisitorHelperSeq extends MethodVisitor {
 
 		if (owner.equals(this.myClass.getName())) {
 			// create relation for association
-			IRelation r = new Relation(ownerSplit[ownerSplit.length - 1]);
-			r.addAssociations(fieldSplit[fieldSplit.length - 1]);
-			this.model.addRelation(r);
+//			IRelation r = new Relation(ownerSplit[ownerSplit.length - 1]);
+//			r.addAssociations(fieldSplit[fieldSplit.length - 1]);
+//			this.model.addRelation(r);
 		}
 	}
 
