@@ -29,6 +29,18 @@ public interface IModel extends ITraverser {
 
 	ArrayList<String> getCreatedClasses();
 
+	/**
+	 * Returns the full class name, with slashes
+	 * 
+	 * @return
+	 */
+	Collection<String> getFullClassNames();
+
+	/**
+	 * Deprecated. Returns shortened class name. Use getFullClassNames()
+	 * 
+	 * @return
+	 */
 	Collection<String> getClassNames();
 
 	String[] getNewClasses(ISequence subM, int depth);
@@ -58,7 +70,7 @@ public interface IModel extends ITraverser {
 	public ArrayList<String> getSingletons();
 
 	public int getCallDepth();
-	
+
 	public void setCallDepth(int depth);
 
 	public void callDepthInc();

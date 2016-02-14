@@ -26,6 +26,8 @@ public class Model implements IModel {
 	public static ArrayList<String> createdClasses = new ArrayList<String>();
 	// List of class names that are in the SD diagram!!
 	public static List<String> SDClassNames = new ArrayList<String>();
+	// Set this for more thorough checking.
+	public static Collection<String> fullClassNames = new ArrayList<String>();
 	public static Collection<String> classNames = new ArrayList<String>();
 	// recordSeq is a boolean used when creating SD. It's set to true when we
 	// have found the correct class and method that was specified at the start
@@ -69,6 +71,7 @@ public class Model implements IModel {
 			String[] split = s.split("\\.");
 			s = split[split.length - 1];
 			Model.classNames.add(s);
+			Model.fullClassNames.add(s.replace(".", "/"));
 		}
 	}
 
@@ -107,11 +110,15 @@ public class Model implements IModel {
 	}
 
 	@Override
+	public Collection<String> getFullClassNames() {
+		return Model.fullClassNames;
+	}
+
+	@Override
 	public void addRelation(IRelation r) {
 
 		if (!Model.relations.containsKey(r.getSubClass())) {
 			Model.relations.put(r.getSubClass(), r);
-
 		} else {
 			// get the relation we want to modify
 			IRelation modify = Model.relations.get(r.getSubClass());

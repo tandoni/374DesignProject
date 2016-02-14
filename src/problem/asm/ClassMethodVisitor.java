@@ -54,75 +54,28 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 			if (argsMatch) {
 				// Now we need to start recording sequences for the SD
 				this.model.setRecordSeq(true);
-				// public Sequence(String from, String to, String method,
-				// String[] args)
-				// Sequence seq = new Sequence(this.model.getCurrentClass(), "",
-				// )
-				// System.out.println("Current Class: " +
-				// this.model.getCurrentClass());
-				// System.out.println("Start Class: " +
-				// this.model.getStartClass());
-				// System.out.println(" method: " + name + " start method name:
-				// " + this.model.getStartMethodName());
-				// System.out.println("getArguments(desc): " +
-				// getArguments(desc));
-				// System.out.println(
-				// "halalell---------------------------------------------------------------------------------------------------------------");
 			}
 		}
 
-		if (this.model.getRecordSeq() && this.model.getCallDepth() < DesignParser.MAX_CALL_DEPTH) {
-			// If the name of the method is init, then we are intitalizing a
-			// new
-			// class, and need to record that
-			if (name.contains("init>")) {
-				// this.model.addCreatedClass(owner.split("/")[owner.split("/").length
-				// - 1]);
-			} else {
-				// if this isn't a new class, then we add it SDClassNames
-				// because we need it the top of the SD diagram (most
-				// likely,
-				// still need to checkt to make sure)
-				// String temp = owner.split("/")[owner.split("/").length - 1];
-				// if (!this.model.getSDClassNames().contains(temp))
-				// this.model.addSDClassName(temp);
-				// }
-				// System.out.println("adding a sequence");
-				// This is where the sequence is added
-				// ISequence sequence = new
-				// Sequence(this.model.getCurrentClass(),
-				// owner.split("/")[owner.split("/").length - 1], name,
-				// getArguments(desc).split(","));
-				// this.model.addSequence(sequence);
-				// Increment the call depth by 1, since we added another
-				// Sequence to
-				// the SD.
-				// this.model.callDepthInc();
-				// if (!(name.equals("<init>"))) {
-				// this.subMethods.add(sequence);
-				// }
-			}
+		String fieldName = desc;
+		if (fieldName.contains(";")) {
+			fieldName = fieldName.substring(1, fieldName.indexOf(";"));
 		}
-
 		this.myClass = this.getBelongedClass();
 
 		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
-
-		// addAccessLevel(access);
-		// addReturnType(desc);
-
-		String[] splitArgs = getArguments(desc).split("/");
-		// System.out.println("splitArgs: " + splitArgs[0]);
-
-		for (String s : splitArgs) {
-			if (s != "") {
-				IRelation r = new Relation(this.myClass.getName());
-				r.addUses(s);
-				this.model.addRelation(r);
-				IRelation r2 = new Relation(this.myClass.getFullName());
-				r2.addUses(s);
-				this.model.addRelation(r2);
-			}
+		boolean isAClass = false;
+		for (IClass clas : this.model.getClasses()) {
+			if (clas.getFullName().contains(fieldName))
+				isAClass = true;
+		}
+		if (isAClass) {
+			// IRelation r = new Relation(this.myClass.getName());
+			// r.addAssociations(fieldName);
+			// this.model.addRelation(r);
+			IRelation r2 = new Relation(this.myClass.getFullName());
+			r2.addUses(fieldName);
+			this.model.addRelation(r2);
 		}
 
 		MethodVisitor newToDecorate = new MethodVisitorHelper(Opcodes.ASM5, this.model, toDecorate, this.myClass);
@@ -133,39 +86,6 @@ public class ClassMethodVisitor extends ClassVisitor implements IClassVisitor {
 		return newToDecorate;
 
 	}
-	//
-	// void addAccessLevel(int access){
-	// String level="";
-	// if((access&Opcodes.ACC_PUBLIC)!=0){
-	// level="public";
-	// }else if((access&Opcodes.ACC_PROTECTED)!=0){
-	// level="protected";
-	// }else if((access&Opcodes.ACC_PRIVATE)!=0){
-	// level="private";
-	// }else{
-	// level="default";
-	// }
-	// //System.out.println(" access level: "+level);
-	// // TODO: ADD this information to your representation of the current
-	// method.
-	// }
-	//
-	// void addReturnType(String desc){
-	// String returnType = Type.getReturnType(desc).getClassName();
-	// //System.out.println(" return type: " + returnType);
-	// // TODO: ADD this information to your representation of the current
-	// method.
-	// }
-	//
-	// void addArguments(String desc){
-	// Type[] args = Type.getArgumentTypes(desc);
-	// for(int i=0; i< args.length; i++){
-	// String arg=args[i].getClassName();
-	// //System.out.println(" arg "+i+": "+arg);
-	// // TODO: ADD this information to your representation of the current
-	// method.
-	// }
-	// }
 
 	String getArguments(String desc) {
 

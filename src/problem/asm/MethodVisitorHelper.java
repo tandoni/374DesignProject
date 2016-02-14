@@ -33,12 +33,15 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 		String[] ownerSplit = owner.split("/");
 
-		String[] fieldSplit = getType(desc).split("\\.");
+		String fieldStr = getType(desc);
+		if (fieldStr.contains(";")) {
+			fieldStr = fieldStr.substring(1, fieldStr.indexOf(";"));
+		}
 
 		if (owner.equals(this.myClass.getName())) {
 			// create relation for association
 			IRelation r = new Relation(owner);
-			r.addAssociations(fieldSplit[fieldSplit.length - 1]);
+			r.addAssociations(fieldStr);
 			this.model.addRelation(r);
 		}
 	}
@@ -47,14 +50,12 @@ public class MethodVisitorHelper extends MethodVisitor {
 	public void visitTypeInsn(int opcode, String type) {
 		super.visitTypeInsn(opcode, type);
 
-		String[] typeSplit = type.split("/");
-
 		// create relation for association
 		IRelation r = new Relation(this.myClass.getFullName());
 		// System.out.println("this.model.getCurrentClass(): " +
 		// this.model.getCurrentClass());
 
-		r.addAssociations(typeSplit[typeSplit.length - 1]);
+		r.addAssociations(type);
 		this.model.addRelation(r);
 	}
 

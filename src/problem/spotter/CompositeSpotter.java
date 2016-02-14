@@ -17,6 +17,9 @@ public class CompositeSpotter extends PatternSpotter {
 		super(model, decoratedd);
 	}
 
+	/**
+	 * Determine if a class is part of the composite pattern.
+	 */
 	@Override
 	public void visit(IClass c) {
 		super.visit(c);
@@ -25,9 +28,6 @@ public class CompositeSpotter extends PatternSpotter {
 		IRelation rel = this.model.getRelationsMap().get(c.getFullName());
 		String sc = rel.getSuperClass();
 		ArrayList<String> inter = (ArrayList<String>) rel.getInterfaces();
-		if (!(sc == null))
-			if (sc.contains("/"))
-				sc = sc.split("/")[sc.split("/").length - 1];
 		// get all c's associations
 		Collection<String> ass = rel.getAssociations();
 		Collection<String> uses = rel.getUses();
@@ -36,7 +36,7 @@ public class CompositeSpotter extends PatternSpotter {
 		boolean interIsField = false;
 		String interComponent = "";
 		for (String interf : inter) {
-			if (uses.contains(interf.split("/")[interf.split("/").length - 1])) {
+			if (uses.contains(interf)) {
 				interIsField = true;
 				interComponent = interf;
 			}
@@ -50,7 +50,7 @@ public class CompositeSpotter extends PatternSpotter {
 			} else {
 				this.model.getNamedClass(interComponent).addClassTypes2(COMPOSITESTR, "component");
 			}
-			this.model.getNamedClass(c.getName()).addClassTypes2(COMPOSITESTR, "composite");
+			this.model.getNamedClass(c.getFullName()).addClassTypes2(COMPOSITESTR, "composite");
 
 			ArrayList<IClass> cNames = (ArrayList<IClass>) this.model.getClasses();
 			// Iterate through classes, and see if they are composite or leaf by

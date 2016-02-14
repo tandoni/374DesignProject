@@ -25,11 +25,12 @@ public class SingletonSpotter extends PatternSpotter {
 		// The check to see if a private static instance of the class is
 		// instantiated inside of itself (means this is a singleton)
 		// System.out.println("f.getDescription(): " + f.getDescription());
-		String fieldType = f.getDescription().split("/")[f.getDescription().split("/").length - 1];
-		fieldType = fieldType.substring(0, fieldType.length() - 1);
-		if (super.curClass.equals(fieldType) && f.getAccess() == 10) {
-			super.model.addSingleton(this.curClass);
-			this.model.getNamedClass(this.curClass).setClassType("singleton");
+		String fieldType = f.getDescription();
+		if(fieldType.contains(";"))
+			fieldType = fieldType.substring(1, fieldType.length() - 1);
+		if (super.curClassFull.equals(fieldType) && f.getAccess() == 10) {
+			super.model.addSingleton(this.curClassFull);
+			this.model.getNamedClass(this.curClassFull).setClassType("singleton");
 		}
 		// System.out.println("here");
 	}

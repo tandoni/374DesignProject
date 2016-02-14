@@ -54,21 +54,23 @@ public class AdapterSpotter extends PatternSpotter {
 		// I'm checking to see if this class has any interfaces (that are in the
 		// UML) and if this
 		// class has any relations (to classes in this UML)
-		if (thisInterfaces.containsKey(c.getName()) && this.model.getRelationsMap().containsKey(c.getName())) {
-			if (thisInterfaces.get(c.getName()).size() == 1) {
+		if (thisInterfaces.containsKey(c.getFullName()) && this.model.getRelationsMap().containsKey(c.getFullName())) {
+			if (thisInterfaces.get(c.getFullName()).size() == 1) {
 				// I'm getting the IRelation that holds all relations for this
 				// class
 				// I'm visiting.
-				IRelation relations = this.model.getRelationsMap().get(c.getName());
+				IRelation relations = this.model.getRelationsMap().get(c.getFullName());
 				// Get all associations for this class. If there are any
 				// associations (we know only associations to classes in the UML
 				// are
 				// stored), then we know this is an adapter
 				ArrayList<String> assocs = (ArrayList<String>) relations.getAssociations();
 				String extender = relations.getSuperClass();
+				if (extender == null)
+					extender = "";
 				if (assocs.size() >= 1 && extender.equals("")) {
-					ArrayList<String> interf = (ArrayList<String>) thisInterfaces.get(c.getName());
-					Collection<IMethod> adapterMethods = this.model.getNamedClass(c.getName()).getMethods();
+					ArrayList<String> interf = (ArrayList<String>) thisInterfaces.get(c.getFullName());
+					Collection<IMethod> adapterMethods = this.model.getNamedClass(c.getFullName()).getMethods();
 					Collection<IMethod> targetMethods = this.model.getNamedClass(interf.get(0)).getMethods();
 					ArrayList<String> adapterMethodsList = new ArrayList<String>();
 					ArrayList<String> targetMethodsList = new ArrayList<String>();
@@ -82,7 +84,8 @@ public class AdapterSpotter extends PatternSpotter {
 						if (adapterMethodsList.containsAll(targetMethodsList)) {
 
 							// The current class we're in is the "adapter"
-							this.model.getNamedClass(c.getName()).addClassTypes2(AdapterSpotter.ADAPTERSTR, "adapter");
+							this.model.getNamedClass(c.getFullName()).addClassTypes2(AdapterSpotter.ADAPTERSTR,
+									"adapter");
 
 							// The interface we are trying to emulate is the
 							// "target"
@@ -99,6 +102,9 @@ public class AdapterSpotter extends PatternSpotter {
 		}
 	}
 
+	/**
+	 * Finds all interfaces for a class
+	 */
 	private void findInterfaces() {
 		for (IRelation re : this.r) {
 			Collection<String> inters = re.getInterfaces();
@@ -107,15 +113,13 @@ public class AdapterSpotter extends PatternSpotter {
 					// Put the interface into the interface map, and associate
 					// it with the String
 					// that is the name of class that is implementing it.
-					if (AdapterSpotter.thisInterfaces.containsKey(super.curClass)) {
-						thisInterfaces.put(super.curClass, new ArrayList<String>());
-					}
-					ArrayList<String> list = (ArrayList<String>) thisInterfaces.get(super.curClass);
-					if (list == null) {
+					if (AdapterSpotter.thisInterfaces.containsKey(super.curClassFull))
+						thisInterfaces.put(super.curClassFull, new ArrayList<String>());
+					ArrayList<String> list = (ArrayList<String>) thisInterfaces.get(super.curClassFull);
+					if (list == null)
 						list = new ArrayList<String>();
-					}
-					list.add(in.split("/")[in.split("/").length - 1]);
-					thisInterfaces.put(super.curClass, list);
+					list.add(in);
+					thisInterfaces.put(super.curClassFull, list);
 				}
 			}
 		}

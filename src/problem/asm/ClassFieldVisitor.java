@@ -38,18 +38,24 @@ public class ClassFieldVisitor extends ClassVisitor implements IClassVisitor {
 		// this.myClass = ((IClassVisitor) decorated).getBelongedClass();
 		// }
 
-		String fieldName = desc.split("/")[desc.split("/").length - 1];
+		String fieldName = desc;
 		if (fieldName.contains(";")) {
-			fieldName = fieldName.substring(0, fieldName.indexOf(";"));
+			fieldName = fieldName.substring(1, fieldName.indexOf(";"));
 		}
 		this.myClass = this.getBelongedClass();
 
 		IClass namedClass = this.model.getNamedClass(this.myClass.getName());
 		namedClass.addField(f);
-		if (this.model.getClassNames().contains(fieldName)) {
-			IRelation r = new Relation(this.myClass.getName());
-			r.addAssociations(fieldName);
-			this.model.addRelation(r);
+		boolean isAClass = false;
+		// We have to check the getClass
+		for (String clasName : this.model.getFullClassNames()) {
+			if (fieldName.contains(clasName))
+				isAClass = true;
+		}
+		if (isAClass) {
+			// IRelation r = new Relation(this.myClass.getName());
+			// r.addAssociations(fieldName);
+			// this.model.addRelation(r);
 			IRelation r2 = new Relation(this.myClass.getFullName());
 			r2.addAssociations(fieldName);
 			this.model.addRelation(r2);

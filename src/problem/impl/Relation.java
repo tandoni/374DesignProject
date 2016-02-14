@@ -135,13 +135,13 @@ public class Relation implements IRelation {
 		}
 	}
 
-	@Override
-	public void addUses(String[] useName) {
-		for (String s : useName) {
-			if (!this.uses.contains(s) && this.classNames.contains(getPureName(s)))
-				this.uses.add(s);
-		}
-	}
+//	@Override
+//	public void addUses(String[] useName) {
+//		for (String s : useName) {
+//			if (!this.uses.contains(s) && this.classNames.contains(getPureName(s)))
+//				this.uses.add(s);
+//		}
+//	}
 
 	@Override
 	public void addUses(String s) {
@@ -149,13 +149,13 @@ public class Relation implements IRelation {
 			this.uses.add(s);
 	}
 
-	@Override
-	public void addAssociations(String[] associationsName) {
-		for (String s : associationsName) {
-			if (!this.associations.contains(s) && this.classNames.contains(getPureName(s)))
-				this.associations.add(s);
-		}
-	}
+//	@Override
+//	public void addAssociations(String[] associationsName) {
+//		for (String s : associationsName) {
+//			if (!this.associations.contains(s) && this.classNames.contains(getPureName(s)))
+//				this.associations.add(s);
+//		}
+//	}
 
 	@Override
 	public void addAssociations(String s) {

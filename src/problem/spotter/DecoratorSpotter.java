@@ -98,8 +98,7 @@ public class DecoratorSpotter extends PatternSpotter {
 					parser.model.setRecordSeq(false);
 					String[] str = new String[2];
 					// This is the class and method where we want to start the
-					// method
-					// tracing
+					// method tracing
 					str[0] = c.replace("/", ".") + "." + pair.getKey();
 					// str[0] = "problem.z.decorator.Mocha.cost()";
 					// Call depth of x

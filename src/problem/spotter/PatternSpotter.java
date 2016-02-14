@@ -12,10 +12,9 @@ public abstract class PatternSpotter implements IVisitor {
 	public static final String ADAPTERSTR = "Adapter";
 	public static final String DECORATORSTR = "Decorator";
 	public static final String COMPOSITESTR = "Composite";
-	
+
 	protected IModel model;
 	private IVisitor decorated;
-	protected String curClass = "";
 	protected String curClassFull = "";
 
 	public PatternSpotter(IModel model, IVisitor decoratedd) {
@@ -35,13 +34,11 @@ public abstract class PatternSpotter implements IVisitor {
 		if (decorated != null)
 			decorated.preVisit(c);
 		this.curClassFull = c.getFullName();
-		this.curClass = c.getName();
 		// We need to know the current class so that we can see if the field is
 		// also this class for various applications.
 	}
 
 	public void visit(IClass c) {
-		this.curClass = c.getName();
 		if (decorated != null)
 			decorated.visit(c);
 	}
