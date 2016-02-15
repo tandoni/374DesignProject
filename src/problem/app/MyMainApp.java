@@ -1,8 +1,13 @@
 package problem.app;
 
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Enumeration;
+import java.util.Map.Entry;
+import java.util.Properties;
+import java.util.Set;
 
 import problem.asm.DesignParser;
 import problem.impl.SDOutputStream;
@@ -54,10 +59,14 @@ public class MyMainApp {
 			// "problem.z.decorator.Mocha.cost()", "5"
 			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
 			// "problem.z.decorator.Milk.cost()", "10"
-			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator", "problem.z.decorator.DarkRoast",
-			"problem.z.decorator.Decaf", "problem.z.decorator.Espresso", "problem.z.decorator.HouseBlend",
-			"problem.z.decorator.Milk", "problem.z.decorator.Mocha", "problem.z.decorator.StarbuzzCoffee",
-			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			// "problem.z.decorator.Beverage",
+			// "problem.z.decorator.CondimentDecorator",
+			// "problem.z.decorator.DarkRoast",
+			// "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
+			// "problem.z.decorator.HouseBlend",
+			// "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
+			// "problem.z.decorator.StarbuzzCoffee",
+			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
 			// "problem.z.adapter.IteratorToEnumerationAdapter",
@@ -85,34 +94,42 @@ public class MyMainApp {
 			// "problem.z.composite.SpriteFactory"
 
 			// our own project
-			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
-			// "problem.asm.ClassFieldVisitor",
-			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
-			// "problem.asm.IClassVisitor",
-			// "problem.asm.MethodVisitorHelper", "problem.impl.Class",
-			// "problem.impl.Field", "problem.impl.Method",
-			// "problem.impl.Model", "problem.impl.Relation",
-			// "problem.impl.SDOutputStream", "problem.impl.Sequence",
-			// "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
-			// "problem.interfaces.IField",
-			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
-			// "problem.interfaces.IRelation",
-			// "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
-			// "problem.spotter.DecoratorSpotter",
-			// "problem.spotter.SingletonSpotter",
-			// "problem.spotter.CompositeSpotter",
-			// "problem.spotter.PatternSpotter",
-			// "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-			// "problem.visitor.VisitorAdapter"
+			"problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor", "problem.asm.ClassFieldVisitor",
+			"problem.asm.ClassMethodVisitor", "problem.asm.DesignParser", "problem.asm.IClassVisitor",
+			"problem.asm.MethodVisitorHelper", "problem.impl.Class", "problem.impl.Field", "problem.impl.Method",
+			"problem.impl.Model", "problem.impl.Relation", "problem.impl.SDOutputStream", "problem.impl.Sequence",
+			"problem.impl.UMLOutputStream", "problem.interfaces.IClass", "problem.interfaces.IField",
+			"problem.interfaces.IMethod", "problem.interfaces.IModel", "problem.interfaces.IRelation",
+			"problem.interfaces.ISequence", "problem.spotter.AdapterSpotter", "problem.spotter.DecoratorSpotter",
+			"problem.spotter.SingletonSpotter", "problem.spotter.CompositeSpotter", "problem.spotter.PatternSpotter",
+			"problem.visitor.ITraverser", "problem.visitor.IVisitor", "problem.visitor.VisitorAdapter"
 
 	};
 
 	public static void main(String[] args) throws IOException {
+		Properties props = new Properties();
+		FileInputStream in = new FileInputStream("./input_output/input.txt");
+		props.load(in);
+		in.close();
+		Set<Entry<Object, Object>> entrySet = props.entrySet();
+		Set<Object> entryKeys = props.keySet();
+		Enumeration<Object> enumer = props.elements();
+		int i = 0;
+		while (enumer.hasMoreElements()) {
+			System.out.println(i + ": " + enumer.nextElement());
+			i++;
+		}
+
+		// create application properties with default
+		Properties applicationProps = new Properties(props);
+
 		DesignParser parser = new DesignParser();
 
 		parser.main(classes);
 
-		OutputStream out = new FileOutputStream("./input_output/GraphForGraphViz.gv");
+		// OutputStream out = new
+		// FileOutputStream("./input_output/GraphForGraphViz.gv");
+		OutputStream out = new FileOutputStream(props.getProperty("Output-Directory"));
 		IVisitor writer = new UMLOutputStream(out);
 		ITraverser traverser = (ITraverser) parser.model;
 
