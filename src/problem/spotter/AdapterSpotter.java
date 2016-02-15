@@ -47,6 +47,10 @@ public class AdapterSpotter extends PatternSpotter {
 	// thisFields.put(curClass, list);
 	// }
 
+	public AdapterSpotter(IModel model) {
+		super(model);
+	}
+
 	@Override
 	public void visit(IClass c) {
 		super.visit(c);

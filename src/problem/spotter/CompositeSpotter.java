@@ -17,6 +17,10 @@ public class CompositeSpotter extends PatternSpotter {
 		super(model, decoratedd);
 	}
 
+	public CompositeSpotter(IModel model) {
+		super(model);
+	}
+
 	/**
 	 * Determine if a class is part of the composite pattern.
 	 */

@@ -24,9 +24,12 @@ public class DecoratorSpotter extends PatternSpotter {
 	static Map<String, Collection<String>> meths = new ConcurrentHashMap<String, Collection<String>>();
 	static ArrayList<String> decorates = new ArrayList<String>();
 
+	public DecoratorSpotter(IModel model) {
+		super(model);
+	}
+
 	public DecoratorSpotter(IModel model, PatternSpotter spotter) {
 		super(model, spotter);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

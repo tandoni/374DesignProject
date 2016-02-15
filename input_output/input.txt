@@ -1,6 +1,6 @@
-Input-Folder: c:\\User1\\Documents\\Lab2-1\\src
+Input-Folder: C:\\Users\\morganml\\Documents\\CS\\374\\374DesignProject\\src\\analyze
 
-Input-Classes: java.io.Reader, java.io.BufferedReader
+Input-Classes: java.io.Reader, headfirst.singleton.classic.Singleton
 
 Output-Directory: ./input_output/GraphForGraphViz.gv
 
@@ -12,4 +12,4 @@ Adapter-MethodDelegation: 2
 
 Decorator-MethodDelegation: 1
 
-Singleton-RequireGetInstance: true
+Singleton-RequireGetInstance: true, C:\\Users\\morganml\\Documents\\CS\\374\\Lab2-1-Solution\\src

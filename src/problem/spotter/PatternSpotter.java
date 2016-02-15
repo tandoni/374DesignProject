@@ -27,6 +27,16 @@ public abstract class PatternSpotter implements IVisitor {
 		this.decorated = null;
 	}
 
+	/**
+	 * Use this to add a decorator to this visitor after this visitor has been
+	 * instantiated.
+	 * 
+	 * @param decorator
+	 */
+	public void addDecorator(IVisitor decorator) {
+		this.decorated = decorator;
+	}
+
 	public void visit() {
 	}
 

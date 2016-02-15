@@ -108,20 +108,6 @@ public class DesignParser {
 				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			}
 
-			// Whichever pattern spotter is the first one (the one below this
-			// comment), it must extend PatternSpotterInit, while the rest of
-			// the
-			// pattern spotters must extend PatternSpotterDec
-			PatternSpotter singletonSpotter = new SingletonSpotter(this.model);
-			PatternSpotter decoratorSpotter = new DecoratorSpotter(this.model, singletonSpotter);
-			PatternSpotter adapterSpotter = new AdapterSpotter(this.model, decoratorSpotter);
-			PatternSpotter compositeSpotter = new CompositeSpotter(this.model, adapterSpotter);
-
-			ITraverser traverser = (ITraverser) this.model;
-			// traverser.acceptSpotters(singletonSpotter);
-			// traverser.acceptSpotters(decoratorSpotter);
-//			 traverser.acceptSpotters(adapterSpotter);
-			traverser.acceptSpotters(compositeSpotter);
 		}
 	}
 
