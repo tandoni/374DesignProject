@@ -37,16 +37,16 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-//			"headfirst.singleton.classic.Singleton"
-//			 "headfirst.singleton.stat.Singleton",
-//			 "headfirst.singleton.stat.SingletonClient"
-//			 "problem.z.singleton.ChocolateBoiler",
-//			 "problem.z.singleton.ChocolateController"
+			// "headfirst.singleton.classic.Singleton"
+			// "headfirst.singleton.stat.Singleton",
+			// "headfirst.singleton.stat.SingletonClient"
+			// "problem.z.singleton.ChocolateBoiler",
+			// "problem.z.singleton.ChocolateController"
 
-//			 "headfirst.singleton.subclass.CoolerSingleton",
-//			 "headfirst.singleton.subclass.HotterSingleton",
-//			 "headfirst.singleton.subclass.Singleton",
-//			 "headfirst.singleton.subclass.SingletonTestDrive"
+			// "headfirst.singleton.subclass.CoolerSingleton",
+			// "headfirst.singleton.subclass.HotterSingleton",
+			// "headfirst.singleton.subclass.Singleton",
+			// "headfirst.singleton.subclass.SingletonTestDrive"
 
 			// "java.util.Collections.shuffle(List<T> list)"
 			// "problem.asm.DesignParser.main(String[] args)"
@@ -68,14 +68,10 @@ public class MyMainApp {
 			// "problem.z.decorator.Mocha.cost()", "5"
 			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
 			// "problem.z.decorator.Milk.cost()", "10"
-			 "problem.z.decorator.Beverage",
-			 "problem.z.decorator.CondimentDecorator",
-			 "problem.z.decorator.DarkRoast",
-			 "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
-			 "problem.z.decorator.HouseBlend",
-			 "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
-			 "problem.z.decorator.StarbuzzCoffee",
-			 "problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator", "problem.z.decorator.DarkRoast",
+			"problem.z.decorator.Decaf", "problem.z.decorator.Espresso", "problem.z.decorator.HouseBlend",
+			"problem.z.decorator.Milk", "problem.z.decorator.Mocha", "problem.z.decorator.StarbuzzCoffee",
+			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
 			// "problem.z.adapter.IteratorToEnumerationAdapter",
