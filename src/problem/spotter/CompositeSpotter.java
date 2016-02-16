@@ -13,7 +13,7 @@ import problem.visitor.IVisitor;
 
 public class CompositeSpotter extends PatternSpotter {
 
-	public CompositeSpotter(IModel model, IVisitor decoratedd) {
+	public CompositeSpotter(IModel model, PatternSpotter decoratedd) {
 		super(model, decoratedd);
 	}
 

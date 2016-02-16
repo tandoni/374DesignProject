@@ -14,10 +14,10 @@ public abstract class PatternSpotter implements IVisitor {
 	public static final String COMPOSITESTR = "Composite";
 
 	protected IModel model;
-	private IVisitor decorated;
+	private PatternSpotter decorated;
 	protected String curClassFull = "";
 
-	public PatternSpotter(IModel model, IVisitor decoratedd) {
+	public PatternSpotter(IModel model, PatternSpotter decoratedd) {
 		this.decorated = decoratedd;
 		this.model = model;
 	}
@@ -33,7 +33,7 @@ public abstract class PatternSpotter implements IVisitor {
 	 * 
 	 * @param decorator
 	 */
-	public void addDecorator(IVisitor decorator) {
+	public void addDecorator(PatternSpotter decorator) {
 		this.decorated = decorator;
 	}
 

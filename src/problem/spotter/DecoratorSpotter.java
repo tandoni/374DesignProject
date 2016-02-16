@@ -71,12 +71,14 @@ public class DecoratorSpotter extends PatternSpotter {
 
 	@Override
 	public void postVisit(IModel m) {
+		super.postVisit(m);
 		Iterator it = DecoratorSpotter.meths.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
 			ArrayList<String> list = (ArrayList<String>) pair.getValue();
 			// THere must be at least 2 classes that call this method
 			if (list.size() > 1) {
+				String s = "";
 				for (String c : list) {
 					// Since we know that there's at least one other class that
 					// calls
@@ -133,9 +135,7 @@ public class DecoratorSpotter extends PatternSpotter {
 						}
 						if (seq0.equals(pair.getKey())) {
 							String component = seq.get(0).getToClass();
-							String fromClassStr = seq.get(0).getFromClass();
-							String[] fromSplit = fromClassStr.split("\\.");
-							String fromClassShortName = fromSplit[fromSplit.length - 1];
+							String fromClassStr = seq.get(0).getFromClass().replace(".", "/");
 							IClass cClass = this.model.getNamedClass(c);
 							ArrayList<String> toInter = new ArrayList<String>();
 							if (this.model.getRelationsMap().containsKey(component)) {
@@ -146,27 +146,39 @@ public class DecoratorSpotter extends PatternSpotter {
 							// the same method called inside of this class is
 							// also a field of this class
 							boolean toIsField = false;
-							String componentShort = component.split("/")[component.split("/").length - 1];
+
 							ArrayList<IField> fields = cClass.getFields();
 							for (IField field : fields) {
-								if (field.getName().equalsIgnoreCase(componentShort)
-										&& field.getDescription().contains(componentShort))
+								if (field.getName().equalsIgnoreCase(component)
+										&& field.getDescription().contains(component))
 									toIsField = true;
 							}
 							// We need to determine if any of the interfaces of
 							// the class that was called inside of this class
 							// are a field of this class
 							for (String interf : toInter) {
-								if (cClass.getFields().contains(interf)) {
+								if (cClass.getFields().contains(interf))
 									toIsField = true;
-								}
 							}
+							ArrayList<IMethod> methods = (ArrayList<IMethod>) cClass.getMethods();
+							ArrayList<IMethod> constructorMethods = new ArrayList<IMethod>();
+							// Iterate through methods, and store any that are a
+							// constructor
+							for (IMethod met : methods) {
+								if (met.getName().contains("init>"))
+									constructorMethods.add(met);
+							}
+							for (IMethod met : constructorMethods) {
+								if (met.getDescription().contains(component))
+									toIsField = true;
+							}
+
 							// Add the decorator labels below
-							if (this.model.getClassNames().contains(componentShort) && toIsField) {
+							if (this.model.getFullClassNames().contains(component) && toIsField) {
 
 								this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
 
-								this.model.getNamedClass(fromClassShortName).addClassTypes2(DECORATORSTR, "decorator");
+								this.model.getNamedClass(fromClassStr).addClassTypes2(DECORATORSTR, "decorator");
 								String fromClassS = fromClassStr.replace(".", "/");
 								// IClass clas =
 								// this.model.getNamedClass(fromClassShortName);
@@ -175,7 +187,6 @@ public class DecoratorSpotter extends PatternSpotter {
 								IRelation relations = this.model.getRelationsMap().get(fromClassS);
 								String superFull = relations.getSuperClass();
 								if (superFull != null) {
-									superFull = superFull.split("/")[superFull.split("/").length - 1];
 									IClass next = this.model.getNamedClass(superFull);
 									while (!next.getName().equals(component)) {
 										next.addClassTypes2(DECORATORSTR, "decorator");
@@ -189,7 +200,6 @@ public class DecoratorSpotter extends PatternSpotter {
 													.get(next.getName()).getInterfaces();
 											next = this.model.getNamedClass(inter.get(0));
 										} else {
-											supClass = supClass.split("/")[supClass.split("/").length - 1];
 											next = this.model.getNamedClass(supClass);
 										}
 

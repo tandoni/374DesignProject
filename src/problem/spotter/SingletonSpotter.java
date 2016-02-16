@@ -22,6 +22,7 @@ public class SingletonSpotter extends PatternSpotter {
 	// pattern and makes the necessary changes to the Model class.
 	@Override
 	public void visit(IField f) {
+		super.visit(f);
 		// The check to see if a private static instance of the class is
 		// instantiated inside of itself (means this is a singleton)
 		// System.out.println("f.getDescription(): " + f.getDescription());

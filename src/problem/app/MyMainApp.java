@@ -119,13 +119,9 @@ public class MyMainApp {
 			// "problem.interfaces.IField",
 			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
 			// "problem.interfaces.IRelation",
-			// "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
-			// "problem.spotter.DecoratorSpotter",
-			// "problem.spotter.SingletonSpotter",
-			// "problem.spotter.CompositeSpotter",
-			// "problem.spotter.PatternSpotter",
-			// "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-			// "problem.visitor.VisitorAdapter"
+			"problem.interfaces.ISequence", "problem.spotter.AdapterSpotter", "problem.spotter.DecoratorSpotter",
+			"problem.spotter.SingletonSpotter", "problem.spotter.CompositeSpotter", "problem.spotter.PatternSpotter",
+			"problem.visitor.ITraverser", "problem.visitor.IVisitor", "problem.visitor.VisitorAdapter"
 
 	};
 
@@ -157,24 +153,25 @@ public class MyMainApp {
 		// Read in the path to the folder where we want to get the classes to
 		// analyze
 		File folder = new File(props.getProperty("Input-Folder", ""));
-		File[] files2 = folder.listFiles();
-		ArrayList<File> files = new ArrayList<File>(Arrays.asList(files2));
-		// Make sure that all directories are traversed so that only files
-		// remain
-		for (int ind1 = 0; ind1 < files.size(); ind1++) {
-			if (files.get(ind1).isDirectory()) {
-				files.addAll(new ArrayList<File>(Arrays.asList(files.get(ind1).listFiles())));
-				files.remove(ind1);
-				ind1--;
-			} else if (files.get(ind1).isFile()) {
-				FileInputStream inClass = new FileInputStream(files.get(ind1));
-			}
-		}
-		// Add each file (which represents a class) to the list of classes to
-		// analyze
-		for (File f : files) {
-			classez.add(f.toString());
-		}
+		// File[] files2 = folder.listFiles();
+		// ArrayList<File> files = new ArrayList<File>(Arrays.asList(files2));
+		// // Make sure that all directories are traversed so that only files
+		// // remain
+		// for (int ind1 = 0; ind1 < files.size(); ind1++) {
+		// if (files.get(ind1).isDirectory()) {
+		// files.addAll(new
+		// ArrayList<File>(Arrays.asList(files.get(ind1).listFiles())));
+		// files.remove(ind1);
+		// ind1--;
+		// } else if (files.get(ind1).isFile()) {
+		// FileInputStream inClass = new FileInputStream(files.get(ind1));
+		// }
+		// }
+		// // Add each file (which represents a class) to the list of classes to
+		// // analyze
+		// for (File f : files) {
+		// classez.add(f.toString());
+		// }
 
 		// This adds the individual classes specified (outside of the path
 		// directory for the package) to the arrayList of classes to be analyzed
@@ -187,8 +184,8 @@ public class MyMainApp {
 		// Only load the classes in ASM if its defined in the input
 		boolean classLoading = props.getProperty("Phases", "").contains("Class-Loading");
 		if (classLoading) {
-			// parser.main(classes);
-			parser.main(classez.toArray(new String[classez.size()]));
+			parser.main(classes);
+			// parser.main(classez.toArray(new String[classez.size()]));
 		}
 
 		// Now we need to determine which patterns we need to detect
