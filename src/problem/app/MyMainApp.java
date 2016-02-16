@@ -198,7 +198,7 @@ public class MyMainApp {
 		// patternProps matches each pattern with any special properties that
 		// may correspond to it
 		HashMap<String, String> patternProps = new HashMap<String, String>();
-		patternProps.ad
+//		patternProps.ad
 
 		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
 		// Iterate through every key in the pattern detection map to see if we
