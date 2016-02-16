@@ -37,16 +37,16 @@ public class MyMainApp {
 			// "analyze.ProtectedClass"
 
 			// Used to test Singleton
-			// "headfirst.singleton.classic.Singleton"
-			// "headfirst.singleton.stat.Singleton",
-			// "headfirst.singleton.stat.SingletonClient"
-			// "problem.z.singleton.ChocolateBoiler",
-			// "problem.z.singleton.ChocolateController"
+//			"headfirst.singleton.classic.Singleton"
+//			 "headfirst.singleton.stat.Singleton",
+//			 "headfirst.singleton.stat.SingletonClient"
+//			 "problem.z.singleton.ChocolateBoiler",
+//			 "problem.z.singleton.ChocolateController"
 
-			// "headfirst.singleton.subclass.CoolerSingleton",
-			// "headfirst.singleton.subclass.HotterSingleton",
-			// "headfirst.singleton.subclass.Singleton",
-			// "headfirst.singleton.subclass.SingletonTestDrive"
+//			 "headfirst.singleton.subclass.CoolerSingleton",
+//			 "headfirst.singleton.subclass.HotterSingleton",
+//			 "headfirst.singleton.subclass.Singleton",
+//			 "headfirst.singleton.subclass.SingletonTestDrive"
 
 			// "java.util.Collections.shuffle(List<T> list)"
 			// "problem.asm.DesignParser.main(String[] args)"
@@ -68,14 +68,14 @@ public class MyMainApp {
 			// "problem.z.decorator.Mocha.cost()", "5"
 			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
 			// "problem.z.decorator.Milk.cost()", "10"
-			// "problem.z.decorator.Beverage",
-			// "problem.z.decorator.CondimentDecorator",
-			// "problem.z.decorator.DarkRoast",
-			// "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
-			// "problem.z.decorator.HouseBlend",
-			// "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
-			// "problem.z.decorator.StarbuzzCoffee",
-			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			 "problem.z.decorator.Beverage",
+			 "problem.z.decorator.CondimentDecorator",
+			 "problem.z.decorator.DarkRoast",
+			 "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
+			 "problem.z.decorator.HouseBlend",
+			 "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
+			 "problem.z.decorator.StarbuzzCoffee",
+			 "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
 			// "problem.z.adapter.IteratorToEnumerationAdapter",
@@ -122,8 +122,10 @@ public class MyMainApp {
 			// "problem.spotter.DecoratorSpotter",
 			// "problem.spotter.SingletonSpotter",
 			// "problem.spotter.CompositeSpotter",
-			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
+			// "problem.spotter.PatternSpotter", "problem.visitor.ITraverser",
+			// "problem.visitor.IVisitor",
+			// "problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream",
+			// "problem.impl.UMLOutputStream"
 
 	};
 
@@ -198,14 +200,26 @@ public class MyMainApp {
 		// patternProps matches each pattern with any special properties that
 		// may correspond to it
 		HashMap<String, String> patternProps = new HashMap<String, String>();
-		patternProps.ad
+		populatePatternProps(patternProps);
 
 		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
 		// Iterate through every key in the pattern detection map to see if we
 		// should detect any of those patterns. If so, add it to activeSpotters.
 		for (String ke : spotterNames.keySet()) {
 			if (phases.contains(ke)) {
-				activeSpotters.add(spotterNames.get(ke));
+				// If this key (pattern detection) may have a special constraint
+				if (patternProps.containsKey(ke)) {
+					// If the input file also contains this special constraint
+					if (props.containsKey(patternProps.get(ke))) {
+						PatternSpotter newSpot = spotterNames.get(ke);
+						newSpot.addConstraint((String) props.get(patternProps.get(ke)));
+						activeSpotters.add(newSpot);
+					} else {
+						activeSpotters.add(spotterNames.get(ke));
+					}
+				} else {
+					activeSpotters.add(spotterNames.get(ke));
+				}
 			}
 		}
 
@@ -239,6 +253,18 @@ public class MyMainApp {
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
 
+	}
+
+	/**
+	 * Know what special pattern constraint to look for in Properties depending
+	 * on whichever pattern it is.
+	 * 
+	 * @param patternProps
+	 */
+	private static void populatePatternProps(HashMap<String, String> patternProps) {
+		patternProps.put("Decorator-Detection", "Decorator-MethodDelegation");
+		patternProps.put("Adapter-Detection", "Adapter-MethodDelegation");
+		patternProps.put("Singleton-Detection", "Singleton-RequireGetInstance");
 	}
 
 	/**
