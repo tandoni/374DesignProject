@@ -1,9 +1,10 @@
 package problem.asm;
 
-import org.objectweb.asm.Type;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import org.objectweb.asm.MethodVisitor;
+import org.objectweb.asm.Type;
 
 import problem.impl.Relation;
 import problem.impl.Sequence;
@@ -32,12 +33,15 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 		String[] ownerSplit = owner.split("/");
 
-		String[] fieldSplit = getType(desc).split("\\.");
+		String fieldStr = getType(desc);
+		if (fieldStr.contains(";")) {
+			fieldStr = fieldStr.substring(1, fieldStr.indexOf(";"));
+		}
 
 		if (owner.equals(this.myClass.getName())) {
 			// create relation for association
-			IRelation r = new Relation(ownerSplit[ownerSplit.length - 1]);
-			r.addAssociations(fieldSplit[fieldSplit.length - 1]);
+			IRelation r = new Relation(owner);
+			r.addAssociations(fieldStr);
 			this.model.addRelation(r);
 		}
 	}
@@ -46,25 +50,72 @@ public class MethodVisitorHelper extends MethodVisitor {
 	public void visitTypeInsn(int opcode, String type) {
 		super.visitTypeInsn(opcode, type);
 
-		String[] typeSplit = type.split("/");
-
 		// create relation for association
-		IRelation r = new Relation(this.myClass.getName());
-		r.addAssociations(typeSplit[typeSplit.length - 1]);
+		IRelation r = new Relation(this.myClass.getFullName());
+		// System.out.println("this.model.getCurrentClass(): " +
+		// this.model.getCurrentClass());
+
+		r.addAssociations(type);
 		this.model.addRelation(r);
 	}
 
 	@Override
 	public void visitMethodInsn(int opcode, String owner, String name, String desc, boolean itf) {
+		if (this.model.getRecordSeq()) {
+			// System.out.println(
+			// "visitMethodInsn " + " owner: " + owner + " name: " + name + "
+			// desc: " + getArguments(desc));
+		}
+		// System.out.println("current Class: " + this.model.getCurrentClass());
 		super.visitMethodInsn(opcode, owner, name, desc, itf);
-		String[] args = getArgumentsType(desc);
 
-		String[] ownerSplit = owner.split("/");
-		ISequence sequence = new Sequence(this.myClass.getName(), ownerSplit[ownerSplit.length - 1], name, args);
-		this.model.addSequence(sequence);
-		
-		if(!(name.equals("<init>"))){
-			this.subMethods.add(sequence);
+		if (this.model.getRecordSeq() && this.model.getCallDepth() < DesignParser.MAX_CALL_DEPTH) {
+			// If the name of the method is init, then we are intitalizing a new
+			// class, and need to record that
+			if (name.contains("init>")) {
+				System.out.println("a created class");
+				this.model.addCreatedClass(owner.split("/")[owner.split("/").length - 1]);
+			} else {
+				// if this isn't a new class, then we add it SDClassNames
+				// because we need it the top of the SD diagram (most likely,
+				// still need to checkt to make sure)
+				String temp = owner.split("/")[owner.split("/").length - 1];
+				if (!this.model.getSDClassNames().contains(temp))
+					this.model.addSDClassName(temp);
+			}
+			// System.out.println("adding a sequence");
+			// This is where the sequence is added
+			ISequence sequence = new Sequence(this.model.getCurrentClass(),
+					owner.split("/")[owner.split("/").length - 1], name, getArguments(desc).split(","));
+			this.model.addSequence(sequence);
+			// Increment the call depth by 1, since we added another Sequence to
+			// the SD.
+			this.model.callDepthInc();
+			// Now we must traverse through this method call.
+			if (!(name.equals("<init>"))) {
+				DesignParser parser = new DesignParser();
+				String str = owner.replace("/", ".") + "." + sequence.getCalledMethod() + "(";
+				ArrayList<String> args2 = sequence.getArguments();
+				int size = args2.size();
+				if (args2.get(0) == "") {
+					System.out.println("should be here empty");
+				}
+				if (!(size == 1 && args2.get(0) == "")) {
+					for (int i = 0; i < size - 1; i++) {
+						str = str + args2.get(i) + " arg" + i + ", ";
+					}
+					str = str + args2.get(size - 1) + " arg";
+				}
+				str = str + ")";
+				String[] start = { str };
+				try {
+					parser.main(start);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
+			}
 		}
 	}
 
@@ -90,5 +141,20 @@ public class MethodVisitorHelper extends MethodVisitor {
 
 	public ArrayList<ISequence> getSubMethods() {
 		return this.subMethods;
+	}
+
+	// Used in sequence generation
+	String getArguments(String desc) {
+
+		String result = "";
+
+		Type[] args = Type.getArgumentTypes(desc);
+		for (int i = 0; i < args.length; i++) {
+			String[] typeSplit = args[i].getClassName().split("\\.");
+			result += typeSplit[typeSplit.length - 1] + ",";
+		}
+		if (result != "")
+			result = result.substring(0, result.length() - 1);
+		return result;
 	}
 }

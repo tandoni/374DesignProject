@@ -1,19 +1,45 @@
 digraph example { 
 rankdir=BT;
-Register [
+Client [
 shape="record",
-label = "{Register| - sale : Sale\l|}"
+fillcolor=white, style=filled, label = "{Client|+ main(String[] ) : void\l}"
 ];
 
-Sale [
+IPost [
 shape="record",
-label = "{Sale| - p : Payment\l|}"
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nIPost|+ getText() : String\l+ getAuthor() : Person\l+ getOwner() : Person\l+ setLike(Person ) : void\l+ getLikes() : int\l}"
 ];
 
-Payment [
+Like [
 shape="record",
-label = "{Payment| - cashTendered : int\l|}"
+fillcolor=white, style=filled, label = "{Like|  liker : Person\l  beingLiked : IPost\l+ liked : boolean\l|+ isLiked() : boolean\l+ getLiker() : Person\l+ getPost() : IPost\l+ toggleLiked(JButton ) : boolean\l+ equals(Object ) : boolean\l+ hashCode() : int\l+ getButtonText() : String\l}"
+];
+
+Person [
+shape="record",
+fillcolor=white, style=filled, label = "{Person|+ name : String\l  user_id : String\l  email : String\l  closeFriends : List\l|+ toString() : String\l}"
+];
+
+Timeline [
+shape="record",
+fillcolor=white, style=filled, label = "{Timeline|  posts : List\l  $assertionsDisabled : boolean\l|  <clinit>() : void\l+ addPost(Post ) : void\l+ update(Observable ) : void\l}"
+];
+
+UI [
+shape="record",
+fillcolor=white, style=filled, label = "{UI|- serialVersionUID : long\l  owner : Person\l  posts : Timeline\l  postToLabel : HashMap\l  postToLike : HashMap\l  labels : List\l  panel : JPanel\l|+ showPost(Post ) : void\l+ update(Observable ) : void\l}"
 ];
 
 
-Sale -> Payment [arrowhead = "vee"];}
+Like -> Person [arrowhead = "vee"];
+Like -> IPost [arrowhead = "vee"];
+Client -> Person [arrowhead = "vee"];
+Client -> Timeline [arrowhead = "vee"];
+Client -> UI [arrowhead = "vee"];
+UI -> Person [arrowhead = "vee"];
+UI -> Timeline [arrowhead = "vee"];
+Like -> Person [arrowhead = "vee"];
+Like -> IPost [arrowhead = "vee"];
+Like -> Like [arrowhead = "vee"];
+UI -> Person [arrowhead = "vee"];
+UI -> Timeline [arrowhead = "vee"];}

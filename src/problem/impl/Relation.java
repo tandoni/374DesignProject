@@ -5,7 +5,6 @@ import java.util.Collection;
 
 import problem.app.MyMainApp;
 import problem.interfaces.IRelation;
-import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
 public class Relation implements IRelation {
@@ -45,6 +44,7 @@ public class Relation implements IRelation {
 		this.superClass = "";
 		this.interfaces = new ArrayList<String>();
 		setClassNames();
+		// add what this class implements
 		for (String s : interfaces) {
 			if (this.classNames.contains(getPureName(s)))
 				this.interfaces.add(s);
@@ -62,6 +62,7 @@ public class Relation implements IRelation {
 		if (this.classNames.contains(getPureName(superClass)))
 			this.superClass = superClass;
 		this.interfaces = new ArrayList<String>();
+		// add what this class implements
 		for (String s : interfaces) {
 			if (this.classNames.contains(getPureName(s)))
 				this.interfaces.add(s);
@@ -71,6 +72,8 @@ public class Relation implements IRelation {
 	}
 
 	public String getPureName(String s) {
+		if (s == null)
+			return "";
 		String[] split = s.split("/");
 		return split[split.length - 1];
 	}
@@ -132,13 +135,13 @@ public class Relation implements IRelation {
 		}
 	}
 
-	@Override
-	public void addUses(String[] useName) {
-		for (String s : useName) {
-			if (!this.uses.contains(s) && this.classNames.contains(getPureName(s)))
-				this.uses.add(s);
-		}
-	}
+//	@Override
+//	public void addUses(String[] useName) {
+//		for (String s : useName) {
+//			if (!this.uses.contains(s) && this.classNames.contains(getPureName(s)))
+//				this.uses.add(s);
+//		}
+//	}
 
 	@Override
 	public void addUses(String s) {
@@ -146,13 +149,13 @@ public class Relation implements IRelation {
 			this.uses.add(s);
 	}
 
-	@Override
-	public void addAssociations(String[] associationsName) {
-		for (String s : associationsName) {
-			if (!this.associations.contains(s) && this.classNames.contains(getPureName(s)))
-				this.associations.add(s);
-		}
-	}
+//	@Override
+//	public void addAssociations(String[] associationsName) {
+//		for (String s : associationsName) {
+//			if (!this.associations.contains(s) && this.classNames.contains(getPureName(s)))
+//				this.associations.add(s);
+//		}
+//	}
 
 	@Override
 	public void addAssociations(String s) {
@@ -160,16 +163,22 @@ public class Relation implements IRelation {
 			this.associations.add(s);
 	}
 
-//	@Override
-//	public void acceptSequence(IVisitor v) {
-//		// TODO Auto-generated method stub
-//
-//	}
+	// @Override
+	// public void acceptSequence(IVisitor v) {
+	// // TODO Auto-generated method stub
+	//
+	// }
 
 	@Override
-	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+	public void acceptSequence(IVisitor v, int depth) {
 		// TODO Auto-generated method stub
-		System.out.println("Relation : acceptSequence");
+	}
+
+	@Override
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		v.postVisit(this);
 	}
 
 }

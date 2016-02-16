@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="13.3">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>520</x>
+      <y>50</y>
+      <w>210</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>&lt;&lt;interface&gt;&gt;
+IStates
+--
++ void move(int i)
++ String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>120</y>
+      <w>30</w>
+      <h>350</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;&lt;-</panel_attributes>
+    <additional_attributes>10.0;10.0;10.0;330.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>190</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>300</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>530</x>
+      <y>440</y>
+      <w>80</w>
+      <h>30</h>
+    </coordinates>
+    <panel_attributes>lt=-</panel_attributes>
+    <additional_attributes>10.0;10.0;60.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>170</y>
+      <w>220</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>Steady
+--
+- Roomba roomba
+- int sensor
+--
++ void move(int)
++ String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>290</y>
+      <w>220</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>TooFar
+--
+- Roomba roomba
+- int sensor
+--
++ void move(int)
+- int correctLeft(int)
++ String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>590</x>
+      <y>430</y>
+      <w>220</w>
+      <h>120</h>
+    </coordinates>
+    <panel_attributes>TooNear
+--
+- Roomba roomba
+- int sensor
+--
++ void move(int)
+- int correctRight(int)
++ String toString()</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>140</y>
+      <w>320</w>
+      <h>380</h>
+    </coordinates>
+    <panel_attributes>Roomba
+--
+# final int LOW
+# final int HIGH
+# final int DELTA
+- IStates steadyState
+- IStates tooNearState
+- IStates tooFarState
+- IStates myState
+- int sensor
++ ArrayList&lt;Integer&gt; readingQueue
+--
+- void initReading()
++ void addReading(ArrayList&lt;Integer&gt;)
++ void setReading(ArrayList&lt;Integer&gt;)
++ boolean readID()
++ int getSensor() {
++ void setState(IStates s) 
++ IStates getState() 
++ IStates getSteadyState() 
++ IStates getTooNearState()
++ IStates getTooFarState() 
++ void move()
++ String toString()
+
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>30</y>
+      <w>210</w>
+      <h>60</h>
+    </coordinates>
+    <panel_attributes>RoombaTestDrive
+--
++ static void main(String[])</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>180</x>
+      <y>80</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>390</x>
+      <y>60</y>
+      <w>150</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;-</panel_attributes>
+    <additional_attributes>130.0;10.0;90.0;10.0;90.0;140.0;10.0;140.0</additional_attributes>
+  </element>
+  <element>
+    <id>UMLNote</id>
+    <coordinates>
+      <x>80</x>
+      <y>550</y>
+      <w>460</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>It is a state pattern.
+I defined the IStates interface that contains a method for movenment in the Roommba class.
+Roomba can have a number of internal states (e.g. Steady, TooNear, TooFar, ..) 
+And you can implemented other internal states easily.
+bg=blue</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

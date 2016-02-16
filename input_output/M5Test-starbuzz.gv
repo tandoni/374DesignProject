@@ -1,0 +1,77 @@
+digraph example { 
+rankdir=BT;
+Beverage [
+shape="record",
+fillcolor=green, style=filled, label = "{Beverage\n\<\<component\>\>|  description : String\l|+ getDescription() : String\l+ cost() : double\l}"
+];
+
+CondimentDecorator [
+shape="record",
+fillcolor=green, style=filled, label = "{CondimentDecorator\n\<\<decorator\>\>|+ getDescription() : String\l}"
+];
+
+DarkRoast [
+shape="record",
+fillcolor=white, style=filled, label = "{DarkRoast|+ cost() : double\l}"
+];
+
+Decaf [
+shape="record",
+fillcolor=white, style=filled, label = "{Decaf|+ cost() : double\l}"
+];
+
+Espresso [
+shape="record",
+fillcolor=white, style=filled, label = "{Espresso|+ cost() : double\l}"
+];
+
+HouseBlend [
+shape="record",
+fillcolor=white, style=filled, label = "{HouseBlend|+ cost() : double\l}"
+];
+
+Milk [
+shape="record",
+fillcolor=green, style=filled, label = "{Milk\n\<\<decorator\>\>|  beverage : Beverage\l|+ getDescription() : String\l+ cost() : double\l}"
+];
+
+Mocha [
+shape="record",
+fillcolor=green, style=filled, label = "{Mocha\n\<\<decorator\>\>|  beverage : Beverage\l|+ getDescription() : String\l+ cost() : double\l}"
+];
+
+Soy [
+shape="record",
+fillcolor=green, style=filled, label = "{Soy\n\<\<decorator\>\>|  beverage : Beverage\l|+ getDescription() : String\l+ cost() : double\l}"
+];
+
+StarbuzzCoffee [
+shape="record",
+fillcolor=white, style=filled, label = "{StarbuzzCoffee|+ main(String[] ) : void\l}"
+];
+
+Whip [
+shape="record",
+fillcolor=green, style=filled, label = "{Whip\n\<\<decorator\>\>|  beverage : Beverage\l|+ getDescription() : String\l+ cost() : double\l}"
+];
+
+
+CondimentDecorator -> Beverage [arrowhead="empty"];
+DarkRoast -> Beverage [arrowhead="empty"];
+Soy -> CondimentDecorator [arrowhead="empty"];
+StarbuzzCoffee -> Espresso [arrowhead = "vee"];
+StarbuzzCoffee -> DarkRoast [arrowhead = "vee"];
+StarbuzzCoffee -> Mocha [arrowhead = "vee"];
+StarbuzzCoffee -> Whip [arrowhead = "vee"];
+StarbuzzCoffee -> HouseBlend [arrowhead = "vee"];
+StarbuzzCoffee -> Soy [arrowhead = "vee"];
+Mocha -> Beverage [arrowhead = "vee"];
+Milk -> CondimentDecorator [arrowhead="empty"];
+Whip -> CondimentDecorator [arrowhead="empty"];
+Espresso -> Beverage [arrowhead="empty"];
+Whip -> Beverage [arrowhead = "vee"];
+Decaf -> Beverage [arrowhead="empty"];
+Mocha -> CondimentDecorator [arrowhead="empty"];
+Soy -> Beverage [arrowhead = "vee"];
+HouseBlend -> Beverage [arrowhead="empty"];
+Milk -> Beverage [arrowhead = "vee"];}

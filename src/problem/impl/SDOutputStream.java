@@ -2,8 +2,10 @@ package problem.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Collection;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import problem.interfaces.IClass;
 import problem.interfaces.IModel;
@@ -34,35 +36,57 @@ public class SDOutputStream extends VisitorAdapter {
 	@Override
 	public void visit(IModel m) {
 		List<ISequence> seqs = m.getSequences();
-		Collection<IClass> classes = m.getClasses();
+		// For the SD, we need to call getSDClassNames
+		List<String> SDClassNames = m.getSDClassNames();
 		List<String> createdClasses = m.getCreatedClasses();
 		StringBuilder sb = new StringBuilder();
+		Set<String> created = new HashSet<String>(createdClasses);
 
-		for (IClass c : classes) {
-			String name = c.getName();
-			if (!createdClasses.contains(name))
+		for (String c : SDClassNames) {
+			String name = c;
+			if (!created.contains(name))
 				sb.append(name + ":" + name + "[a]\n");
 		}
-		for (String s : createdClasses) {
-			sb.append(String.format("/%s:%s[a]\n\n", s, s));
+		for (String s : created) {
+			if (!s.toLowerCase().contains("exception"))
+				sb.append(String.format("/%s:%s[a]\n", s, s));
 		}
-		
-		sb.append(((IClass) classes.toArray()[0]).getName() + ":" + ((IClass) classes.toArray()[0]).getName() + ".main\n");
-		
+		if (!SDClassNames.isEmpty() && SDClassNames != null) {
+			sb.append("\n");
+			sb.append(SDClassNames.get(0) + ":" + SDClassNames.get(0) + ".main\n");
+		}
+
+		List<String> fromList = new ArrayList<String>();
+		List<String> toList = new ArrayList<String>();
+		List<String> calledMethodList = new ArrayList<String>();
+
 		for (ISequence s : seqs) {
-			String from = s.getFromClass();
+			String from = s.getFromClass().split("\\.")[2];
 			String to = s.getToClass();
 			String calledMethod = s.getCalledMethod();
-			List<String> args = s.getArguments();
 
-			sb.append(String.format("%s:%s.%s(", from, to, calledMethod));
+			if (!fromList.contains(from) || !toList.contains(to) || !calledMethodList.contains(calledMethod)) {
+				if (!to.toLowerCase().contains("exception")) {
+					if (calledMethod.contains("init>")) {
+						calledMethod = "new";
+					}
+					List<String> args = s.getArguments();
+					sb.append(String.format("%s:%s.%s(", from, to, calledMethod));
 
-			for (int i = 0; i < args.size(); i++) {
-				sb.append("arg" + i);
-				if(i != args.size()-1) sb.append(", ");
+					fromList.add(from);
+					toList.add(to);
+					calledMethodList.add(calledMethod.equals("new")?"<init>":calledMethod);
+
+					for (int i = 0; i < args.size(); i++) {
+						sb.append("arg" + i);
+						if (i != args.size() - 1)
+							sb.append(", ");
+					}
+
+					sb.append(")\n");
+					
+				}
 			}
-
-			sb.append(")\n");
 		}
 		this.write(sb.toString());
 

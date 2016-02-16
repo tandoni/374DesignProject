@@ -1,0 +1,269 @@
+digraph example { 
+rankdir=BT;
+MyMainApp [
+shape="record",
+fillcolor=white, style=filled, label = "{MyMainApp|+ classes : String[]\l|  <clinit>() : void\l+ main(String[] ) : void\l}"
+];
+
+ClassDeclarationVisitor [
+shape="record",
+fillcolor=white, style=filled, label = "{ClassDeclarationVisitor|- model : IModel\l- myClass : IClass\l|+ visit(int , int, String, String, String) : void\l+ getBelongedClass() : IClass\l}"
+];
+
+ClassFieldVisitor [
+shape="record",
+fillcolor=green, style=filled, label = "{ClassFieldVisitor\n\<\<decorator\>\>|- model : IModel\l- myClass : IClass\l- decorated : ClassVisitor\l|+ visitField(int , String, String, String) : FieldVisitor\l+ getBelongedClass() : IClass\l}"
+];
+
+ClassMethodVisitor [
+shape="record",
+fillcolor=green, style=filled, label = "{ClassMethodVisitor\n\<\<decorator\>\>|- model : IModel\l- myClass : IClass\l- decorated : ClassVisitor\l|+ visitMethod(int , String, String, String) : MethodVisitor\l  getArguments(String ) : String\l+ getBelongedClass() : IClass\l}"
+];
+
+DesignParser [
+shape="record",
+fillcolor=white, style=filled, label = "{DesignParser|+ DEFAULT_CALL_DEPTH : int\l+ MAX_CALL_DEPTH : int\l+ model : IModel\l  deb : boolean\l|  <clinit>() : void\l+ main(String[] ) : void\l+ getCallDepth() : int\l}"
+];
+
+IClassVisitor [
+shape="record",
+fillcolor=green, style=filled,label = "{\<\<interface\>\>\nIClassVisitor\n\<\<component\>\>|+ getBelongedClass() : IClass\l}"
+];
+
+MethodVisitorHelper [
+shape="record",
+fillcolor=white, style=filled, label = "{MethodVisitorHelper|- model : IModel\l- myClass : IClass\l- arguments : ArrayList\l- subMethods : ArrayList\l|+ visitFieldInsn(int , String, String) : void\l+ visitTypeInsn(int ) : void\l+ visitMethodInsn(int , String, String, String) : void\l  getArgumentsType(String ) : String[]\l  getType(String ) : String\l+ getSubMethods() : ArrayList\l  getArguments(String ) : String\l}"
+];
+
+Class [
+shape="record",
+fillcolor=white, style=filled, label = "{Class|- fullName : String\l- name : String\l- methods : Collection\l- fields : Collection\l- relations : Collection\l- classType : String\l- classTypes2 : Map\l|+ acceptUML(IVisitor ) : void\l+ acceptSpotters(IVisitor ) : void\l+ getName() : String\l+ getFullName() : String\l+ getMethods() : Collection\l+ getFields() : Collection\l+ getRelations() : Collection\l+ addMethod(IMethod ) : void\l+ addField(IField ) : void\l+ addRelation(IRelation ) : void\l+ getClassType() : String\l+ setClassType(String ) : void\l+ addClassTypes2(String ) : void\l+ getClassTypes2() : HashMap\l+ acceptSequence(IVisitor ) : void\l}"
+];
+
+Field [
+shape="record",
+fillcolor=white, style=filled, label = "{Field|- access : int\l- name : String\l- description : String\l- signature : String\l- value : Object\l|+ getAccess() : int\l+ getName() : String\l+ getDescription() : String\l+ getSignature() : String\l+ getValue() : Object\l+ acceptUML(IVisitor ) : void\l+ acceptSequence(IVisitor ) : void\l+ acceptSpotters(IVisitor ) : void\l}"
+];
+
+Method [
+shape="record",
+fillcolor=white, style=filled, label = "{Method|- access : int\l- name : String\l- description : String\l- signature : String\l- subMethods : ArrayList\l|+ getAccess() : int\l+ getName() : String\l+ getDescription() : String\l+ getSignature() : String\l+ getSubMethods() : ArrayList\l+ acceptUML(IVisitor ) : void\l+ acceptSequence(IVisitor ) : void\l+ acceptSpotters(IVisitor ) : void\l}"
+];
+
+Model [
+shape="record",
+fillcolor=white, style=filled, label = "{Model|+ classes : Collection\l+ relations : Map\l- callDepth : int\l+ sequences : ArrayList\l# singletons : ArrayList\l+ createdClasses : ArrayList\l+ SDClassNames : List\l+ classNames : Collection\l- recordSeq : boolean\l- startMethodName : String\l- startMethodArgs : String[]\l- startClass : String\l- currentClass : String\l|  <clinit>() : void\l+ setClassNames() : void\l+ acceptSpotters(IVisitor ) : void\l+ acceptUML(IVisitor ) : void\l+ addClass(IClass ) : void\l+ getClasses() : Collection\l+ getClassNames() : Collection\l+ addRelation(IRelation ) : void\l+ getRelationsMap() : Map\l+ getRelations() : Collection\l+ getNamedClass(String ) : IClass\l+ toString() : String\l+ getSequences() : ArrayList\l+ getCreatedClasses() : ArrayList\l+ addSequence(ISequence ) : void\l+ getNewClasses(ISequence ) : String[]\l+ acceptSequence(IVisitor ) : void\l  getArgumentsType(String ) : String[]\l+ setCurrentClass(String ) : void\l+ getCurrentClass() : String\l+ setStartClass(String ) : void\l+ getStartClass() : String\l+ setStartMethod(String ) : void\l+ setStartMethodName(String ) : void\l+ setStartMethodArgs(String[] ) : void\l+ getStartMethodName() : String\l+ getStartMethodArgs() : String[]\l+ setRecordSeq(boolean ) : void\l+ getRecordSeq() : boolean\l+ addSingleton(String ) : void\l+ getSingletons() : ArrayList\l+ getCallDepth() : int\l+ callDepthInc() : void\l+ setCallDepth(int ) : void\l+ addCreatedClass(String ) : void\l+ addSDClassName(String ) : void\l+ getSDClassNames() : List\l+ clearSequences() : void\l}"
+];
+
+Relation [
+shape="record",
+fillcolor=white, style=filled, label = "{Relation|- subClass : String\l- superClass : String\l- interfaces : Collection\l- uses : Collection\l- associations : Collection\l+ classNames : Collection\l|+ getPureName(String ) : String\l+ setClassNames() : void\l+ getSubClass() : String\l+ getSuperClass() : String\l+ getInterfaces() : Collection\l+ acceptUML(IVisitor ) : void\l+ getUses() : Collection\l+ getAssociations() : Collection\l+ addInterfaces(String[] ) : void\l+ addUses(String[] ) : void\l+ addUses(String ) : void\l+ addAssociations(String[] ) : void\l+ addAssociations(String ) : void\l+ acceptSequence(IVisitor ) : void\l+ acceptSpotters(IVisitor ) : void\l}"
+];
+
+SDOutputStream [
+shape="record",
+fillcolor=white, style=filled, label = "{SDOutputStream|- out : OutputStream\l|- write(String ) : void\l+ visitSperator() : void\l+ visit(IModel ) : void\l+ preVisit(IClass ) : void\l+ visit(IClass ) : void\l+ postVisit(IClass ) : void\l}"
+];
+
+Sequence [
+shape="record",
+fillcolor=white, style=filled, label = "{Sequence|- fromClass : String\l- toClass : String\l- calledMethod : String\l- arguments : ArrayList\l|+ addFromClass(String ) : void\l+ addToClass(String ) : void\l+ addCalledMethod(String ) : void\l+ addArguments(String[] ) : void\l+ getFromClass() : String\l+ getToClass() : String\l+ getCalledMethod() : String\l+ getArguments() : ArrayList\l+ setCalledMethod(String ) : void\l+ acceptUML(IVisitor ) : void\l+ acceptSequence(IVisitor ) : void\l+ acceptSpotters(IVisitor ) : void\l}"
+];
+
+UMLOutputStream [
+shape="record",
+fillcolor=green, style=filled, label = "{UMLOutputStream\n\<\<decorator\>\>|- out : OutputStream\l|- write(String ) : void\l+ preVisit(IClass ) : void\l+ visit(IClass ) : void\l+ postVisit(IClass ) : void\l+ visit(IField ) : void\l+ visit(IMethod ) : void\l+ visit(IModel ) : void\l+ postVisit(IRelation ) : void\l  addAccessLevel(int ) : void\l  addReturnType(String ) : void\l  addArguments(String ) : void\l- addColon(String ) : void\l+ visitSperator() : void\l}"
+];
+
+IClass [
+shape="record",
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nIClass|+ getName() : String\l+ getMethods() : Collection\l+ getFields() : Collection\l+ getRelations() : Collection\l+ addMethod(IMethod ) : void\l+ addField(IField ) : void\l+ addRelation(IRelation ) : void\l+ getClassType() : String\l+ setClassType(String ) : void\l+ addClassTypes2(String ) : void\l+ getClassTypes2() : HashMap\l+ getFullName() : String\l}"
+];
+
+IField [
+shape="record",
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nIField|+ getAccess() : int\l+ getName() : String\l+ getDescription() : String\l+ getSignature() : String\l+ getValue() : Object\l}"
+];
+
+IMethod [
+shape="record",
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nIMethod|+ getAccess() : int\l+ getName() : String\l+ getDescription() : String\l+ getSignature() : String\l+ getSubMethods() : ArrayList\l}"
+];
+
+IModel [
+shape="record",
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nIModel|+ addClass(IClass ) : void\l+ getClasses() : Collection\l+ addRelation(IRelation ) : void\l+ getRelations() : Collection\l+ getRelationsMap() : Map\l+ getNamedClass(String ) : IClass\l+ acceptSequence(IVisitor ) : void\l+ getSequences() : ArrayList\l+ addCreatedClass(String ) : void\l+ getCreatedClasses() : ArrayList\l+ getClassNames() : Collection\l+ getNewClasses(ISequence ) : String[]\l+ addSequence(ISequence ) : void\l+ setCurrentClass(String ) : void\l+ getCurrentClass() : String\l+ setStartClass(String ) : void\l+ getStartClass() : String\l+ setStartMethod(String ) : void\l+ getStartMethodName() : String\l+ getStartMethodArgs() : String[]\l+ setRecordSeq(boolean ) : void\l+ getRecordSeq() : boolean\l+ addSingleton(String ) : void\l+ getSingletons() : ArrayList\l+ getCallDepth() : int\l+ setCallDepth(int ) : void\l+ callDepthInc() : void\l+ addSDClassName(String ) : void\l+ getSDClassNames() : List\l+ clearSequences() : void\l}"
+];
+
+IRelation [
+shape="record",
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nIRelation|+ getSubClass() : String\l+ getSuperClass() : String\l+ getInterfaces() : Collection\l+ getUses() : Collection\l+ getAssociations() : Collection\l+ addInterfaces(String[] ) : void\l+ addUses(String[] ) : void\l+ addUses(String ) : void\l+ addAssociations(String[] ) : void\l+ addAssociations(String ) : void\l}"
+];
+
+ISequence [
+shape="record",
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nISequence|+ addFromClass(String ) : void\l+ addToClass(String ) : void\l+ addCalledMethod(String ) : void\l+ addArguments(String[] ) : void\l+ getFromClass() : String\l+ getToClass() : String\l+ getCalledMethod() : String\l+ getArguments() : ArrayList\l+ setCalledMethod(String ) : void\l}"
+];
+
+AdapterSpotter [
+shape="record",
+fillcolor=green, style=filled, label = "{AdapterSpotter\n\<\<decorator\>\>|  r : Collection\l  thisInterfaces : Map\l  thisFields : Map\l|  <clinit>() : void\l+ visit(IClass ) : void\l- findInterfaces() : void\l}"
+];
+
+DecoratorSpotter [
+shape="record",
+fillcolor=green, style=filled, label = "{DecoratorSpotter\n\<\<decorator\>\>|  meths : Map\l  decorates : ArrayList\l|  <clinit>() : void\l+ visit(IMethod ) : void\l+ postVisit(IModel ) : void\l- removeMethsWithOneClass() : void\l}"
+];
+
+SingletonSpotter [
+shape="record",
+fillcolor=white, style=filled, label = "{SingletonSpotter|+ visit(IField ) : void\l}"
+];
+
+CompositeSpotter [
+shape="record",
+fillcolor=green, style=filled, label = "{CompositeSpotter\n\<\<decorator\>\>|+ visit(IClass ) : void\l+ postVisit(IModel ) : void\l}"
+];
+
+PatternSpotter [
+shape="record",
+fillcolor=green, style=filled, label = "{PatternSpotter\n\<\<decorator\>\>|+ ADAPTERSTR : String\l+ DECORATORSTR : String\l+ COMPOSITESTR : String\l# model : IModel\l- decorated : IVisitor\l# curClass : String\l# curClassFull : String\l|+ visit() : void\l+ preVisit(IClass ) : void\l+ visit(IClass ) : void\l+ postVisit(IClass ) : void\l+ preVisit(IField ) : void\l+ visit(IField ) : void\l+ preVisit(ISequence ) : void\l+ visit(ISequence ) : void\l+ postVisit(ISequence ) : void\l+ postVisit(IField ) : void\l+ preVisit(IMethod ) : void\l+ visit(IMethod ) : void\l+ postVisit(IMethod ) : void\l+ preVisit(IRelation ) : void\l+ visit(IRelation ) : void\l+ postVisit(IRelation ) : void\l+ preVisit(IModel ) : void\l+ visit(IModel ) : void\l+ postVisit(IModel ) : void\l+ visitSperator() : void\l}"
+];
+
+ITraverser [
+shape="record",
+fillcolor=white, style=filled,label = "{\<\<interface\>\>\nITraverser|+ acceptSpotters(IVisitor ) : void\l+ acceptUML(IVisitor ) : void\l+ acceptSequence(IVisitor ) : void\l}"
+];
+
+IVisitor [
+shape="record",
+fillcolor=green, style=filled,label = "{\<\<interface\>\>\nIVisitor\n\<\<component\>\>|+ preVisit(IClass ) : void\l+ visit(IClass ) : void\l+ postVisit(IClass ) : void\l+ preVisit(IField ) : void\l+ visit(IField ) : void\l+ postVisit(IField ) : void\l+ preVisit(IMethod ) : void\l+ visit(IMethod ) : void\l+ preVisit(ISequence ) : void\l+ visit(ISequence ) : void\l+ postVisit(ISequence ) : void\l+ postVisit(IMethod ) : void\l+ preVisit(IRelation ) : void\l+ visit(IRelation ) : void\l+ postVisit(IRelation ) : void\l+ preVisit(IModel ) : void\l+ visit(IModel ) : void\l+ postVisit(IModel ) : void\l+ visitSperator() : void\l}"
+];
+
+VisitorAdapter [
+shape="record",
+fillcolor=green, style=filled, label = "{VisitorAdapter\n\<\<component\>\>|+ preVisit(IField ) : void\l+ visit(IField ) : void\l+ postVisit(IField ) : void\l+ preVisit(IMethod ) : void\l+ visit(IMethod ) : void\l+ postVisit(IMethod ) : void\l+ preVisit(IRelation ) : void\l+ visit(IRelation ) : void\l+ postVisit(IRelation ) : void\l+ preVisit(IModel ) : void\l+ postVisit(IModel ) : void\l+ preVisit(ISequence ) : void\l+ visit(ISequence ) : void\l+ postVisit(ISequence ) : void\l}"
+];
+
+
+IClass -> ITraverser [arrowhead="empty"];
+UMLOutputStream -> VisitorAdapter [arrowhead="empty"];
+UMLOutputStream -> IRelation [arrowhead = "vee"];
+Method -> IMethod [arrowhead="empty", style="dashed"];
+PatternSpotter -> IVisitor [arrowhead="empty", style="dashed"];
+CompositeSpotter -> PatternSpotter [arrowhead="empty"];
+CompositeSpotter -> IRelation [arrowhead = "vee"];
+CompositeSpotter -> IClass [arrowhead = "vee"];
+DesignParser -> IModel [arrowhead = "vee"];
+MethodVisitorHelper -> Relation [arrowhead = "vee"];
+MethodVisitorHelper -> Sequence [arrowhead = "vee"];
+MethodVisitorHelper -> DesignParser [arrowhead = "vee"];
+Class -> IClass [arrowhead="empty", style="dashed"];
+Class -> IField [arrowhead = "vee"];
+Class -> IMethod [arrowhead = "vee"];
+IMethod -> ITraverser [arrowhead="empty"];
+IRelation -> ITraverser [arrowhead="empty"];
+PatternSpotter -> IClass [arrowhead = "vee", style = "dashed"];
+PatternSpotter -> IField [arrowhead = "vee", style = "dashed"];
+PatternSpotter -> ISequence [arrowhead = "vee", style = "dashed"];
+PatternSpotter -> IMethod [arrowhead = "vee", style = "dashed"];
+PatternSpotter -> IRelation [arrowhead = "vee", style = "dashed"];
+PatternSpotter -> IModel [arrowhead = "vee"];
+PatternSpotter -> IVisitor [arrowhead = "vee"];
+ClassMethodVisitor -> IClassVisitor [arrowhead="empty", style="dashed"];
+ClassMethodVisitor -> Relation [arrowhead = "vee"];
+ClassMethodVisitor -> MethodVisitorHelper [arrowhead = "vee"];
+ClassMethodVisitor -> Method [arrowhead = "vee"];
+ClassMethodVisitor -> IClassVisitor [arrowhead = "vee"];
+VisitorAdapter -> IField [arrowhead = "vee", style = "dashed"];
+VisitorAdapter -> IMethod [arrowhead = "vee", style = "dashed"];
+VisitorAdapter -> IRelation [arrowhead = "vee", style = "dashed"];
+VisitorAdapter -> IModel [arrowhead = "vee", style = "dashed"];
+VisitorAdapter -> ISequence [arrowhead = "vee", style = "dashed"];
+CompositeSpotter -> IClass [arrowhead = "vee", style = "dashed"];
+CompositeSpotter -> IModel [arrowhead = "vee", style = "dashed"];
+SDOutputStream -> VisitorAdapter [arrowhead="empty"];
+SDOutputStream -> ISequence [arrowhead = "vee"];
+ClassMethodVisitor -> IModel [arrowhead = "vee"];
+ClassMethodVisitor -> IClass [arrowhead = "vee"];
+Field -> IField [arrowhead="empty", style="dashed"];
+IVisitor -> IClass [arrowhead = "vee", style = "dashed"];
+IVisitor -> IField [arrowhead = "vee", style = "dashed"];
+IVisitor -> IMethod [arrowhead = "vee", style = "dashed"];
+IVisitor -> ISequence [arrowhead = "vee", style = "dashed"];
+IVisitor -> IRelation [arrowhead = "vee", style = "dashed"];
+IVisitor -> IModel [arrowhead = "vee", style = "dashed"];
+Method -> IVisitor [arrowhead = "vee", style = "dashed"];
+Sequence -> IVisitor [arrowhead = "vee", style = "dashed"];
+VisitorAdapter -> IVisitor [arrowhead="empty", style="dashed"];
+IField -> ITraverser [arrowhead="empty"];
+ClassDeclarationVisitor -> IClassVisitor [arrowhead="empty", style="dashed"];
+ClassDeclarationVisitor -> Class [arrowhead = "vee"];
+ClassDeclarationVisitor -> Relation [arrowhead = "vee"];
+AdapterSpotter -> IClass [arrowhead = "vee", style = "dashed"];
+SingletonSpotter -> IModel [arrowhead = "vee", style = "dashed"];
+SingletonSpotter -> IField [arrowhead = "vee", style = "dashed"];
+Class -> IVisitor [arrowhead = "vee", style = "dashed"];
+Class -> IMethod [arrowhead = "vee", style = "dashed"];
+Class -> IField [arrowhead = "vee", style = "dashed"];
+Class -> IRelation [arrowhead = "vee", style = "dashed"];
+DecoratorSpotter -> IMethod [arrowhead = "vee", style = "dashed"];
+DecoratorSpotter -> IModel [arrowhead = "vee", style = "dashed"];
+DecoratorSpotter -> PatternSpotter [arrowhead="empty"];
+DecoratorSpotter -> DesignParser [arrowhead = "vee"];
+DecoratorSpotter -> ISequence [arrowhead = "vee"];
+DecoratorSpotter -> IRelation [arrowhead = "vee"];
+ISequence -> ITraverser [arrowhead="empty"];
+ClassDeclarationVisitor -> IModel [arrowhead = "vee"];
+ClassDeclarationVisitor -> IClass [arrowhead = "vee"];
+UMLOutputStream -> IClass [arrowhead = "vee", style = "dashed"];
+UMLOutputStream -> IField [arrowhead = "vee", style = "dashed"];
+UMLOutputStream -> IMethod [arrowhead = "vee", style = "dashed"];
+UMLOutputStream -> IModel [arrowhead = "vee", style = "dashed"];
+UMLOutputStream -> IRelation [arrowhead = "vee", style = "dashed"];
+Field -> IVisitor [arrowhead = "vee", style = "dashed"];
+Relation -> IVisitor [arrowhead = "vee", style = "dashed"];
+ClassFieldVisitor -> IModel [arrowhead = "vee"];
+ClassFieldVisitor -> IClass [arrowhead = "vee"];
+Sequence -> ISequence [arrowhead="empty", style="dashed"];
+AdapterSpotter -> PatternSpotter [arrowhead="empty"];
+AdapterSpotter -> IRelation [arrowhead = "vee"];
+AdapterSpotter -> IMethod [arrowhead = "vee"];
+ClassFieldVisitor -> IClassVisitor [arrowhead="empty", style="dashed"];
+ClassFieldVisitor -> Field [arrowhead = "vee"];
+ClassFieldVisitor -> Relation [arrowhead = "vee"];
+ClassFieldVisitor -> IClassVisitor [arrowhead = "vee"];
+IModel -> ITraverser [arrowhead="empty"];
+IClass -> IMethod [arrowhead = "vee", style = "dashed"];
+IClass -> IField [arrowhead = "vee", style = "dashed"];
+IClass -> IRelation [arrowhead = "vee", style = "dashed"];
+DesignParser -> Model [arrowhead = "vee"];
+DesignParser -> ClassDeclarationVisitor [arrowhead = "vee"];
+DesignParser -> ClassFieldVisitor [arrowhead = "vee"];
+DesignParser -> ClassMethodVisitor [arrowhead = "vee"];
+DesignParser -> SingletonSpotter [arrowhead = "vee"];
+DesignParser -> DecoratorSpotter [arrowhead = "vee"];
+DesignParser -> AdapterSpotter [arrowhead = "vee"];
+DesignParser -> CompositeSpotter [arrowhead = "vee"];
+Relation -> IRelation [arrowhead="empty", style="dashed"];
+SingletonSpotter -> PatternSpotter [arrowhead="empty"];
+MyMainApp -> DesignParser [arrowhead = "vee"];
+MyMainApp -> UMLOutputStream [arrowhead = "vee"];
+MyMainApp -> SDOutputStream [arrowhead = "vee"];
+IModel -> IClass [arrowhead = "vee", style = "dashed"];
+IModel -> IRelation [arrowhead = "vee", style = "dashed"];
+IModel -> ISequence [arrowhead = "vee", style = "dashed"];
+MethodVisitorHelper -> IModel [arrowhead = "vee"];
+MethodVisitorHelper -> IClass [arrowhead = "vee"];
+Model -> IModel [arrowhead="empty", style="dashed"];
+Model -> IClass [arrowhead = "vee"];
+Model -> IRelation [arrowhead = "vee"];
+Model -> IMethod [arrowhead = "vee"];
+Model -> ISequence [arrowhead = "vee"];
+SDOutputStream -> IModel [arrowhead = "vee", style = "dashed"];
+SDOutputStream -> IClass [arrowhead = "vee", style = "dashed"];
+Model -> IVisitor [arrowhead = "vee", style = "dashed"];
+Model -> IClass [arrowhead = "vee", style = "dashed"];
+Model -> IRelation [arrowhead = "vee", style = "dashed"];
+Model -> ISequence [arrowhead = "vee", style = "dashed"];
+ITraverser -> IVisitor [arrowhead = "vee", style = "dashed"];}

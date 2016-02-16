@@ -4,6 +4,7 @@ import problem.interfaces.IField;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
+import problem.interfaces.ISequence;
 
 public abstract class VisitorAdapter implements IVisitor {
 
@@ -42,7 +43,7 @@ public abstract class VisitorAdapter implements IVisitor {
 	@Override
 	public void postVisit(IRelation c) {
 	}
-	
+
 	@Override
 	public void preVisit(IModel m) {
 	}
@@ -51,16 +52,28 @@ public abstract class VisitorAdapter implements IVisitor {
 	public void postVisit(IModel m) {
 	}
 
-//	public void visitRelations(IModel m) {
-//		
-//	}
+	@Override
+	public void preVisit(ISequence s) {
+	}
 
-//	public void visitSuperClasses(IRelation r) {
-//
-//	}
-//
-//	public void visitInterfaces(IRelation r) {
-//
-//	}
+	@Override
+	public void visit(ISequence s) {
+	}
+
+	@Override
+	public void postVisit(ISequence s) {
+	}
+
+	// public void visitRelations(IModel m) {
+	//
+	// }
+
+	// public void visitSuperClasses(IRelation r) {
+	//
+	// }
+	//
+	// public void visitInterfaces(IRelation r) {
+	//
+	// }
 
 }

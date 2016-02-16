@@ -12,6 +12,7 @@ import problem.interfaces.IField;
 import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 import problem.interfaces.IRelation;
+import problem.spotter.PatternSpotter;
 import problem.visitor.VisitorAdapter;
 
 public class UMLOutputStream extends VisitorAdapter {
@@ -39,15 +40,55 @@ public class UMLOutputStream extends VisitorAdapter {
 	@Override
 	public void visit(IClass c) {
 		String s;
-		if (c.getClassType() == "Interface") {
-			s = String.format("label = \"{\\<\\<interface\\>\\>\\n%s| ", c.getName());
-		} else {
-			if (c.getClassType() == "Abstract") {
-				s = String.format("label = \"{\\<\\<Abstract\\>\\>\\n%s| ", c.getName());
-			} else {
-				s = String.format("label = \"{%s| ", c.getName());
-			}
+		String color = "white";
+		String adap = "";
+		String deco = "";
+		String comp = "";
+
+		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
+			String type = c.getClassTypes2().get(PatternSpotter.ADAPTERSTR);
+			adap = String.format("\\n\\<\\<%s\\>\\>", type);
+			color = "red";
 		}
+
+		if (c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
+			String type = c.getClassTypes2().get(PatternSpotter.DECORATORSTR);
+			deco = String.format("\\n\\<\\<%s\\>\\>", type);
+			color = "green";
+		}
+		
+		if (c.getClassTypes2().containsKey(PatternSpotter.COMPOSITESTR)) {
+			String type = c.getClassTypes2().get(PatternSpotter.COMPOSITESTR);
+			comp = String.format("\\n\\<\\<%s\\>\\>", type);
+			color = "yellow";
+		}
+
+		if (c.getClassType().equalsIgnoreCase("Interface")) {
+			s = String.format("fillcolor=%s, style=filled,label = \"{\\<\\<interface\\>\\>\\n%s", color, c.getName());
+		} else if (c.getClassType().equalsIgnoreCase("Abstract")) {
+			s = String.format("fillcolor=%s, style=filled,label = \"{\\<\\<Abstract\\>\\>\\n%s", color, c.getName());
+		} else if (c.getClassType().equalsIgnoreCase("Singleton")) {
+			// To-DO Ishank please format this so that the class name comes
+			// first and <<singleton>> comes below it. Look at M4 for example.
+			// Also, somewhere we need to color the box around the Singleton
+			// class a different color. You can probably do that here, but if
+			// not just see if c.getClassType() == "Singleton". If it does, then
+			// do it there.
+			s = String.format("color=blue, label = \"{%s\\n\\<\\<Singleton\\>\\>", c.getName());
+		} else {
+			s = String.format("fillcolor=%s, style=filled, label = \"{%s", color, c.getName());
+		}
+		if (c.getClassTypes2().containsKey(PatternSpotter.ADAPTERSTR)) {
+			s += adap;
+		}
+		if (c.getClassTypes2().containsKey(PatternSpotter.DECORATORSTR)) {
+			s += deco;
+		}
+		if (c.getClassTypes2().containsKey(PatternSpotter.COMPOSITESTR)) {
+			s += comp;
+		}
+
+		s += "|";
 		this.write(s);
 	}
 
@@ -103,8 +144,15 @@ public class UMLOutputStream extends VisitorAdapter {
 			String s = "";
 
 			String n = r.getSubClass();
+			if (n.contains("/")) {
+				String[] temp = n.split("/");
+				n = temp[temp.length - 1];
+			} else if (n.contains(".")) {
+				String[] temp = n.split("\\.");
+				n = temp[temp.length - 1];
+			}
 			// System.out.println(r.getSuperClass());
-			if (r.getSuperClass() != null) {
+			if (r.getSuperClass() != null && !r.getSuperClass().isEmpty()) {
 				String[] superClass = r.getSuperClass().split("/");
 				s += "\n" + n + " -> " + superClass[superClass.length - 1] + " [arrowhead=\"empty\"];";
 			}

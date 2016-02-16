@@ -48,6 +48,10 @@ public class Sequence implements ISequence {
 		return this.toClass;
 	}
 
+	public String getToClassShort() {
+		return this.toClass.split("/")[this.toClass.split("/").length - 1];
+	}
+
 	public String getCalledMethod() {
 		return this.calledMethod;
 	}
@@ -63,12 +67,19 @@ public class Sequence implements ISequence {
 	@Override
 	public void acceptUML(IVisitor v) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public void acceptSequence(IVisitor v, ISequence subMethods, int depth) {
+	public void acceptSequence(IVisitor v, int depth) {
 		// TODO Auto-generated method stub
-		
+
+	}
+
+	@Override
+	public void acceptSpotters(IVisitor v) {
+		v.preVisit(this);
+		v.visit(this);
+		v.postVisit(this);
 	}
 }
