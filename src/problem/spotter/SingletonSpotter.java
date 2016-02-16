@@ -18,6 +18,10 @@ public class SingletonSpotter extends PatternSpotter {
 		// TODO Auto-generated constructor stub
 	}
 
+	public SingletonSpotter(IModel model, PatternSpotter decorated) {
+		super(model, decorated);
+	}
+
 	// When visit is called for a spotter, the spotter then spots the design
 	// pattern and makes the necessary changes to the Model class.
 	@Override
@@ -27,7 +31,7 @@ public class SingletonSpotter extends PatternSpotter {
 		// instantiated inside of itself (means this is a singleton)
 		// System.out.println("f.getDescription(): " + f.getDescription());
 		String fieldType = f.getDescription();
-		if(fieldType.contains(";"))
+		if (fieldType.contains(";"))
 			fieldType = fieldType.substring(1, fieldType.length() - 1);
 		if (super.curClassFull.equals(fieldType) && f.getAccess() == 10) {
 			super.model.addSingleton(this.curClassFull);

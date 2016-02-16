@@ -69,8 +69,8 @@ public class Model implements IModel {
 	public void setClassNames() {
 		for (String s : MyMainApp.classes) {
 			String[] split = s.split("\\.");
-			s = split[split.length - 1];
-			Model.classNames.add(s);
+			String st = split[split.length - 1];
+			Model.classNames.add(st);
 			Model.fullClassNames.add(s.replace(".", "/"));
 		}
 	}

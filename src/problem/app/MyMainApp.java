@@ -114,14 +114,16 @@ public class MyMainApp {
 			// "problem.asm.MethodVisitorHelper", "problem.impl.Class",
 			// "problem.impl.Field", "problem.impl.Method",
 			// "problem.impl.Model", "problem.impl.Relation",
-			// "problem.impl.SDOutputStream", "problem.impl.Sequence",
-			// "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
-			// "problem.interfaces.IField",
-			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
-			// "problem.interfaces.IRelation",
-			"problem.interfaces.ISequence", "problem.spotter.AdapterSpotter", "problem.spotter.DecoratorSpotter",
-			"problem.spotter.SingletonSpotter", "problem.spotter.CompositeSpotter", "problem.spotter.PatternSpotter",
-			"problem.visitor.ITraverser", "problem.visitor.IVisitor", "problem.visitor.VisitorAdapter"
+			// "problem.impl.Sequence", "problem.interfaces.IClass",
+			// "problem.interfaces.IField", "problem.interfaces.IMethod",
+			// "problem.interfaces.IModel",
+			// "problem.interfaces.IRelation", "problem.interfaces.ISequence",
+			// "problem.spotter.AdapterSpotter",
+			// "problem.spotter.DecoratorSpotter",
+			// "problem.spotter.SingletonSpotter",
+			// "problem.spotter.CompositeSpotter",
+			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
 
 	};
 
@@ -193,6 +195,10 @@ public class MyMainApp {
 		ArrayList<String> patterns = new ArrayList<String>();
 		HashMap<String, PatternSpotter> spotterNames = new HashMap<String, PatternSpotter>();
 		populateSpotterNames(spotterNames, parser);
+		// patternProps matches each pattern with any special properties that
+		// may correspond to it
+		HashMap<String, String> patternProps = new HashMap<String, String>();
+		patternProps.ad
 
 		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
 		// Iterate through every key in the pattern detection map to see if we
