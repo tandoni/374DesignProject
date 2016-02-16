@@ -1,4 +1,4 @@
-Input-Folder: C:\\Users\\morganml\\Documents\\CS\\374\\374DesignProject\\src\\analyze
+Input-Folder: headfirst
 
 Input-Classes: java.io.Reader, headfirst.singleton.classic.Singleton
 

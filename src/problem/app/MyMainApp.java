@@ -1,10 +1,12 @@
 package problem.app;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -66,10 +68,14 @@ public class MyMainApp {
 			// "problem.z.decorator.Mocha.cost()", "5"
 			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
 			// "problem.z.decorator.Milk.cost()", "10"
-			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator", "problem.z.decorator.DarkRoast",
-			"problem.z.decorator.Decaf", "problem.z.decorator.Espresso", "problem.z.decorator.HouseBlend",
-			"problem.z.decorator.Milk", "problem.z.decorator.Mocha", "problem.z.decorator.StarbuzzCoffee",
-			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			// "problem.z.decorator.Beverage",
+			// "problem.z.decorator.CondimentDecorator",
+			// "problem.z.decorator.DarkRoast",
+			// "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
+			// "problem.z.decorator.HouseBlend",
+			// "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
+			// "problem.z.decorator.StarbuzzCoffee",
+			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
 			// "problem.z.adapter.IteratorToEnumerationAdapter",
@@ -95,6 +101,10 @@ public class MyMainApp {
 			// "problem.z.composite.RectangleSprite",
 			// "problem.z.composite.RectangleTower",
 			// "problem.z.composite.SpriteFactory"
+
+			// "C.Users.morganml.Documents.CS.374.Lab2-3-Solution.src.problem.components.Button.java"
+			// "Lab2-3-Solution.src.problem.components.Button.java"
+			// "Java.util.List"
 
 			// our own project
 			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
@@ -146,8 +156,25 @@ public class MyMainApp {
 		// Files.readAllBytes() on .class file
 		// Read in the path to the folder where we want to get the classes to
 		// analyze
-		// FileInputStream inClass = new
-		// FileInputStream(props.getProperty("Input-Folder", ""));
+		File folder = new File(props.getProperty("Input-Folder", ""));
+		File[] files2 = folder.listFiles();
+		ArrayList<File> files = new ArrayList<File>(Arrays.asList(files2));
+		// Make sure that all directories are traversed so that only files
+		// remain
+		for (int ind1 = 0; ind1 < files.size(); ind1++) {
+			if (files.get(ind1).isDirectory()) {
+				files.addAll(new ArrayList<File>(Arrays.asList(files.get(ind1).listFiles())));
+				files.remove(ind1);
+				ind1--;
+			} else if (files.get(ind1).isFile()) {
+				FileInputStream inClass = new FileInputStream(files.get(ind1));
+			}
+		}
+		// Add each file (which represents a class) to the list of classes to
+		// analyze
+		for (File f : files) {
+			classez.add(f.toString());
+		}
 
 		// This adds the individual classes specified (outside of the path
 		// directory for the package) to the arrayList of classes to be analyzed
@@ -160,36 +187,25 @@ public class MyMainApp {
 		// Only load the classes in ASM if its defined in the input
 		boolean classLoading = props.getProperty("Phases", "").contains("Class-Loading");
 		if (classLoading) {
-			parser.main(classes);
-			// parser.main(classez.toArray(new String[classez.size()]));
+			// parser.main(classes);
+			parser.main(classez.toArray(new String[classez.size()]));
 		}
 
 		// Now we need to determine which patterns we need to detect
 		String phases = props.getProperty("Phases", "");
 		ArrayList<String> patterns = new ArrayList<String>();
 		HashMap<String, PatternSpotter> spotterNames = new HashMap<String, PatternSpotter>();
-		spotterNames.put("Singleton-Detection", new SingletonSpotter(parser.model));
-		spotterNames.put("Decorator-Detection", new DecoratorSpotter(parser.model));
-		spotterNames.put("Adapter-Detection", new AdapterSpotter(parser.model));
-		spotterNames.put("Composite-Detection", new CompositeSpotter(parser.model));
+		populateSpotterNames(spotterNames, parser);
+
+		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
 		// Iterate through every key in the pattern detection map to see if we
-		// should detect any of those patterns. The value is the name of the
-		// class which detects that pattern.
+		// should detect any of those patterns. If so, add it to activeSpotters.
 		for (String ke : spotterNames.keySet()) {
 			if (phases.contains(ke)) {
-				patterns.add(ke);
+				activeSpotters.add(spotterNames.get(ke));
 			}
 		}
 
-		// Iterate through patterns, and make the appropriate pattern spotter
-		// for each value
-		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
-		// Add the correct class for each string in patterns
-		for (String s : patterns) {
-			activeSpotters.add(spotterNames.get(s));
-		}
-		// Add the previous spotter as the decorated pattern spotter to the
-		// current pattern spotter
 		for (int ind = 1; ind < activeSpotters.size(); ind++) {
 			activeSpotters.get(ind).addDecorator(activeSpotters.get(ind - 1));
 		}
@@ -220,5 +236,20 @@ public class MyMainApp {
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
 
+	}
+
+	/**
+	 * Populates the map that matches the String in the properties input field
+	 * to the correct spotter class to detect that pattern. The key should be
+	 * exactly what is in the input Properties file.
+	 * 
+	 * @param spotterNames
+	 * @param parser
+	 */
+	private static void populateSpotterNames(HashMap<String, PatternSpotter> spotterNames, DesignParser parser) {
+		spotterNames.put("Singleton-Detection", new SingletonSpotter(parser.model));
+		spotterNames.put("Decorator-Detection", new DecoratorSpotter(parser.model));
+		spotterNames.put("Adapter-Detection", new AdapterSpotter(parser.model));
+		spotterNames.put("Composite-Detection", new CompositeSpotter(parser.model));
 	}
 }
