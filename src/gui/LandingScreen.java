@@ -19,7 +19,7 @@ import javax.swing.JPanel;
 
 import problem.asm.DesignParser;
 
-public class MyMainGUI implements ActionListener {
+public class LandingScreen implements ActionListener {
 
 	private JFrame frame;
 	private JPanel panel;
@@ -144,7 +144,7 @@ public class MyMainGUI implements ActionListener {
 			@Override
 			public void run() {
 
-				ResultsGUI results = new ResultsGUI(dp);
+				ResultsScreen results = new ResultsScreen(dp);
 
 				// try {
 				// ResultsGUI results = new ResultsGUI(dp);

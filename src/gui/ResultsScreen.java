@@ -2,9 +2,9 @@ package gui;
 
 import problem.asm.DesignParser;
 
-public class ResultsGUI {
+public class ResultsScreen {
 
-	public ResultsGUI(DesignParser dp) {
+	public ResultsScreen(DesignParser dp) {
 		// TODO Auto-generated constructor stub
 	}
 

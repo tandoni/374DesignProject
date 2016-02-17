@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -68,7 +69,7 @@ public class ConfigFrame implements ActionListener {
 
 					try {
 						// copy to myConfig
-						readProperties(pFile);
+						this.readProperties(pFile);
 						writeProperties();
 					} catch (IOException e1) {
 						e1.printStackTrace();
@@ -89,8 +90,8 @@ public class ConfigFrame implements ActionListener {
 	}
 
 	// copy for MyMainGUI's readProperties()
-	private void readProperties() throws IOException {
-		File file = new File("resources/config.properties");
+	private void readProperties(File file) throws IOException {
+
 		FileInputStream input = new FileInputStream(file);
 		Properties p = new Properties();
 
@@ -117,13 +118,19 @@ public class ConfigFrame implements ActionListener {
 		}
 	}
 	
-	private void writeProperties() {
-		MyConfig oc = new MyConfig();
-		oc.setInputClasses(inputClasses);
-		oc.setOutputDir(outputDir);
-		oc.setDotPath(dotPath);
-		oc.setPhases(phases);
-		oc.writeProperties();
+	public void writeProperties() throws IOException {
+		Properties p = new Properties();
+		
+		p.setProperty("Input-Classes", this.inputClasses);
+		p.setProperty("Output-Directory", this.outputDir);
+		p.setProperty("Dot-Path", this.dotPath);
+		p.setProperty("Phases", this.phases);
+		
+		File file = new File("resources/config.properties");
+		FileOutputStream output = new FileOutputStream(file);
+		p.store(output, "Properties");
+		
+		output.close();	
 	}
 
 
