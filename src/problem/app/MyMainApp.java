@@ -78,8 +78,8 @@ public class MyMainApp {
 			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-			// "problem.z.adapter.IteratorToEnumerationAdapter",
-			// "java.util.Enumeration", "java.util.Iterator"
+			 "problem.z.adapter.IteratorToEnumerationAdapter",
+			 "java.util.Enumeration", "java.util.Iterator"
 
 			// Composite tests
 			// java.awt
@@ -123,8 +123,8 @@ public class MyMainApp {
 			// "problem.spotter.DecoratorSpotter",
 			// "problem.spotter.SingletonSpotter",
 			// "problem.spotter.CompositeSpotter",
-			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
+//			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+//			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
 
 //			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
 //			 "problem.asm.ClassFieldVisitor",
