@@ -6,7 +6,7 @@ Dot-Path: C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe
 
 Phases: Class-Loading, Adapter-Detection, Decorator-Detection, Singleton-Detection, DOT-Generation
 
-Decorator-MethodDelegation: 2
+Decorator-MethodDelegation: 3
 
 Adapter-MethodDelegation: 2
 
