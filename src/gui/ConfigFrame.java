@@ -63,7 +63,7 @@ public class ConfigFrame implements ActionListener {
 			int retVal = fc.showDialog(frame, "Choose");
 
 			if (retVal == 0) {
-				
+
 				if (fc.getSelectedFile().getName().endsWith(".properties")) {
 					File pFile = fc.getSelectedFile();
 
@@ -77,12 +77,12 @@ public class ConfigFrame implements ActionListener {
 
 					JOptionPane.showMessageDialog(frame, "choose successed");
 					frame.dispose();
-					
+
 				} else {
 					JOptionPane.showMessageDialog(frame, "choose failed");
 				}
-				
-			}else{
+
+			} else {
 				// no existing configurations
 			}
 
@@ -104,7 +104,7 @@ public class ConfigFrame implements ActionListener {
 		this.inputClasses = p.getProperty("Input-Classes");
 		this.outputDir = p.getProperty("Output-Directory");
 		this.phases = p.getProperty("Phases");
-		
+
 		this.phasesList = new ArrayList<String>();
 		String[] splitPhases = phases.split(",");
 		for (String phase : splitPhases) {
@@ -117,21 +117,20 @@ public class ConfigFrame implements ActionListener {
 			clazz = clazz.trim();
 		}
 	}
-	
+
 	public void writeProperties() throws IOException {
 		Properties p = new Properties();
-		
+
 		p.setProperty("Input-Classes", this.inputClasses);
 		p.setProperty("Output-Directory", this.outputDir);
 		p.setProperty("Dot-Path", this.dotPath);
 		p.setProperty("Phases", this.phases);
-		
-		File file = new File("resources/config.properties");
+
+		File file = new File("input_output/config.properties");
 		FileOutputStream output = new FileOutputStream(file);
 		p.store(output, "Properties");
-		
-		output.close();	
-	}
 
+		output.close();
+	}
 
 }

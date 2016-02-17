@@ -90,15 +90,15 @@ public class LandingScreen implements ActionListener {
 		String cmd = e.getActionCommand();
 		if (cmd.equals("analyze")) {
 			this.analyzeClicked();
-		} 
-		
+		}
+
 		if (cmd.equals("loadConfig")) {
 			this.loadConfigClicked();
-		} 
+		}
 	}
 
 	private void readProperties() throws IOException {
-		File file = new File("resources/config.properties");
+		File file = new File("input_output/config.properties");
 		FileInputStream input = new FileInputStream(file);
 		Properties p = new Properties();
 
@@ -111,7 +111,7 @@ public class LandingScreen implements ActionListener {
 		this.inputClasses = p.getProperty("Input-Classes");
 		this.outputDir = p.getProperty("Output-Directory");
 		this.phases = p.getProperty("Phases");
-		
+
 		this.phasesList = new ArrayList<String>();
 		String[] splitPhases = phases.split(",");
 		for (String phase : splitPhases) {
