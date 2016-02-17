@@ -107,7 +107,7 @@ public class MyMainApp {
 			// "Java.util.List"
 
 			// our own project
-<<<<<<< Updated upstream
+
 			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
 			// "problem.asm.ClassFieldVisitor",
 			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
@@ -125,7 +125,7 @@ public class MyMainApp {
 			// "problem.spotter.CompositeSpotter",
 			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
 			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
-=======
+
 //			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
 //			 "problem.asm.ClassFieldVisitor",
 //			 "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
@@ -146,15 +146,7 @@ public class MyMainApp {
 //			 "problem.visitor.ITraverser", "problem.visitor.IVisitor",
 //			 "problem.visitor.VisitorAdapter"
 			
-			"com.facebook.Client",
-			"com.facebook.api.IPost",
-			"com.facebook.core.Like",
-			"com.facebook.core.Person",
-			"com.facebook.core.Timeline",
-			"com.facebook.core.UI"
->>>>>>> Stashed changes
-
-	};
+		};
 
 	public static void main(String[] args) throws IOException {
 		Properties props = new Properties();
