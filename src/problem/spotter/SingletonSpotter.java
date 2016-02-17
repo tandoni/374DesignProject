@@ -1,9 +1,6 @@
 package problem.spotter;
 
-import java.util.ArrayList;
-
 import problem.interfaces.IField;
-import problem.interfaces.IMethod;
 import problem.interfaces.IModel;
 
 public class SingletonSpotter extends PatternSpotter {
@@ -37,20 +34,10 @@ public class SingletonSpotter extends PatternSpotter {
 		if (fieldType.contains(";"))
 			fieldType = fieldType.substring(1, fieldType.length() - 1);
 		if (super.curClassFull.equals(fieldType) && f.getAccess() == 10) {
-			if (super.constraint == null) {
-				super.model.addSingleton(this.curClassFull);
-				this.model.getNamedClass(this.curClassFull).setClassType("singleton");
-			} else {
-				ArrayList<IMethod> meths = (ArrayList<IMethod>) this.model.getNamedClass(this.curClassFull)
-						.getMethods();
-				for (IMethod meth : meths) {
-					if (meth.getName().equals("getInstance")) {
-						super.model.addSingleton(this.curClassFull);
-						this.model.getNamedClass(this.curClassFull).setClassType("singleton");
-					}
-				}
-			}
+			super.model.addSingleton(this.curClassFull);
+			this.model.getNamedClass(this.curClassFull).setClassType("singleton");
 		}
+		// System.out.println("here");
 	}
 
 }

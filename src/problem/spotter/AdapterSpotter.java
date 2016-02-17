@@ -17,16 +17,38 @@ public class AdapterSpotter extends PatternSpotter {
 	// possibly prevent headaches.
 	static Map<String, Collection<String>> thisInterfaces = new HashMap<String, Collection<String>>();
 	static Map<String, Collection<String>> thisFields = new HashMap<String, Collection<String>>();
-	private int count = 0;
 
 	public AdapterSpotter(IModel model, PatternSpotter spotter) {
 		super(model, spotter);
 		this.r = super.model.getRelations();
 	}
 
+	// Visit the methods. If the method is a method of an interface being
+	// implemented by this class, and that method uses a field, then this might
+	// be an Adapter pattern.
+	// @Override
+	// public void visit(IMethod m) {
+	// if (!thisInterfaces.isEmpty()) {
+	//
+	// }
+	// }
+
+	// @Override
+	// public void visit(IField f) {
+	// String fieldType2 = f.getDescription();
+	// String fieldType1 =
+	// f.getDescription().split("/")[f.getDescription().split("/").length - 1];
+	// String fieldType = fieldType1.substring(0, fieldType1.length() - 1);
+	// if (!thisFields.containsKey(curClass)) {
+	// thisFields.put(curClass, new ArrayList<String>());
+	// }
+	// ArrayList<String> list = (ArrayList<String>) thisFields.get(curClass);
+	// list.add(fieldType);
+	// thisFields.put(curClass, list);
+	// }
+
 	public AdapterSpotter(IModel model) {
 		super(model);
-		this.r = super.model.getRelations();
 	}
 
 	@Override
@@ -64,42 +86,19 @@ public class AdapterSpotter extends PatternSpotter {
 					}
 					if ((adapterMethodsList.size() - 1) == targetMethodsList.size()) {
 						if (adapterMethodsList.containsAll(targetMethodsList)) {
-							if (super.constraint == null) {
-								// The current class we're in is the "adapter"
-								this.model.getNamedClass(c.getFullName()).addClassTypes2(AdapterSpotter.ADAPTERSTR,
-										"adapter");
-								// The interface we are trying to emulate is the
-								// "target"
-								this.model.getNamedClass(interf.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR,
-										"target");
-								// The class we're taking into the adapter to be
-								// used as if it is another class is the
-								// "adaptee"
-								this.model.getNamedClass(assocs.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR,
-										"adaptee");
-							} else {
-								for (String targetMethod : targetMethodsList) {
-									if (adapterMethodsList.contains(targetMethod))
-										count++;
-								}
-								if (count >= Integer.parseInt(super.constraint)) {
-									// The current class we're in is the
-									// "adapter"
-									this.model.getNamedClass(c.getFullName()).addClassTypes2(AdapterSpotter.ADAPTERSTR,
-											"adapter");
-									// The interface we are trying to emulate is
-									// the
-									// "target"
-									this.model.getNamedClass(interf.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR,
-											"target");
-									// The class we're taking into the adapter
-									// to be
-									// used as if it is another class is the
-									// "adaptee"
-									this.model.getNamedClass(assocs.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR,
-											"adaptee");
-								}
-							}
+
+							// The current class we're in is the "adapter"
+							this.model.getNamedClass(c.getFullName()).addClassTypes2(AdapterSpotter.ADAPTERSTR,
+									"adapter");
+
+							// The interface we are trying to emulate is the
+							// "target"
+							this.model.getNamedClass(interf.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR, "target");
+
+							// The class we're taking into the adapter to be
+							// used as if it is another class is the "adaptee"
+							this.model.getNamedClass(assocs.get(0)).addClassTypes2(AdapterSpotter.ADAPTERSTR,
+									"adaptee");
 						}
 					}
 				}
@@ -111,8 +110,6 @@ public class AdapterSpotter extends PatternSpotter {
 	 * Finds all interfaces for a class
 	 */
 	private void findInterfaces() {
-		if (this.r == null)
-			return;
 		for (IRelation re : this.r) {
 			Collection<String> inters = re.getInterfaces();
 			if (!inters.isEmpty()) {

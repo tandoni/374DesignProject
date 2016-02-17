@@ -68,10 +68,14 @@ public class MyMainApp {
 			// "problem.z.decorator.Mocha.cost()", "5"
 			// "problem.z.decorator.CondimentDecorator.getDescription()", "5"
 			// "problem.z.decorator.Milk.cost()", "10"
-			"problem.z.decorator.Beverage", "problem.z.decorator.CondimentDecorator", "problem.z.decorator.DarkRoast",
-			"problem.z.decorator.Decaf", "problem.z.decorator.Espresso", "problem.z.decorator.HouseBlend",
-			"problem.z.decorator.Milk", "problem.z.decorator.Mocha", "problem.z.decorator.StarbuzzCoffee",
-			"problem.z.decorator.Whip", "problem.z.decorator.Soy"
+			// "problem.z.decorator.Beverage",
+			// "problem.z.decorator.CondimentDecorator",
+			// "problem.z.decorator.DarkRoast",
+			// "problem.z.decorator.Decaf", "problem.z.decorator.Espresso",
+			// "problem.z.decorator.HouseBlend",
+			// "problem.z.decorator.Milk", "problem.z.decorator.Mocha",
+			// "problem.z.decorator.StarbuzzCoffee",
+			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
 			// "problem.z.adapter.IteratorToEnumerationAdapter",
@@ -103,6 +107,7 @@ public class MyMainApp {
 			// "Java.util.List"
 
 			// our own project
+
 			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
 			// "problem.asm.ClassFieldVisitor",
 			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
@@ -118,12 +123,30 @@ public class MyMainApp {
 			// "problem.spotter.DecoratorSpotter",
 			// "problem.spotter.SingletonSpotter",
 			// "problem.spotter.CompositeSpotter",
-			// "problem.spotter.PatternSpotter", "problem.visitor.ITraverser",
-			// "problem.visitor.IVisitor",
-			// "problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream",
-			// "problem.impl.UMLOutputStream"
+			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
 
-	};
+//			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
+//			 "problem.asm.ClassFieldVisitor",
+//			 "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
+//			 "problem.asm.IClassVisitor",
+//			 "problem.asm.MethodVisitorHelper", "problem.impl.Class",
+//			 "problem.impl.Field", "problem.impl.Method",
+//			 "problem.impl.Model", "problem.impl.Relation",
+//			 "problem.impl.SDOutputStream", "problem.impl.Sequence",
+//			 "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
+//			 "problem.interfaces.IField",
+//			 "problem.interfaces.IMethod", "problem.interfaces.IModel",
+//			 "problem.interfaces.IRelation",
+//			 "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
+//			 "problem.spotter.DecoratorSpotter",
+//			 "problem.spotter.SingletonSpotter",
+//			 "problem.spotter.CompositeSpotter",
+//			 "problem.spotter.PatternSpotter",
+//			 "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+//			 "problem.visitor.VisitorAdapter"
+			
+		};
 
 	public static void main(String[] args) throws IOException {
 		Properties props = new Properties();
@@ -196,26 +219,14 @@ public class MyMainApp {
 		// patternProps matches each pattern with any special properties that
 		// may correspond to it
 		HashMap<String, String> patternProps = new HashMap<String, String>();
-		populatePatternProps(patternProps);
+//		patternProps.ad
 
 		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
 		// Iterate through every key in the pattern detection map to see if we
 		// should detect any of those patterns. If so, add it to activeSpotters.
 		for (String ke : spotterNames.keySet()) {
 			if (phases.contains(ke)) {
-				// If this key (pattern detection) may have a special constraint
-				if (patternProps.containsKey(ke)) {
-					// If the input file also contains this special constraint
-					if (props.containsKey(patternProps.get(ke))) {
-						PatternSpotter newSpot = spotterNames.get(ke);
-						newSpot.addConstraint((String) props.get(patternProps.get(ke)));
-						activeSpotters.add(newSpot);
-					} else {
-						activeSpotters.add(spotterNames.get(ke));
-					}
-				} else {
-					activeSpotters.add(spotterNames.get(ke));
-				}
+				activeSpotters.add(spotterNames.get(ke));
 			}
 		}
 
@@ -249,18 +260,6 @@ public class MyMainApp {
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
 
-	}
-
-	/**
-	 * Know what special pattern constraint to look for in Properties depending
-	 * on whichever pattern it is.
-	 * 
-	 * @param patternProps
-	 */
-	private static void populatePatternProps(HashMap<String, String> patternProps) {
-		patternProps.put("Decorator-Detection", "Decorator-MethodDelegation");
-		patternProps.put("Adapter-Detection", "Adapter-MethodDelegation");
-		patternProps.put("Singleton-Detection", "Singleton-RequireGetInstance");
 	}
 
 	/**
