@@ -126,7 +126,7 @@ public class ConfigFrame implements ActionListener {
 		p.setProperty("Dot-Path", this.dotPath);
 		p.setProperty("Phases", this.phases);
 		
-		File file = new File("resources/config.properties");
+		File file = new File("input_output/config.properties");
 		FileOutputStream output = new FileOutputStream(file);
 		p.store(output, "Properties");
 		

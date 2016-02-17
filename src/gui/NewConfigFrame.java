@@ -50,9 +50,11 @@ public class NewConfigFrame implements ActionListener {
 		//TODO: correct into actual working fields and paths
 		
 		//Input-Folder: c:\\User1\\Documents\\Lab2-1\\src
-		inputClassesField.setText("java.io.Reader,java.io.BufferedReader,java.lang.Runtime,org.asm.ClassVisitor");
-		outputDirField.setText("input_output\\");
-		dotPathField.setText("C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe");
+		inputClassesField.setText("java.io.Reader,java.io.BufferedReader,java.lang.Runtime,problem.asm.ClassMethodVisitor");
+		outputDirField.setText("input_output/");
+		
+		// change according to windows/Mac
+		dotPathField.setText("/Applications/Graphviz.app");
 		phasesField.setText("Class-Loading, Decorator-Detection, Singleton-Detection, DOT-Generation");
 		//Adapter-MethodDelegation: 2
 		//Decorator-MethodDelegation: 1
@@ -97,7 +99,7 @@ public class NewConfigFrame implements ActionListener {
 		p.setProperty("Dot-Path", this.dotPathField.getText());
 		p.setProperty("Phases", this.phasesField.getText());
 		
-		File file = new File("resources/config.properties");
+		File file = new File("input_output/config.properties");
 		FileOutputStream output = new FileOutputStream(file);
 		p.store(output, "Properties");
 		

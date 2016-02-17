@@ -98,7 +98,7 @@ public class LandingScreen implements ActionListener {
 	}
 
 	private void readProperties() throws IOException {
-		File file = new File("resources/config.properties");
+		File file = new File("input_output/config.properties");
 		FileInputStream input = new FileInputStream(file);
 		Properties p = new Properties();
 
