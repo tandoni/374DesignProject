@@ -67,13 +67,16 @@ public class LandingScreen implements ActionListener {
 		JMenu fileMenu = new JMenu("File");
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
-		JMenuItem saveItem = new JMenuItem();
-		saveItem.setMnemonic(KeyEvent.VK_S);
-		saveItem.setText("Save");
-		saveItem.setActionCommand("save");
-		saveItem.addActionListener(this);
+		JMenuItem saveItem = new JMenuItem("Save");
+		saveItem.addActionListener(new MenuActionListener());
+		saveItem.setActionCommand("Save");
+		
+		JMenuItem restartItem = new JMenuItem("Restart");
+		restartItem.addActionListener(new MenuActionListener());
+		restartItem.setActionCommand("Restart");
 
 		fileMenu.add(saveItem);
+		fileMenu.add(restartItem);
 		menuBar.add(fileMenu);
 
 		JMenu helpMenu = new JMenu("Help");
