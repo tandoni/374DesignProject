@@ -118,9 +118,6 @@ public class LandingScreen implements ActionListener {
 		// The string array passed in does not matter
 		MyMainApp.main(new String[2]);
 
-		// TODO : finish the connection to DesignParser, e.g. setting parse/
-		// setting output directories
-
 		Thread resultGui = new Thread(new Runnable() {
 			@Override
 			public void run() {

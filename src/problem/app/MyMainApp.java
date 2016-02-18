@@ -80,13 +80,13 @@ public class MyMainApp {
 			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-//			 "problem.z.adapter.IteratorToEnumerationAdapter",
-//			 "java.util.Enumeration", "java.util.Iterator"
+			// "problem.z.adapter.IteratorToEnumerationAdapter",
+			// "java.util.Enumeration", "java.util.Iterator"
 
 			// Composite tests
 			// java.awt
-//			 "java.awt.Component", "java.awt.Container", "java.awt.Panel",
-//			 "java.awt.Window", "java.awt.Frame",
+			// "java.awt.Component", "java.awt.Container", "java.awt.Panel",
+			// "java.awt.Window", "java.awt.Frame",
 			// "javax.swing.JComponent", "javax.swing.JLabel",
 			// "javax.swing.JPanel", "javax.swing.AbstractButton",
 			// "javax.swing.JButton"
