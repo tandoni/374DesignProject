@@ -61,7 +61,8 @@ public class ResultsScreen extends JFrame {
 		// System.out.println(line);
 		// }
 
-		super.setTitle("Python");
+		super.setTitle("UMLLAMA");
+		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.panel = new Panel();
 		this.response = new Response();
 
