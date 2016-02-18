@@ -48,6 +48,9 @@ public class CompositeSpotter extends PatternSpotter {
 
 		// does associations contain the superclass?
 		if (ass.contains(sc) || interIsField) {
+			if (this.model.getContainsPatternMap().containsKey("Composite"))
+				if (!this.model.getContainsPatternMap().get("Composite"))
+					this.model.getContainsPatternMap().put("Composite", true);
 			if (!interIsField) {
 				// if yes color c and sc
 				this.model.getNamedClass(sc).addClassTypes2(COMPOSITESTR, "component");
@@ -153,6 +156,9 @@ public class CompositeSpotter extends PatternSpotter {
 				while (supCS != null) {
 					IClass supClass = this.model.getNamedClass(supCS);
 					if (others.contains(supClass)) {
+						if (this.model.getContainsPatternMap().containsKey("Composite"))
+							if (!this.model.getContainsPatternMap().get("Composite"))
+								this.model.getContainsPatternMap().put("Composite", true);
 						c.getClassTypes2().put(COMPOSITESTR, "composite");
 					}
 					supCS = this.model.getRelationsMap().get(supClass.getFullName()).getSuperClass();

@@ -3,32 +3,35 @@ package problem.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
+import java.awt.GridLayout;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextArea;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
 import problem.app.MyMainApp;
-import problem.asm.DesignParser;
 import problem.interfaces.IClass;
 
 @SuppressWarnings("serial")
 public class ResultsScreen extends JFrame {
+
 	public Panel panel;
 	private static final int WIDTH = 1750;
 	private static final int HEIGHT = 1080;
 	Container content;
 	MyMainApp app;
-	public Response response;
+	private JPanel response;
 
 	public ResultsScreen(MyMainApp app) throws IOException {
 		this.app = app;
@@ -59,7 +62,7 @@ public class ResultsScreen extends JFrame {
 
 		super.setTitle("Python");
 		this.panel = new Panel();
-		this.response = new Response();
+		this.response = new JPanel(new GridLayout(0, 1));
 
 		this.setSize(WIDTH, HEIGHT);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -70,7 +73,7 @@ public class ResultsScreen extends JFrame {
 		border.setTitleJustification(TitledBorder.LEFT);
 		this.panel.setBorder(border);
 		this.content.add(this.panel, BorderLayout.CENTER);
-
+		this.generateRespone();
 		this.content.add(this.response, BorderLayout.WEST);
 
 		setVisible(true);
@@ -78,20 +81,48 @@ public class ResultsScreen extends JFrame {
 	}
 
 	/**
-	 * This displays the classes in their respective patterns.
+	 * This displays the classes (with checkboxes) in their respective patterns.
 	 * 
 	 * @author morganml
 	 */
-	class Response extends JTextArea {
-		public Response() {
-			this.setEditable(false);
-			TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "select");
-			border.setTitleJustification(TitledBorder.LEFT);
-			this.setBorder(border);
-			this.setFont(new Font("Helvetica", Font.BOLD, 16));
-			this.setPreferredSize(new Dimension(250, 5));
-			this.append("selection logic goes here");
+	private void generateRespone() {
+		// public Response(MyMainApp app) {
+		// this.setEditable(false);
+		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "select");
+		// border.setTitleJustification(TitledBorder.LEFT);
+		// this.setBorder(border);
+		// this.setFont(new Font("Helvetica", Font.BOLD, 16));
+		// this.setPreferredSize(new Dimension(250, 5));
+		// this.append("selection logic goes here");
+		JPanel panel = new JPanel(new GridLayout(0, 1));
+		HashMap<String, Boolean> pMap = MyMainApp.getParser().model.getContainsPatternMap();
+		// This list is to be checked against the hashMap of patterns from Model
+		// to see if a given pattern exists in the UML
+		Collection<String> patternList = MyMainApp.getParser().model.getPatternNames();
+		// Iterate through the list of strings, and check the pattern map in
+		// Model to see if that pattern is respresented in Model. If it is, then
+		// find all classes with that pattern, and display their checkboxes
+		// below a checkbox that is the name of the pattern
+		for (String pattern : patternList) {
+			// If this is true, then we know this pattern is represented in
+			// the that patterns map
+			if (pMap.get(pattern)) {
+				JPanel patternPanel = new JPanel();
+				patternPanel.setLayout(new GridLayout(0, 1));
+
+				JCheckBox check = new JCheckBox(pattern);
+				patternPanel.add(check);
+				for (IClass c : MyMainApp.getParser().model.getClasses()) {
+					if (c.getClassTypes2().containsKey(pattern)) {
+						check = new JCheckBox(c.getName());
+						check.setBorder(new EmptyBorder(0, 20, 0, 0));
+						patternPanel.add(check);
+					}
+				}
+				this.response.add(patternPanel);
+			}
 		}
+
 	}
 
 	class Panel extends JPanel {

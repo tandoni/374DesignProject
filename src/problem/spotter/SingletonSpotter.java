@@ -37,6 +37,9 @@ public class SingletonSpotter extends PatternSpotter {
 		if (fieldType.contains(";"))
 			fieldType = fieldType.substring(1, fieldType.length() - 1);
 		if (super.curClassFull.equals(fieldType) && f.getAccess() == 10) {
+			if (this.model.getContainsPatternMap().containsKey("Singleton"))
+				if (!this.model.getContainsPatternMap().get("Singleton"))
+					this.model.getContainsPatternMap().put("Singleton", true);
 			if (super.constraint == null) {
 				super.model.addSingleton(this.curClassFull);
 				this.model.getNamedClass(this.curClassFull).setClassType("singleton");

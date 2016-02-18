@@ -166,6 +166,9 @@ public class DecoratorSpotter extends PatternSpotter {
 							// Add the decorator labels below
 							if (this.model.getFullClassNames().contains(component) && toIsField) {
 								if (super.constraint == null) {
+									if (this.model.getContainsPatternMap().containsKey("Decorator"))
+										if (!this.model.getContainsPatternMap().get("Decorator"))
+											this.model.getContainsPatternMap().put("Decorator", true);
 									this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
 									this.model.getNamedClass(fromClassStr).addClassTypes2(DECORATORSTR, "decorator");
 									String fromClassS = fromClassStr.replace(".", "/");
@@ -199,6 +202,10 @@ public class DecoratorSpotter extends PatternSpotter {
 										this.methCounted = true;
 									}
 									if (count >= Integer.parseInt(super.constraint)) {
+										if (this.model.getContainsPatternMap().containsKey("Decorator"))
+											if (!this.model.getContainsPatternMap().get("Decorator"))
+												this.model.getContainsPatternMap().put("Decorator", true);
+
 										this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
 										this.model.getNamedClass(fromClassStr).addClassTypes2(DECORATORSTR,
 												"decorator");

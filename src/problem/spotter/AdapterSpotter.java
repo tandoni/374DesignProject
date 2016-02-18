@@ -65,6 +65,9 @@ public class AdapterSpotter extends PatternSpotter {
 					if ((adapterMethodsList.size() - 1) == targetMethodsList.size()) {
 						if (adapterMethodsList.containsAll(targetMethodsList)) {
 							if (super.constraint == null) {
+								if (this.model.getContainsPatternMap().containsKey("Adapter"))
+									if (!this.model.getContainsPatternMap().get("Adapter"))
+										this.model.getContainsPatternMap().put("Adapter", true);
 								// The current class we're in is the "adapter"
 								this.model.getNamedClass(c.getFullName()).addClassTypes2(AdapterSpotter.ADAPTERSTR,
 										"adapter");
@@ -83,6 +86,9 @@ public class AdapterSpotter extends PatternSpotter {
 										count++;
 								}
 								if (count >= Integer.parseInt(super.constraint)) {
+									if (this.model.getContainsPatternMap().containsKey("Adapter"))
+										if (!this.model.getContainsPatternMap().get("Adapter"))
+											this.model.getContainsPatternMap().put("Adapter", true);
 									// The current class we're in is the
 									// "adapter"
 									this.model.getNamedClass(c.getFullName()).addClassTypes2(AdapterSpotter.ADAPTERSTR,

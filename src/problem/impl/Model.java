@@ -49,8 +49,12 @@ public class Model implements IModel {
 	// DesignParser, and we need to check this against startClass when creating
 	// the SD, to know when to start recording sequences.
 	private String currentClass = "";
+	// Hashmap that determines whether a certain pattern is contained in this
+	// model
+	private HashMap<String, Boolean> containsPattern = new HashMap<String, Boolean>();
 
 	public Model() {
+		this.initContainsPatternMap();
 		// setClassNames();
 	}
 
@@ -58,6 +62,7 @@ public class Model implements IModel {
 		Model.classes = classes;
 		Model.relations = new HashMap<String, IRelation>();
 		setClassNames(classes);
+		this.initContainsPatternMap();
 		// setClassNames();
 	}
 
@@ -65,6 +70,7 @@ public class Model implements IModel {
 		Model.classes = classes;
 		Model.relations = relations;
 		setClassNames(classes);
+		this.initContainsPatternMap();
 		// setClassNames();
 	}
 
@@ -393,6 +399,39 @@ public class Model implements IModel {
 	@Override
 	public void clearSequences() {
 		Model.sequences = new ArrayList<ISequence>();
+	}
+
+	@Override
+	public void nullifyContainsPatternMap() {
+		this.containsPattern = new HashMap<String, Boolean>();
+	}
+
+	@Override
+	public HashMap<String, Boolean> getContainsPatternMap() {
+		return this.containsPattern;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see problem.interfaces.IModel#initContainsPatternMap()
+	 */
+	@Override
+	public void initContainsPatternMap() {
+		ArrayList<String> pNames = this.getPatternNames();
+		for (String name : pNames) {
+			this.containsPattern.put(name, false);
+		}
+	}
+
+	@Override
+	public ArrayList<String> getPatternNames() {
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("Adapter");
+		list.add("Decorator");
+		list.add("Composite");
+		list.add("Singleton");
+		return list;
 	}
 
 }

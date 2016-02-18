@@ -2,6 +2,7 @@ package problem.interfaces;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -80,5 +81,23 @@ public interface IModel extends ITraverser {
 	public List<String> getSDClassNames();
 
 	public void clearSequences();
+
+	public HashMap<String, Boolean> getContainsPatternMap();
+
+	public void nullifyContainsPatternMap();
+
+	/**
+	 * Method that returns the names of the patterns. Will be the keys for the
+	 * ContainsPatternMap
+	 * 
+	 * @return
+	 */
+	public ArrayList<String> getPatternNames();
+
+	/**
+	 * Adds in the string representation for all Patterns, and initializes them
+	 * all to false.
+	 */
+	void initContainsPatternMap();
 
 }
