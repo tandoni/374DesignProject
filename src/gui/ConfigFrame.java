@@ -54,7 +54,7 @@ public class ConfigFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 
 		if (cmd.equals("createNewConfig")) {
-			NewConfigFrame newConfig = new NewConfigFrame();
+			NewConfigFrame newConfig = new NewConfigFrame(this.landingScreen);
 			newConfig.createNewConfig();
 			frame.dispose();
 		}

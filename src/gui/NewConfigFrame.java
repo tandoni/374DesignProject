@@ -17,7 +17,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 public class NewConfigFrame implements ActionListener {
-
+	private File file;
+	private LandingScreen landingScreen;
 	private JFrame frame;
 
 	private JTextField inputClassesField;
@@ -25,16 +26,20 @@ public class NewConfigFrame implements ActionListener {
 	private JTextField dotPathField;
 	private JTextField phasesField;
 
+	public NewConfigFrame(LandingScreen ls) {
+		this.landingScreen = ls;
+	}
+
 	public void createNewConfig() {
 		frame = new JFrame("New Config");
 		frame.setMinimumSize(new Dimension(300, 400));
 		JPanel panel = new JPanel();
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
-		JLabel inputClasses = new JLabel("Input classes separated by ',' ");
+		JLabel inputClasses = new JLabel("Input classes separated by ', ' ");
 		inputClasses.setAlignmentX(Component.CENTER_ALIGNMENT);
-		JLabel outputDir = new JLabel("Output Directory: ");
-		JLabel dotPath = new JLabel("Dot Path: ");
+		JLabel outputDir = new JLabel("Output-Directory: ");
+		JLabel dotPath = new JLabel("Dot-Path: ");
 		JLabel phases = new JLabel("Phases: ");
 
 		inputClassesField = new JTextField();
@@ -51,8 +56,8 @@ public class NewConfigFrame implements ActionListener {
 
 		// Input-Folder: c:\\User1\\Documents\\Lab2-1\\src
 		inputClassesField
-				.setText("java.io.Reader,java.io.BufferedReader,java.lang.Runtime,problem.asm.ClassMethodVisitor");
-		outputDirField.setText("input_output/");
+				.setText("java.io.Reader,java.io.BufferedReader, java.lang.Runtime,problem.asm.ClassMethodVisitor");
+		outputDirField.setText("./input_output/GraphForGraphViz.gv");
 
 		// change according to windows/Mac
 		dotPathField.setText("/Applications/Graphviz.app");
@@ -84,6 +89,7 @@ public class NewConfigFrame implements ActionListener {
 
 			try {
 				this.writeProperties();
+				this.landingScreen.setConfigFile(this.file);
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -100,7 +106,7 @@ public class NewConfigFrame implements ActionListener {
 		p.setProperty("Dot-Path", this.dotPathField.getText());
 		p.setProperty("Phases", this.phasesField.getText());
 
-		File file = new File("input_output/config.properties");
+		this.file = new File("input_output/config.txt");
 		FileOutputStream output = new FileOutputStream(file);
 		p.store(output, "Properties");
 
