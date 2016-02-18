@@ -16,6 +16,7 @@ import javax.swing.border.TitledBorder;
 import problem.asm.DesignParser;
 import problem.interfaces.IClass;
 
+@SuppressWarnings("serial")
 public class ResultsScreen extends JFrame {
 	public Panel panel;
 	private static final int WIDTH = 1750;
