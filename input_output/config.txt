@@ -1,0 +1,6 @@
+#Properties
+#Wed Feb 17 20:31:38 EST 2016
+Output-Directory=./input_output/GraphForGraphViz.gv
+Phases=Class-Loading, Decorator-Detection, Singleton-Detection, DOT-Generation
+Dot-Path=/Applications/Graphviz.app
+Input-Classes=java.io.Reader,java.io.BufferedReader, java.lang.Runtime,problem.asm.ClassMethodVisitor
