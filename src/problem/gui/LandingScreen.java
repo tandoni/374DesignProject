@@ -15,7 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.JTextArea;
 
 import problem.app.MyMainApp;
 
@@ -55,7 +55,9 @@ public class LandingScreen implements ActionListener {
 		analyzeButton.addActionListener(this);
 		this.panel.add(analyzeButton);
 
-		this.panel.add(new JTextField("Note the default file to analyze is ./input_output/input.txt"));
+		JTextArea temp = new JTextArea(String.format("Note the default file to analyze is %s", configFile.getPath()));
+		temp.setEditable(false);
+		this.panel.add(temp);
 
 		this.panel.setVisible(true);
 		this.frame.add(panel);
