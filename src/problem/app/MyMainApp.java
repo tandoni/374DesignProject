@@ -27,7 +27,7 @@ import problem.visitor.IVisitor;
 // "C:\Program Files (x86)\Graphviz2.38\bin\dot" -Tpng GraphForGraphViz.gv >
 // graph1.png
 public class MyMainApp {
-
+	private static File file = new File("./input_output/input.txt");
 	public static String[] classes = {
 			// Test classes
 			// "analyze.AbstractClassTwoAbstractMethods",
@@ -150,7 +150,9 @@ public class MyMainApp {
 
 	public static void main(String[] args) throws IOException {
 		Properties props = new Properties();
-		FileInputStream in = new FileInputStream("./input_output/input.txt");
+		// FileInputStream in = new
+		// FileInputStream("./input_output/config.properties");
+		FileInputStream in = new FileInputStream(file);
 		props.load(in);
 		in.close();
 		Set<Entry<Object, Object>> entrySet = props.entrySet();
@@ -278,5 +280,9 @@ public class MyMainApp {
 		spotterNames.put("Decorator-Detection", new DecoratorSpotter(parser.model));
 		spotterNames.put("Adapter-Detection", new AdapterSpotter(parser.model));
 		spotterNames.put("Composite-Detection", new CompositeSpotter(parser.model));
+	}
+
+	private static void setFile(File f) {
+		file = f;
 	}
 }
