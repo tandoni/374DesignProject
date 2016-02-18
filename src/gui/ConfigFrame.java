@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ConfigFrame implements ActionListener {
-
+	private LandingScreen landingScreen;
 	private JFrame frame;
 	private JPanel panel;
 
@@ -27,7 +27,8 @@ public class ConfigFrame implements ActionListener {
 	private String phases;
 	private ArrayList<String> phasesList;
 
-	public ConfigFrame() {
+	public ConfigFrame(LandingScreen landingScreen) {
+		this.landingScreen = landingScreen;
 		frame = new JFrame("Configs");
 		JPanel panel = new JPanel();
 
@@ -64,9 +65,10 @@ public class ConfigFrame implements ActionListener {
 
 			if (retVal == 0) {
 
-				if (fc.getSelectedFile().getName().endsWith(".properties")) {
+				// if (fc.getSelectedFile().getName().endsWith(".properties")) {
+				if (true) {
 					File pFile = fc.getSelectedFile();
-
+					this.landingScreen.setConfigFile(pFile);
 					try {
 						// copy to myConfig
 						this.readProperties(pFile);

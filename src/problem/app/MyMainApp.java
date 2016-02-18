@@ -27,6 +27,9 @@ import problem.visitor.IVisitor;
 // "C:\Program Files (x86)\Graphviz2.38\bin\dot" -Tpng GraphForGraphViz.gv >
 // graph1.png
 public class MyMainApp {
+	// boolean to determine whehter to reset the classes array
+	private static boolean loadedFromConfig = true;
+	private static DesignParser parser;
 	private static File file = new File("./input_output/input.txt");
 	public static String[] classes = {
 			// Test classes
@@ -77,12 +80,13 @@ public class MyMainApp {
 			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-			"problem.z.adapter.IteratorToEnumerationAdapter", "java.util.Enumeration", "java.util.Iterator"
+//			 "problem.z.adapter.IteratorToEnumerationAdapter",
+//			 "java.util.Enumeration", "java.util.Iterator"
 
 			// Composite tests
 			// java.awt
-			// "java.awt.Component", "java.awt.Container", "java.awt.Panel",
-			// "java.awt.Window", "java.awt.Frame",
+//			 "java.awt.Component", "java.awt.Container", "java.awt.Panel",
+//			 "java.awt.Window", "java.awt.Frame",
 			// "javax.swing.JComponent", "javax.swing.JLabel",
 			// "javax.swing.JPanel", "javax.swing.AbstractButton",
 			// "javax.swing.JButton"
@@ -168,8 +172,6 @@ public class MyMainApp {
 		// create application properties with default
 		Properties applicationProps = new Properties(props);
 
-		DesignParser parser = new DesignParser();
-
 		// Easier to add to ArrayList then change to array, this is used for
 		// input from file
 		ArrayList<String> classez = new ArrayList<String>();
@@ -205,15 +207,23 @@ public class MyMainApp {
 		for (String indiClass : indiClassesSplit) {
 			classez.add(indiClass.replace(" ", ""));
 		}
+		if (MyMainApp.loadedFromConfig) {
+			MyMainApp.classes = classez.toArray(new String[classez.size()]);
+		}
+		MyMainApp.parser = new DesignParser();
 
 		// Only load the classes in ASM if its defined in the input
 		boolean classLoading = props.getProperty("Phases", "").contains("Class-Loading");
 		if (classLoading) {
-			// Call this if you want to read from the array defined at the top
-			// of this file
-			parser.main(classes);
-			// Call this if you want to read classes from a .properties file
-			// parser.main(classez.toArray(new String[classez.size()]));
+			if (MyMainApp.loadedFromConfig) {
+				// Call this if you want to read classes from a .properties file
+				parser.main(classez.toArray(new String[classez.size()]));
+			} else {
+				// Call this if you want to read from the array defined at the
+				// top
+				// of this file
+				// parser.main(classes);
+			}
 		}
 
 		// Now we need to determine which patterns we need to detect
@@ -282,7 +292,12 @@ public class MyMainApp {
 		spotterNames.put("Composite-Detection", new CompositeSpotter(parser.model));
 	}
 
-	private static void setFile(File f) {
+	public static void setFile(File f) {
 		file = f;
 	}
+
+	public static DesignParser getParser() {
+		return MyMainApp.parser;
+	}
+
 }

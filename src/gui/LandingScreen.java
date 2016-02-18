@@ -5,10 +5,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Properties;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,19 +15,23 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 
+import problem.app.MyMainApp;
 import problem.asm.DesignParser;
 
 public class LandingScreen implements ActionListener {
+	// This is the file that will be sent to MyMainApp to be loaded up.
+	// Yes, it is meant to be a .txt file
+	private File configFile = new File("./input_output/input.txt");
+	private MyMainApp app = new MyMainApp();
 
 	private JFrame frame;
 	private JPanel panel;
-	
+
 	private String inputClasses;
 	private String outputDir;
 	private String dotPath;
 	private String phases;
 	private ArrayList<String> phasesList;
-
 
 	public void createScreen() {
 
@@ -89,7 +91,11 @@ public class LandingScreen implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		String cmd = e.getActionCommand();
 		if (cmd.equals("analyze")) {
-			this.analyzeClicked();
+			try {
+				this.analyzeClicked();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 
 		if (cmd.equals("loadConfig")) {
@@ -98,34 +104,10 @@ public class LandingScreen implements ActionListener {
 	}
 
 	private void readProperties() throws IOException {
-		File file = new File("input_output/config.properties");
-		FileInputStream input = new FileInputStream(file);
-		Properties p = new Properties();
-
-		if (input != null) {
-			p.load(input);
-			input.close();
-		}
-
-		this.dotPath = p.getProperty("Dot-Path");
-		this.inputClasses = p.getProperty("Input-Classes");
-		this.outputDir = p.getProperty("Output-Directory");
-		this.phases = p.getProperty("Phases");
-
-		this.phasesList = new ArrayList<String>();
-		String[] splitPhases = phases.split(",");
-		for (String phase : splitPhases) {
-			phase = phase.trim();
-			this.phasesList.add(phase);
-		}
-
-		String[] splitClasses = inputClasses.split(",");
-		for (String clazz : splitClasses) {
-			clazz = clazz.trim();
-		}
+		MyMainApp.setFile(configFile);
 	}
 
-	private void analyzeClicked() {
+	private void analyzeClicked() throws IOException {
 
 		try {
 			this.readProperties();
@@ -133,9 +115,8 @@ public class LandingScreen implements ActionListener {
 			System.out.println("check is config.properties in ./input_output/");
 		}
 
-		// it should not be final(?), but otherwise ResultsGUI(dp) will give a
-		// error
-		final DesignParser dp = new DesignParser();
+		// The string array passed in does not matter
+		MyMainApp.main(new String[2]);
 
 		// TODO : finish the connection to DesignParser, e.g. setting parse/
 		// setting output directories
@@ -144,13 +125,13 @@ public class LandingScreen implements ActionListener {
 			@Override
 			public void run() {
 
-				ResultsScreen results = new ResultsScreen(dp);
+				ResultsScreen results = new ResultsScreen(MyMainApp.getParser());
 
-//				 try {
-//				 ResultsGUI results = new ResultsGUI(dp);
-//				 } catch (IOException e) {
-//				 e.printStackTrace();
-//				 }
+				// try {
+				// ResultsGUI results = new ResultsGUI(dp);
+				// } catch (IOException e) {
+				// e.printStackTrace();
+				// }
 
 			}
 		});
@@ -159,7 +140,11 @@ public class LandingScreen implements ActionListener {
 	}
 
 	private void loadConfigClicked() {
-		ConfigFrame config = new ConfigFrame();
+		ConfigFrame config = new ConfigFrame(this);
+	}
+
+	public void setConfigFile(File f) {
+		this.configFile = f;
 	}
 
 }

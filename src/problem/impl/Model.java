@@ -51,29 +51,38 @@ public class Model implements IModel {
 	private String currentClass = "";
 
 	public Model() {
-		setClassNames();
+		// setClassNames();
 	}
 
 	public Model(Collection<IClass> classes) {
 		Model.classes = classes;
 		Model.relations = new HashMap<String, IRelation>();
-		setClassNames();
+		setClassNames(classes);
+		// setClassNames();
 	}
 
 	public Model(Collection<IClass> classes, HashMap<String, IRelation> relations) {
 		Model.classes = classes;
 		Model.relations = relations;
-		setClassNames();
+		setClassNames(classes);
+		// setClassNames();
 	}
 
-	public void setClassNames() {
-		for (String s : MyMainApp.classes) {
-			String[] split = s.split("\\.");
-			String st = split[split.length - 1];
-			Model.classNames.add(st);
-			Model.fullClassNames.add(s.replace(".", "/"));
+	public void setClassNames(Collection<IClass> classes) {
+		for (IClass c : classes) {
+			Model.classNames.add(c.getName());
+			Model.fullClassNames.add(c.getFullName());
 		}
 	}
+
+	// public void setClassNames() {
+	// for (String s : MyMainApp.classes) {
+	// String[] split = s.split("\\.");
+	// String st = split[split.length - 1];
+	// Model.classNames.add(st);
+	// Model.fullClassNames.add(s.replace(".", "/"));
+	// }
+	// }
 
 	public void acceptSpotters(IVisitor v) {
 		v.preVisit(this);
