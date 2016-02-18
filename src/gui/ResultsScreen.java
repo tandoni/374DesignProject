@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -8,7 +9,9 @@ import java.awt.Graphics;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.TitledBorder;
@@ -65,13 +68,19 @@ public class ResultsScreen extends JFrame {
 	}
 
 	class Panel extends JPanel {
-
+		String arg = "docs/JAVAGUI_UML.png";
 		public Panel() {
+			this.setBackground(Color.white);
 		}
 
 		@Override
 		public void paintComponent(Graphics comp) {
 			super.paintComponent(comp);
+			ImageIcon icon = new ImageIcon(arg);
+			JLabel label = new JLabel();
+			label.setIcon(icon);
+			this.add(label);
+			
 		}
 	}
 }
