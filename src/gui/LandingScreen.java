@@ -122,7 +122,12 @@ public class LandingScreen implements ActionListener {
 			@Override
 			public void run() {
 
-				ResultsScreen results = new ResultsScreen(MyMainApp.getParser());
+				try {
+					ResultsScreen results = new ResultsScreen(MyMainApp.getParser());
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 				// try {
 				// ResultsGUI results = new ResultsGUI(dp);

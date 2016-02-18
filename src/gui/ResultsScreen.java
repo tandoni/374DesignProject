@@ -6,6 +6,7 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
+import java.io.IOException;
 import java.util.List;
 
 import javax.swing.BorderFactory;
@@ -27,13 +28,30 @@ public class ResultsScreen extends JFrame {
 	Container content;
 	public Response response;
 
-	public ResultsScreen(DesignParser dp) {
+	public ResultsScreen(DesignParser dp) throws IOException {
 		List<IClass> a = (List<IClass>) dp.model.getClasses();
 		System.out.println("\n\n\n\n\n\n\n");
 		String[] all = new String[a.size()];
 		for (int i = 0; i < all.length; i++) {
 			all[i] = a.get(i).getFullName();
 		}
+		dp.main(all);
+		String os = System.getProperty("os.name");
+		if (os.toLowerCase().contains("windows")) {
+			Runtime.getRuntime().exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\\\" -Tpng GraphForGraphViz.gv > graph1.png");
+		} else {
+			Runtime.getRuntime().exec("/usr/local/bin/dot -Tpng GraphForGraphViz.gv > graph1.png");
+		}
+		// InputStream is = process.getInputStream();
+		// InputStreamReader isr = new InputStreamReader(is);
+		// BufferedReader br = new BufferedReader(isr);
+		// String line;
+		//
+		// System.out.printf("\n\n\n\n");
+		//
+		// while ((line = br.readLine()) != null) {
+		// System.out.println(line);
+		// }
 
 		super.setTitle("Python");
 		this.panel = new Panel();
@@ -68,19 +86,52 @@ public class ResultsScreen extends JFrame {
 	}
 
 	class Panel extends JPanel {
-		String arg = "docs/JAVAGUI_UML.png";
+		String arg = "input_output/graph1.png";
+//		JScrollPane scroll;
+
 		public Panel() {
 			this.setBackground(Color.white);
+//			scroll = new JScrollPane(this);
+//			scroll.setBounds(10, 20, 100, 100);
+			// scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+//			scroll.setViewportView(this);
+			
 		}
 
 		@Override
 		public void paintComponent(Graphics comp) {
 			super.paintComponent(comp);
+
 			ImageIcon icon = new ImageIcon(arg);
 			JLabel label = new JLabel();
 			label.setIcon(icon);
-			this.add(label);
-			
+//			scroll.setPreferredSize(label.getPreferredSize());
+			// JScrollPane p = new JScrollPane();
+			// p.setSize(300,300);
+			// p.add(label);
+
+//			scroll.add(label);
+//			add(scroll);
+			 this.add(label);
+//			 Graphics2D g2 = (Graphics2D) comp;
+			// g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+			// RenderingHints.VALUE_INTERPOLATION_BICUBIC);
+//			 double scale = 0.5;
+//			 int w = label.getWidth();
+//			 int h = label.getHeight();
+//			 label.setSize((int)(w * scale), (int)(h *scale));
+//			 repaint();
+			// int iW = icon.getIconWidth();
+			// int iH = icon.getIconHeight();
+//			 double scale = 0.5;
+//			 g2.translate(w/2, h/2);
+//			 g2.scale(scale, scale);
+//			 g2.translate(-w/2, -h/2);
+			// double x = (w - scale*iW)/2;
+			// double y = (h - scale*iH)/2;
+			// AffineTransform at = AffineTransform.getTranslateInstance(x, y);
+			// at.scale(scale, scale);
+			// g2.drawRenderedImage((RenderedImage) icon, at);
 		}
 	}
 }
