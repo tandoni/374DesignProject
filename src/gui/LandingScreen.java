@@ -36,7 +36,7 @@ public class LandingScreen implements ActionListener {
 	public void createScreen() {
 
 		// frame
-		this.frame = new JFrame("Design Parse");
+		this.frame = new JFrame("Design Parser");
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
 		frame.setMinimumSize(new Dimension(500, 500));
