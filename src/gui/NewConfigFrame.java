@@ -37,6 +37,7 @@ public class NewConfigFrame implements ActionListener {
 		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
 		JLabel inputClasses = new JLabel("Input classes separated by ', ' ");
+
 		inputClasses.setAlignmentX(Component.CENTER_ALIGNMENT);
 		JLabel outputDir = new JLabel("Output-Directory: ");
 		JLabel dotPath = new JLabel("Dot-Path: ");
@@ -60,7 +61,14 @@ public class NewConfigFrame implements ActionListener {
 		outputDirField.setText("./input_output/GraphForGraphViz.gv");
 
 		// change according to windows/Mac
-		dotPathField.setText("/Applications/Graphviz.app");
+		String os = System.getProperty("os.name");
+		String path = "";
+		if (os.toLowerCase().contains("windows")) {
+			path = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
+		} else {
+			path = "/Applications/Graphviz.app";
+		}
+		dotPathField.setText(path);
 		phasesField.setText("Class-Loading, Decorator-Detection, Singleton-Detection, DOT-Generation");
 		// Adapter-MethodDelegation: 2
 		// Decorator-MethodDelegation: 1
@@ -107,6 +115,7 @@ public class NewConfigFrame implements ActionListener {
 		p.setProperty("Phases", this.phasesField.getText());
 
 		this.file = new File("input_output/config.txt");
+
 		FileOutputStream output = new FileOutputStream(file);
 		p.store(output, "Properties");
 
