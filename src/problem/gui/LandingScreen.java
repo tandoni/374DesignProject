@@ -128,7 +128,7 @@ public class LandingScreen implements ActionListener {
 			public void run() {
 
 				try {
-					ResultsScreen results = new ResultsScreen(MyMainApp.getParser());
+					ResultsScreen results = new ResultsScreen(LandingScreen.this.app);
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
