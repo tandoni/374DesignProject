@@ -55,7 +55,7 @@ public class LandingScreen implements ActionListener {
 		analyzeButton.addActionListener(this);
 		this.panel.add(analyzeButton);
 
-		JTextArea temp = new JTextArea("Note the default file to analyze is ./input_output/input.txt");
+		JTextArea temp = new JTextArea(String.format("Note the default file to analyze is %s", configFile.getPath()));
 		temp.setEditable(false);
 		this.panel.add(temp);
 
