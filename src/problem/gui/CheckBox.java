@@ -1,4 +1,4 @@
-package gui;
+package problem.gui;
 
 import java.awt.LayoutManager;
 

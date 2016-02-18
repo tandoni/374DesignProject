@@ -1,6 +1,7 @@
-package gui;
+package problem.gui;
 
 import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -14,9 +15,9 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import problem.app.MyMainApp;
-import problem.asm.DesignParser;
 
 public class LandingScreen implements ActionListener {
 	// This is the file that will be sent to MyMainApp to be loaded up.
@@ -43,7 +44,7 @@ public class LandingScreen implements ActionListener {
 
 		// panel
 		this.panel = new JPanel();
-
+		GridLayout layout = new GridLayout(2, 2);
 		JButton loadConfigButton = new JButton("Load Config");
 		loadConfigButton.setActionCommand("loadConfig");
 		loadConfigButton.addActionListener(this);
@@ -53,6 +54,8 @@ public class LandingScreen implements ActionListener {
 		analyzeButton.setActionCommand("analyze");
 		analyzeButton.addActionListener(this);
 		this.panel.add(analyzeButton);
+
+		this.panel.add(new JTextField("Note the default file to analyze is ./input_output/input.txt"));
 
 		this.panel.setVisible(true);
 		this.frame.add(panel);

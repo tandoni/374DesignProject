@@ -1,4 +1,4 @@
-package gui;
+package problem.gui;
 
 public class MyGUIDriver {
 
