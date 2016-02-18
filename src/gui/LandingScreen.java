@@ -146,11 +146,11 @@ public class LandingScreen implements ActionListener {
 
 				ResultsScreen results = new ResultsScreen(dp);
 
-				// try {
-				// ResultsGUI results = new ResultsGUI(dp);
-				// } catch (IOException e) {
-				// e.printStackTrace();
-				// }
+//				 try {
+//				 ResultsGUI results = new ResultsGUI(dp);
+//				 } catch (IOException e) {
+//				 e.printStackTrace();
+//				 }
 
 			}
 		});

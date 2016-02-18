@@ -27,7 +27,7 @@ import problem.visitor.IVisitor;
 // "C:\Program Files (x86)\Graphviz2.38\bin\dot" -Tpng GraphForGraphViz.gv >
 // graph1.png
 public class MyMainApp {
-
+	private static File file = new File("./input_output/input.txt");
 	public static String[] classes = {
 			// Test classes
 			// "analyze.AbstractClassTwoAbstractMethods",
@@ -77,8 +77,7 @@ public class MyMainApp {
 			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-			 "problem.z.adapter.IteratorToEnumerationAdapter",
-			 "java.util.Enumeration", "java.util.Iterator"
+			"problem.z.adapter.IteratorToEnumerationAdapter", "java.util.Enumeration", "java.util.Iterator"
 
 			// Composite tests
 			// java.awt
@@ -122,34 +121,38 @@ public class MyMainApp {
 			// "problem.spotter.DecoratorSpotter",
 			// "problem.spotter.SingletonSpotter",
 			// "problem.spotter.CompositeSpotter",
-//			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-//			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
+			// "problem.spotter.PatternSpotter", "problem.visitor.ITraverser",
+			// "problem.visitor.IVisitor",
+			// "problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream",
+			// "problem.impl.UMLOutputStream"
 
-//			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
-//			 "problem.asm.ClassFieldVisitor",
-//			 "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
-//			 "problem.asm.IClassVisitor",
-//			 "problem.asm.MethodVisitorHelper", "problem.impl.Class",
-//			 "problem.impl.Field", "problem.impl.Method",
-//			 "problem.impl.Model", "problem.impl.Relation",
-//			 "problem.impl.SDOutputStream", "problem.impl.Sequence",
-//			 "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
-//			 "problem.interfaces.IField",
-//			 "problem.interfaces.IMethod", "problem.interfaces.IModel",
-//			 "problem.interfaces.IRelation",
-//			 "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
-//			 "problem.spotter.DecoratorSpotter",
-//			 "problem.spotter.SingletonSpotter",
-//			 "problem.spotter.CompositeSpotter",
-//			 "problem.spotter.PatternSpotter",
-//			 "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-//			 "problem.visitor.VisitorAdapter"
-			
-		};
+			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
+			// "problem.asm.ClassFieldVisitor",
+			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
+			// "problem.asm.IClassVisitor",
+			// "problem.asm.MethodVisitorHelper", "problem.impl.Class",
+			// "problem.impl.Field", "problem.impl.Method",
+			// "problem.impl.Model", "problem.impl.Relation",
+			// "problem.impl.SDOutputStream", "problem.impl.Sequence",
+			// "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
+			// "problem.interfaces.IField",
+			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
+			// "problem.interfaces.IRelation",
+			// "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
+			// "problem.spotter.DecoratorSpotter",
+			// "problem.spotter.SingletonSpotter",
+			// "problem.spotter.CompositeSpotter",
+			// "problem.spotter.PatternSpotter",
+			// "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+			// "problem.visitor.VisitorAdapter"
+
+	};
 
 	public static void main(String[] args) throws IOException {
 		Properties props = new Properties();
-		FileInputStream in = new FileInputStream("./input_output/input.txt");
+		// FileInputStream in = new
+		// FileInputStream("./input_output/config.properties");
+		FileInputStream in = new FileInputStream(file);
 		props.load(in);
 		in.close();
 		Set<Entry<Object, Object>> entrySet = props.entrySet();
@@ -218,7 +221,7 @@ public class MyMainApp {
 		// patternProps matches each pattern with any special properties that
 		// may correspond to it
 		HashMap<String, String> patternProps = new HashMap<String, String>();
-//		patternProps.ad
+		// patternProps.ad
 
 		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
 		// Iterate through every key in the pattern detection map to see if we
@@ -274,5 +277,9 @@ public class MyMainApp {
 		spotterNames.put("Decorator-Detection", new DecoratorSpotter(parser.model));
 		spotterNames.put("Adapter-Detection", new AdapterSpotter(parser.model));
 		spotterNames.put("Composite-Detection", new CompositeSpotter(parser.model));
+	}
+
+	private static void setFile(File f) {
+		file = f;
 	}
 }
