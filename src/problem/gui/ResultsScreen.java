@@ -39,12 +39,16 @@ public class ResultsScreen extends JFrame {
 		// all[i] = a.get(i).getFullName();
 		// }
 		// dp.main(all);
+		Process p = null;
 		String os = System.getProperty("os.name");
 		if (os.toLowerCase().contains("windows")) {
 			Runtime.getRuntime()
-					.exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\" -Tpng GraphForGraphViz.gv > graph1.png");
+					.exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\" -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
 		} else {
-			Runtime.getRuntime().exec("/usr/local/bin/dot -Tpng GraphForGraphViz.gv > graph1.png");
+			p = Runtime.getRuntime()
+					.exec("/usr/local/bin/dot -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
+			// p = Runtime.getRuntime().exec("ls");
+
 		}
 		// InputStream is = process.getInputStream();
 		// InputStreamReader isr = new InputStreamReader(is);
