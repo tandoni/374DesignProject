@@ -77,8 +77,7 @@ public class MyMainApp {
 			// "problem.z.decorator.Whip", "problem.z.decorator.Soy"
 
 			// adapter tests
-			 "problem.z.adapter.IteratorToEnumerationAdapter",
-			 "java.util.Enumeration", "java.util.Iterator"
+			"problem.z.adapter.IteratorToEnumerationAdapter", "java.util.Enumeration", "java.util.Iterator"
 
 			// Composite tests
 			// java.awt
@@ -122,30 +121,32 @@ public class MyMainApp {
 			// "problem.spotter.DecoratorSpotter",
 			// "problem.spotter.SingletonSpotter",
 			// "problem.spotter.CompositeSpotter",
-//			"problem.spotter.PatternSpotter", "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-//			"problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream", "problem.impl.UMLOutputStream"
+			// "problem.spotter.PatternSpotter", "problem.visitor.ITraverser",
+			// "problem.visitor.IVisitor",
+			// "problem.visitor.VisitorAdapter", "problem.impl.SDOutputStream",
+			// "problem.impl.UMLOutputStream"
 
-//			 "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
-//			 "problem.asm.ClassFieldVisitor",
-//			 "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
-//			 "problem.asm.IClassVisitor",
-//			 "problem.asm.MethodVisitorHelper", "problem.impl.Class",
-//			 "problem.impl.Field", "problem.impl.Method",
-//			 "problem.impl.Model", "problem.impl.Relation",
-//			 "problem.impl.SDOutputStream", "problem.impl.Sequence",
-//			 "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
-//			 "problem.interfaces.IField",
-//			 "problem.interfaces.IMethod", "problem.interfaces.IModel",
-//			 "problem.interfaces.IRelation",
-//			 "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
-//			 "problem.spotter.DecoratorSpotter",
-//			 "problem.spotter.SingletonSpotter",
-//			 "problem.spotter.CompositeSpotter",
-//			 "problem.spotter.PatternSpotter",
-//			 "problem.visitor.ITraverser", "problem.visitor.IVisitor",
-//			 "problem.visitor.VisitorAdapter"
-			
-		};
+			// "problem.app.MyMainApp", "problem.asm.ClassDeclarationVisitor",
+			// "problem.asm.ClassFieldVisitor",
+			// "problem.asm.ClassMethodVisitor", "problem.asm.DesignParser",
+			// "problem.asm.IClassVisitor",
+			// "problem.asm.MethodVisitorHelper", "problem.impl.Class",
+			// "problem.impl.Field", "problem.impl.Method",
+			// "problem.impl.Model", "problem.impl.Relation",
+			// "problem.impl.SDOutputStream", "problem.impl.Sequence",
+			// "problem.impl.UMLOutputStream", "problem.interfaces.IClass",
+			// "problem.interfaces.IField",
+			// "problem.interfaces.IMethod", "problem.interfaces.IModel",
+			// "problem.interfaces.IRelation",
+			// "problem.interfaces.ISequence", "problem.spotter.AdapterSpotter",
+			// "problem.spotter.DecoratorSpotter",
+			// "problem.spotter.SingletonSpotter",
+			// "problem.spotter.CompositeSpotter",
+			// "problem.spotter.PatternSpotter",
+			// "problem.visitor.ITraverser", "problem.visitor.IVisitor",
+			// "problem.visitor.VisitorAdapter"
+
+	};
 
 	public static void main(String[] args) throws IOException {
 		Properties props = new Properties();
@@ -206,7 +207,10 @@ public class MyMainApp {
 		// Only load the classes in ASM if its defined in the input
 		boolean classLoading = props.getProperty("Phases", "").contains("Class-Loading");
 		if (classLoading) {
+			// Call this if you want to read from the array defined at the top
+			// of this file
 			parser.main(classes);
+			// Call this if you want to read classes from a .properties file
 			// parser.main(classez.toArray(new String[classez.size()]));
 		}
 
@@ -218,7 +222,7 @@ public class MyMainApp {
 		// patternProps matches each pattern with any special properties that
 		// may correspond to it
 		HashMap<String, String> patternProps = new HashMap<String, String>();
-//		patternProps.ad
+		// patternProps.ad
 
 		ArrayList<PatternSpotter> activeSpotters = new ArrayList<PatternSpotter>();
 		// Iterate through every key in the pattern detection map to see if we
