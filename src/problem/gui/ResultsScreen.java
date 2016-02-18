@@ -3,10 +3,10 @@ package problem.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -16,7 +16,8 @@ import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.Border;
+import javax.swing.JScrollPane;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
 
@@ -42,14 +43,20 @@ public class ResultsScreen extends JFrame {
 		// all[i] = a.get(i).getFullName();
 		// }
 		// dp.main(all);
+		Process p = null;
 		String os = System.getProperty("os.name");
 		if (os.toLowerCase().contains("windows")) {
-			Runtime.getRuntime()
-					.exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\" -Tpng GraphForGraphViz.gv > graph1.png");
+			Runtime.getRuntime().exec(
+					"\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\" -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
 		} else {
-			Runtime.getRuntime().exec("/usr/local/bin/dot -Tpng GraphForGraphViz.gv > graph1.png");
+			p = Runtime.getRuntime()
+					.exec("/usr/local/bin/dot -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
+			// p = Runtime.getRuntime().exec("ls");
+
 		}
-		// InputStream is = process.getInputStream();
+
+		// debug exec
+		// InputStream is = p.getErrorStream();
 		// InputStreamReader isr = new InputStreamReader(is);
 		// BufferedReader br = new BufferedReader(isr);
 		// String line;
@@ -59,8 +66,10 @@ public class ResultsScreen extends JFrame {
 		// while ((line = br.readLine()) != null) {
 		// System.out.println(line);
 		// }
+		// end here
 
-		super.setTitle("Python");
+		super.setTitle("UMLLAMA");
+		super.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.panel = new Panel();
 		this.response = new JPanel(new GridLayout(0, 1));
 
@@ -126,33 +135,34 @@ public class ResultsScreen extends JFrame {
 	}
 
 	class Panel extends JPanel {
-		String arg = "input_output/graph1.png";
-		// JScrollPane scroll;
+		String arg = "./input_output/graph1.png";
+		JScrollPane p;
 
 		public Panel() {
 			this.setBackground(Color.white);
-			// scroll = new JScrollPane(this);
-			// scroll.setBounds(10, 20, 100, 100);
-			// scroll.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-			// scroll.setViewportView(this);
 
+			// scroll.setBounds(10, 20, 100, 100);
+			// scroll.setViewportView(this);
+			ImageIcon icon = new ImageIcon(arg);
+			JLabel label = new JLabel(icon);
+			// ScrollablePicture pic = new ScrollablePicture(icon, 1000);
+			// add(pic);
+			p = new JScrollPane(label, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+			p.setPreferredSize(new Dimension(1000, 722));
+			p.setVisible(true);
+			add(p);
 		}
 
 		@Override
 		public void paintComponent(Graphics comp) {
 			super.paintComponent(comp);
 
-			ImageIcon icon = new ImageIcon(arg);
-			JLabel label = new JLabel();
-			label.setIcon(icon);
 			// scroll.setPreferredSize(label.getPreferredSize());
 			// JScrollPane p = new JScrollPane();
-			// p.setSize(300,300);
 			// p.add(label);
 
-			// scroll.add(label);
-			// add(scroll);
-			this.add(label);
+			// this.add(label);
 			// Graphics2D g2 = (Graphics2D) comp;
 			// g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
 			// RenderingHints.VALUE_INTERPOLATION_BICUBIC);
