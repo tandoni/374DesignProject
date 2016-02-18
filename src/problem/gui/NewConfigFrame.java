@@ -64,7 +64,7 @@ public class NewConfigFrame implements ActionListener {
 		String os = System.getProperty("os.name");
 		String path = "";
 		if (os.toLowerCase().contains("windows")) {
-			path = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot.exe";
+			path = "C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot";
 		} else {
 			path = "/Applications/Graphviz.app";
 		}

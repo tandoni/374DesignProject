@@ -38,7 +38,7 @@ public class ResultsScreen extends JFrame {
 		dp.main(all);
 		String os = System.getProperty("os.name");
 		if (os.toLowerCase().contains("windows")) {
-			Runtime.getRuntime().exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\\\" -Tpng GraphForGraphViz.gv > graph1.png");
+			Runtime.getRuntime().exec("\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\" -Tpng GraphForGraphViz.gv > graph1.png");
 		} else {
 			Runtime.getRuntime().exec("/usr/local/bin/dot -Tpng GraphForGraphViz.gv > graph1.png");
 		}
