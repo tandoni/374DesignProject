@@ -1,4 +1,4 @@
-Input-Foldeer: /Users/IshankTandon/Documents/eclipse/374DesignProject/src
+Input-Folder: /Users/IshankTandon/Documents/eclipse/374DesignProject/src
 
 Output-Directory: ./input_output/GraphForGraphViz.gv
 
