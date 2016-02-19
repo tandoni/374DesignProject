@@ -31,6 +31,7 @@ public class LandingScreen implements ActionListener {
 	private JFrame frame;
 	private JPanel panel;
 	public static JProgressBar loader;
+	public static JTextArea loaderTxt;
 
 	// private String inputClasses;
 	// private String outputDir;
