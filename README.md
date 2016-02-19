@@ -89,3 +89,15 @@ Instructions:
 	There are comments in MyMainApp.java specifying what to uncomment in order to run that. By uncommenting those and running the program, it generates a .gv file which can be opened by graphviz.
 
 
+Milestone 7:
+--
+Design Evolution:
+	To implement a UI for this project, we used the java swing library. All of the UI code is in the problem.gui package and is completely independent of the core logic of the program. We also have a config file where a user can input a source and it recursively adds all files underneath it with some extra classes (if specified). 
+	![Alt text](	https://github.com/tandoni/374DesignProject/blob/master/docs/UMLOurProj_M7.png "design UML")
+
+Who did what:
+	Max, Ishank, and Ruying collaborated for this milestone and worked together. It wasn't really planned out on who specifically worked on what but much rather helping and taking oversomething where the other person was stuck and going on from there. 
+
+Instructions:
+	A default config file has been provided which can be used but a user can load another one. Also, running the MyGUIDriver in problem.gui would be the first thing to do and clicking on the help tab can display instructions and how to use the GUI.
+
