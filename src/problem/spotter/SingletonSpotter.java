@@ -46,13 +46,19 @@ public class SingletonSpotter extends PatternSpotter {
 			if (super.constraint == null) {
 				super.model.addSingleton(this.curClassFull);
 				this.model.getNamedClass(this.curClassFull).setClassType("singleton");
+				this.model.getNamedClass(this.curClassFull).addClassTypes2("Singleton", "Singleton");
 			} else {
 				ArrayList<IMethod> meths = (ArrayList<IMethod>) this.model.getNamedClass(this.curClassFull)
 						.getMethods();
 				for (IMethod meth : meths) {
 					if (meth.getName().equals("getInstance")) {
+						if (this.model.getContainsPatternMap().containsKey("Singleton"))
+							if (!this.model.getContainsPatternMap().get("Singleton"))
+								this.model.getContainsPatternMap().put("Singleton", true);
 						super.model.addSingleton(this.curClassFull);
 						this.model.getNamedClass(this.curClassFull).setClassType("singleton");
+						this.model.getNamedClass(this.curClassFull).addClassTypes2("Singleton", "Singleton");
+
 					}
 				}
 			}

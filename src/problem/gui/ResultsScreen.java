@@ -101,8 +101,7 @@ public class ResultsScreen extends JFrame {
 	}
 
 	/**
-	 * issue This displays the classes (with checkboxes) in their respective
-	 * patterns.
+	 * This displays the classes (with checkboxes) in their respective patterns.
 	 * 
 	 * @author morganml
 	 */
@@ -154,13 +153,24 @@ public class ResultsScreen extends JFrame {
 				if (pMap.get(pattern)) {
 					JPanel patternPanel = new JPanel();
 					patternPanel.setLayout(new GridLayout(0, 1));
-					JCheckBox check = new JCheckBox(pattern);
-					check.setSelected(true);
-					patternPanel.add(check);
+					JCheckBox patterncheck = new JCheckBox(pattern);
+					patterncheck.setSelected(true);
+					ItemListener patternItemListener = new MyPatternCBListener(this);
+					patterncheck.addItemListener(patternItemListener);
+					patternPanel.add(patterncheck);
 					for (IClass c : MyMainApp.getParser().model.getClasses()) {
 						if (c.getClassTypes2().containsKey(pattern)) {
-							check = new JCheckBox(c.getName());
+							JCheckBox check = new JCheckBox(c.getName());
 							cBoxToClass.put(check, c);
+							ArrayList<JCheckBox> subs;
+							if (this.patternCBoxtoChilds.containsKey(patterncheck)) {
+								subs = this.patternCBoxtoChilds.get(patterncheck);
+							} else {
+								subs = new ArrayList<JCheckBox>();
+							}
+							subs.add(check);
+							this.patternCBoxtoChilds.put(patterncheck, subs);
+
 							check.setSelected(true);
 
 							ItemListener itemListener = new MyItemListener(this, this.resScreen.panel);
@@ -181,6 +191,12 @@ public class ResultsScreen extends JFrame {
 		}
 	}
 
+	/**
+	 * ItemListener for the checkboxes corresponding to individual classes
+	 * 
+	 * @author morganml
+	 *
+	 */
 	class MyItemListener implements ItemListener {
 		Response response;
 		Panel lPanel;
@@ -220,8 +236,10 @@ public class ResultsScreen extends JFrame {
 					e1.printStackTrace();
 				}
 				this.response.repaint();
-				this.lPanel = new Panel();
+				// this.lPanel = new Panel();
+				this.lPanel.revalidate();
 				this.lPanel.setUpParameters();
+				this.lPanel.revalidate();
 				this.lPanel.repaint();
 			}
 		}
@@ -258,38 +276,57 @@ public class ResultsScreen extends JFrame {
 				}
 				System.out.println("not selected");
 			}
+			try {
+				DesignParser parser = MyMainApp.getParser();
+				parser.model.resetModel();
+				MyMainApp.callDP(parser);
+				// MyMainApp.main(new String[2]);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			try {
+				runCMD();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			this.response.repaint();
 			// Set false again to initialize
 			this.response.patternCBClicked = false;
 		}
 	}
 
-	class Panel extends JPanel {
-		String arg = "./input_output/graph1.png";
-		JScrollPane p;
-		ImageIcon icon;
-		JLabel label;
-
-		public Panel() {
-			this.setBackground(Color.white);
-		}
-
-		/**
-		 * Call this to set up the parameters for the right pane to render.
-		 */
-		protected void setUpParameters() {
-			icon = new ImageIcon(arg);
-			label = new JLabel(icon);
-			p = new JScrollPane(label, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
-					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
-			p.setPreferredSize(new Dimension(1000, 722));
-			p.setVisible(true);
-			add(p);
-		}
-
-		@Override
-		public void paintComponent(Graphics comp) {
-			super.paintComponent(comp);
-		}
-	}
+	// class Panel extends JPanel {
+	// String arg = "./input_output/graph1.png";
+	// String arg2 = "./input_output/graph2.png";
+	// JScrollPane p;
+	// ImageIcon icon;
+	// JLabel label;
+	//
+	// public Panel() {
+	// this.setBackground(Color.white);
+	//
+	// }
+	//
+	// /**
+	// * Call this to set up the parameters for the right pane to render.
+	// */
+	// protected void setUpParameters() {
+	// icon = new ImageIcon(arg);
+	// label = new JLabel(icon);
+	// label.setIcon(icon);
+	// label.revalidate();
+	// label.setIcon(icon);
+	// p = new JScrollPane(label, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+	// ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
+	// p.setPreferredSize(new Dimension(1000, 722));
+	// p.setVisible(true);
+	// add(p);
+	// }
+	//
+	// @Override
+	// public void paintComponent(Graphics comp) {
+	// super.paintComponent(comp);
+	// }
+	// }
 }
