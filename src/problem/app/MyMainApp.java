@@ -2,13 +2,10 @@ package problem.app;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -206,7 +203,7 @@ public class MyMainApp {
 		// Add each file (which represents a class) to the list of classes
 		// to analyze
 		for (String f : dirList) {
-			if (!f.toString().contains(".class") && !f.toString().contains("DS_Store"))
+			if (!f.toString().contains(".class") && !f.toString().toLowerCase().contains("ds_store"))
 				if (f.charAt(0) == '.')
 					classez.add(f.toString().substring(1, f.toString().length()).replace(".java", ""));
 		}
