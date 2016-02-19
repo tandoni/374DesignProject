@@ -18,7 +18,6 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import javax.swing.JTextArea;
 import javax.swing.ScrollPaneConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
@@ -86,19 +85,13 @@ public class ResultsScreen extends JFrame {
 			}
 			this.content.add(this.panel, BorderLayout.CENTER);
 
+			this.content.add(this.response, BorderLayout.WEST);
 		}
 		
-		this.content.add(this.response, BorderLayout.WEST);
-
 		setVisible(true);
 
 	}
 
-	/**issue 
-	 * This displays the classes (with checkboxes) in their respective patterns.
-	 * 
-	 * @author morganml
-	 */
 	class Response extends JPanel {
 
 		public Response() {

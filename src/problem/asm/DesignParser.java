@@ -89,6 +89,7 @@ public class DesignParser {
 				// if (className.contains("\\")) {
 				// reader = new ClassReader(new FileInputStream(className));
 				// } else {
+//				System.out.println("CLASS NAME IS: " + className);
 				reader = new ClassReader(className);
 				// }
 

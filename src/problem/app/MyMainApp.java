@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
 import java.util.Set;
@@ -34,10 +35,10 @@ public class MyMainApp {
 	private static File file = new File("./input_output/input.txt");
 	public static String[] classes = {
 			// Test classes
-			// "analyze.AbstractClassTwoAbstractMethods",
-			// "analyze.ClassPrivate", "analyze.ClassWithJustMainMethod",
-			// "analyze.ClassWithOneVariable", "analyze.Interface",
-			// "analyze.ProtectedClass"
+//			 "analyze.AbstractClassTwoAbstractMethods",
+//			 "analyze.ClassPrivate", "analyze.ClassWithJustMainMethod",
+//			 "analyze.ClassWithOneVariable", "analyze.Interface",
+//			 "analyze.ProtectedClass"
 
 			// Used to test Singleton
 			// "headfirst.singleton.classic.Singleton"
@@ -153,6 +154,24 @@ public class MyMainApp {
 
 	};
 
+	private static List<String> dirList = new ArrayList<String>();
+
+	private static void recDirSearch(File f, String pathSoFar) {
+		File[] listOfFiles = f.listFiles();
+
+		for (int i = 0; i < listOfFiles.length; i++) {
+			if (listOfFiles[i].isFile()) {
+				String name = listOfFiles[i].getName();
+				dirList.add(pathSoFar+"."+name);
+			} else if (listOfFiles[i].isDirectory()) {
+				recDirSearch(listOfFiles[i], pathSoFar+"."+listOfFiles[i].getName());
+			}
+		}
+//		for(String s:classes) {
+//			dirList.add(s);
+//		}
+	}
+
 	public static void main(String[] args) throws IOException {
 		Properties props = new Properties();
 		// FileInputStream in = new
@@ -181,28 +200,16 @@ public class MyMainApp {
 		// Read in the path to the folder where we want to get the classes to
 		// analyze
 		File folder = new File(props.getProperty("Input-Folder", ""));
-		File[] files2 = folder.listFiles();
-		ArrayList<InputStream> folderClasses = new ArrayList<InputStream>();
-		if (files2 != null) {
-			ArrayList<File> files = new ArrayList<File>(Arrays.asList(files2));
-			// Make sure that all directories are traversed so that only files
-			// remain
-			for (int ind1 = 0; ind1 < files.size(); ind1++) {
-				if (files.get(ind1).isDirectory()) {
-					files.addAll(new ArrayList<File>(Arrays.asList(files.get(ind1).listFiles())));
-					files.remove(ind1);
-					ind1--;
-				} else if (files.get(ind1).isFile()) {
-					InputStream inClass = new FileInputStream(files.get(ind1));
-					// classez.add(inClass.toString());
-				}
-			}
-			// Add each file (which represents a class) to the list of classes
-			// to analyze
-			for (File f : files) {
-				classez.add(f.toString());
-			}
+		
+		recDirSearch(folder, "");
+		// Add each file (which represents a class) to the list of classes
+		// to analyze
+		for (String f : dirList) {
+			if (!f.toString().contains(".class") && !f.toString().contains("DS_Store"))
+				if(f.charAt(0) == '.')
+				classez.add(f.toString().substring(1, f.toString().length()).replace(".java", ""));
 		}
+		// }
 		// This adds the individual classes specified (outside of the path
 		// directory for the package) to the arrayList of classes to be analyzed
 		String indiClasses = props.getProperty("Input-Classes", "");
@@ -215,7 +222,7 @@ public class MyMainApp {
 		}
 		MyMainApp.parser = new DesignParser();
 
-		parser.setClassesFromFile(folderClasses);
+		// parser.setClassesFromFile(folderClasses);
 		// Only load the classes in ASM if its defined in the input
 		boolean classLoading = props.getProperty("Phases", "").contains("Class-Loading");
 		if (classLoading) {
