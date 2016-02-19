@@ -245,10 +245,6 @@ public class ResultsScreen extends JFrame {
 		}
 	}
 
-	/**
-	 * @author morganml
-	 *
-	 */
 	class MyPatternCBListener implements ItemListener {
 		Response response;
 
