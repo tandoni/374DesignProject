@@ -8,7 +8,7 @@ import problem.interfaces.IRelation;
 import problem.interfaces.ISequence;
 import problem.visitor.IVisitor;
 
-public abstract class PatternSpotter implements IVisitor {
+public abstract class PatternSpotter implements IPatternVisitor {
 	public static final String ADAPTERSTR = "Adapter";
 	public static final String DECORATORSTR = "Decorator";
 	public static final String COMPOSITESTR = "Composite";
