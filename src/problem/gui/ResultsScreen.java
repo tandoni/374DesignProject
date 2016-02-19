@@ -220,6 +220,7 @@ public class ResultsScreen extends JFrame {
 					e1.printStackTrace();
 				}
 				this.response.repaint();
+				this.lPanel = new Panel();
 				this.lPanel.setUpParameters();
 				this.lPanel.repaint();
 			}
