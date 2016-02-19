@@ -47,16 +47,7 @@ public class ResultsScreen extends JFrame {
 		// dp.main(all);
 		Process p = null;
 		String os = System.getProperty("os.name");
-		if (os.toLowerCase().contains("windows")) {
-			Runtime.getRuntime().exec(
-					"\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\" -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
-		} else {
-			p = Runtime.getRuntime()
-					.exec("/usr/local/bin/dot -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
-			// p = Runtime.getRuntime().exec("ls");
-
-		}
-
+		
 		// debug exec
 		// InputStream is = p.getErrorStream();
 		// InputStreamReader isr = new InputStreamReader(is);
@@ -82,14 +73,28 @@ public class ResultsScreen extends JFrame {
 		TitledBorder border = BorderFactory.createTitledBorder(BorderFactory.createLoweredBevelBorder(), "stuff");
 		border.setTitleJustification(TitledBorder.LEFT);
 		this.panel.setBorder(border);
-		this.content.add(this.panel, BorderLayout.CENTER);
+		
+		synchronized(this) {
+			if (os.toLowerCase().contains("windows")) {
+				Runtime.getRuntime().exec(
+						"\"C:\\Program Files (x86)\\Graphviz2.38\\bin\\dot\" -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
+			} else {
+				p = Runtime.getRuntime()
+						.exec("/usr/local/bin/dot -Tpng -o ./input_output/graph1.png ./input_output/GraphForGraphViz.gv");
+				// p = Runtime.getRuntime().exec("ls");
+
+			}
+			this.content.add(this.panel, BorderLayout.CENTER);
+
+		}
+		
 		this.content.add(this.response, BorderLayout.WEST);
 
 		setVisible(true);
 
 	}
 
-	/**
+	/**issue 
 	 * This displays the classes (with checkboxes) in their respective patterns.
 	 * 
 	 * @author morganml
@@ -151,12 +156,8 @@ public class ResultsScreen extends JFrame {
 		public Panel() {
 			this.setBackground(Color.white);
 
-			// scroll.setBounds(10, 20, 100, 100);
-			// scroll.setViewportView(this);
 			ImageIcon icon = new ImageIcon(arg);
 			JLabel label = new JLabel(icon);
-			// ScrollablePicture pic = new ScrollablePicture(icon, 1000);
-			// add(pic);
 			p = new JScrollPane(label, ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
 					ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
 			p.setPreferredSize(new Dimension(1000, 722));
@@ -167,31 +168,6 @@ public class ResultsScreen extends JFrame {
 		@Override
 		public void paintComponent(Graphics comp) {
 			super.paintComponent(comp);
-
-			// scroll.setPreferredSize(label.getPreferredSize());
-			// JScrollPane p = new JScrollPane();
-			// p.add(label);
-
-			// this.add(label);
-			// Graphics2D g2 = (Graphics2D) comp;
-			// g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
-			// RenderingHints.VALUE_INTERPOLATION_BICUBIC);
-			// double scale = 0.5;
-			// int w = label.getWidth();
-			// int h = label.getHeight();
-			// label.setSize((int)(w * scale), (int)(h *scale));
-			// repaint();
-			// int iW = icon.getIconWidth();
-			// int iH = icon.getIconHeight();
-			// double scale = 0.5;
-			// g2.translate(w/2, h/2);
-			// g2.scale(scale, scale);
-			// g2.translate(-w/2, -h/2);
-			// double x = (w - scale*iW)/2;
-			// double y = (h - scale*iH)/2;
-			// AffineTransform at = AffineTransform.getTranslateInstance(x, y);
-			// at.scale(scale, scale);
-			// g2.drawRenderedImage((RenderedImage) icon, at);
 		}
 	}
 }
