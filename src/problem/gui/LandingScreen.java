@@ -68,11 +68,11 @@ public class LandingScreen implements ActionListener {
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 
 		JMenuItem saveItem = new JMenuItem("Save");
-		saveItem.addActionListener(new MenuActionListener());
+		saveItem.addActionListener(new MenuActionListener(saveItem));
 		saveItem.setActionCommand("Save");
-		
+
 		JMenuItem restartItem = new JMenuItem("Restart");
-		restartItem.addActionListener(new MenuActionListener());
+		restartItem.addActionListener(new MenuActionListener(restartItem));
 		restartItem.setActionCommand("Restart");
 
 		fileMenu.add(saveItem);
@@ -82,6 +82,15 @@ public class LandingScreen implements ActionListener {
 		JMenu helpMenu = new JMenu("Help");
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		helpMenu.getAccessibleContext().setAccessibleDescription("get more information");
+
+		JMenuItem about = new JMenuItem("About");
+		about.addActionListener(new MenuActionListener(about));
+
+		JMenuItem configHelp = new JMenuItem("Config Help");
+		configHelp.addActionListener(new MenuActionListener(configHelp));
+
+		helpMenu.add(about);
+		helpMenu.add(configHelp);
 
 		menuBar.add(helpMenu);
 		this.frame.setJMenuBar(menuBar);
