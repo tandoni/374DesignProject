@@ -68,7 +68,7 @@ public class MenuActionListener implements ActionListener {
 			text.setOpaque(false);
 			text.setEditable(false);
 			frame.add(text);
-			frame.setMinimumSize(new Dimension(650, 600));
+			frame.setMinimumSize(new Dimension(650, 650));
 			frame.setVisible(true);
 		} else {
 			throw new UnsupportedOperationException();
