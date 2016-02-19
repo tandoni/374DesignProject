@@ -1,4 +1,4 @@
-package gui;
+package problem.gui;
 
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class ConfigFrame implements ActionListener {
-
+	private LandingScreen landingScreen;
 	private JFrame frame;
 	private JPanel panel;
 
@@ -27,7 +27,8 @@ public class ConfigFrame implements ActionListener {
 	private String phases;
 	private ArrayList<String> phasesList;
 
-	public ConfigFrame() {
+	public ConfigFrame(LandingScreen landingScreen) {
+		this.landingScreen = landingScreen;
 		frame = new JFrame("Configs");
 		JPanel panel = new JPanel();
 
@@ -53,7 +54,7 @@ public class ConfigFrame implements ActionListener {
 		String cmd = e.getActionCommand();
 
 		if (cmd.equals("createNewConfig")) {
-			NewConfigFrame newConfig = new NewConfigFrame();
+			NewConfigFrame newConfig = new NewConfigFrame(this.landingScreen);
 			newConfig.createNewConfig();
 			frame.dispose();
 		}
@@ -63,10 +64,11 @@ public class ConfigFrame implements ActionListener {
 			int retVal = fc.showDialog(frame, "Choose");
 
 			if (retVal == 0) {
-				
-				if (fc.getSelectedFile().getName().endsWith(".properties")) {
-					File pFile = fc.getSelectedFile();
 
+				// if (fc.getSelectedFile().getName().endsWith(".properties")) {
+				if (true) {
+					File pFile = fc.getSelectedFile();
+					this.landingScreen.setConfigFile(pFile);
 					try {
 						// copy to myConfig
 						this.readProperties(pFile);
@@ -77,12 +79,12 @@ public class ConfigFrame implements ActionListener {
 
 					JOptionPane.showMessageDialog(frame, "choose successed");
 					frame.dispose();
-					
+
 				} else {
 					JOptionPane.showMessageDialog(frame, "choose failed");
 				}
-				
-			}else{
+
+			} else {
 				// no existing configurations
 			}
 
@@ -104,7 +106,7 @@ public class ConfigFrame implements ActionListener {
 		this.inputClasses = p.getProperty("Input-Classes");
 		this.outputDir = p.getProperty("Output-Directory");
 		this.phases = p.getProperty("Phases");
-		
+
 		this.phasesList = new ArrayList<String>();
 		String[] splitPhases = phases.split(",");
 		for (String phase : splitPhases) {
@@ -117,21 +119,20 @@ public class ConfigFrame implements ActionListener {
 			clazz = clazz.trim();
 		}
 	}
-	
+
 	public void writeProperties() throws IOException {
 		Properties p = new Properties();
-		
+
 		p.setProperty("Input-Classes", this.inputClasses);
 		p.setProperty("Output-Directory", this.outputDir);
 		p.setProperty("Dot-Path", this.dotPath);
 		p.setProperty("Phases", this.phases);
-		
-		File file = new File("resources/config.properties");
+
+		File file = new File("input_output/config.properties");
 		FileOutputStream output = new FileOutputStream(file);
 		p.store(output, "Properties");
-		
-		output.close();	
-	}
 
+		output.close();
+	}
 
 }

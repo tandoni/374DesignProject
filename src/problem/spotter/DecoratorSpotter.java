@@ -23,6 +23,10 @@ public class DecoratorSpotter extends PatternSpotter {
 	// method, we should be suspicious that this is a decorator.
 	static Map<String, Collection<String>> meths = new ConcurrentHashMap<String, Collection<String>>();
 	static ArrayList<String> decorates = new ArrayList<String>();
+	// variable to check number of decorator method delegations
+	int count = 0;
+	// Boolean to indicate if this method has been counted already.
+	boolean methCounted;
 
 	public DecoratorSpotter(IModel model) {
 		super(model);
@@ -46,6 +50,8 @@ public class DecoratorSpotter extends PatternSpotter {
 		String methName = m.getName() + "(";
 		String desc = m.getDescription();
 		if (!((!desc.contains(";") && desc.contains(")")) || desc.contains("()"))) {
+			// We want this to split because the paramaters for the method
+			// should only be the last part (the class)
 			desc = desc.split("/")[desc.split("/").length - 1];
 			methName = methName + desc.substring(0, desc.indexOf(";")) + " arg0";
 		}
@@ -60,35 +66,23 @@ public class DecoratorSpotter extends PatternSpotter {
 		DecoratorSpotter.meths.put(methName, list);
 	}
 
-	// if (!DecoratorSpotter.decorates.contains(this.curClass)
-	// &&
-	// !this.model.getNamedClass(curClass).getClassTypes2().containsKey(ADAPTERSTR))
-	// {
-	// DecoratorSpotter.decorates.add(this.curClass);
-	// this.model.getNamedClass(this.curClass).addClassTypes2(PatternSpotter.DECORATORSTR,
-	// "decorator");
-	// }
-
 	@Override
 	public void postVisit(IModel m) {
 		super.postVisit(m);
 		Iterator it = DecoratorSpotter.meths.entrySet().iterator();
 		while (it.hasNext()) {
 			Map.Entry pair = (Map.Entry) it.next();
+			this.methCounted = false;
 			ArrayList<String> list = (ArrayList<String>) pair.getValue();
 			// THere must be at least 2 classes that call this method
 			if (list.size() > 1) {
 				String s = "";
 				for (String c : list) {
 					// Since we know that there's at least one other class that
-					// calls
-					// this method, it seems like a good time to make some
-					// sequences
-					// and
-					// see if we call the same method on another class. If we
-					// do,
-					// then
-					// we know that this is a decorated thing.
+					// calls this method, it seems like a good time to make some
+					// sequences and see if we call the same method on another
+					// class. If we
+					// do, then we know that this is a decorated thing.
 					DesignParser parser = new DesignParser();
 					// Since the call depth is static, we must reset it to 0,
 					// because if
@@ -96,8 +90,7 @@ public class DecoratorSpotter extends PatternSpotter {
 					// will already be at its previous max
 					parser.model.setCallDepth(0);
 					// get the size of the sequences, so that we know where to
-					// look
-					// for ours (since the sequences variable in Model is
+					// look for ours (since the sequences variable in Model is
 					// static).
 					parser.model.clearSequences();
 					parser.model.setRecordSeq(false);
@@ -105,19 +98,16 @@ public class DecoratorSpotter extends PatternSpotter {
 					// This is the class and method where we want to start the
 					// method tracing
 					str[0] = c.replace("/", ".") + "." + pair.getKey();
-					// str[0] = "problem.z.decorator.Mocha.cost()";
 					// Call depth of x
 					str[1] = "5";
 					try {
 						parser.main(str);
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					// Inside of this else, we need to make sure we use
 					// parser.model,
 					// since we want the model that is stored with the parser
-
 					IModel tempMod = parser.model;
 					ArrayList<ISequence> seq = model.getSequences();
 					if (seq.isEmpty()) {
@@ -175,34 +165,71 @@ public class DecoratorSpotter extends PatternSpotter {
 
 							// Add the decorator labels below
 							if (this.model.getFullClassNames().contains(component) && toIsField) {
-
-								this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
-
-								this.model.getNamedClass(fromClassStr).addClassTypes2(DECORATORSTR, "decorator");
-								String fromClassS = fromClassStr.replace(".", "/");
-								// IClass clas =
-								// this.model.getNamedClass(fromClassShortName);
-								// Collection<IRelation> rels =
-								// clas.getRelations();
-								IRelation relations = this.model.getRelationsMap().get(fromClassS);
-								String superFull = relations.getSuperClass();
-								if (superFull != null) {
-									IClass next = this.model.getNamedClass(superFull);
-									while (!next.getName().equals(component)) {
-										next.addClassTypes2(DECORATORSTR, "decorator");
-										String supClass = this.model.getRelationsMap().get(next.getFullName())
-												.getSuperClass();
-										if (supClass == null) {
-											break;
+								if (super.constraint == null) {
+									if (this.model.getContainsPatternMap().containsKey("Decorator"))
+										if (!this.model.getContainsPatternMap().get("Decorator"))
+											this.model.getContainsPatternMap().put("Decorator", true);
+									this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
+									this.model.getNamedClass(fromClassStr).addClassTypes2(DECORATORSTR, "decorator");
+									String fromClassS = fromClassStr.replace(".", "/");
+									IRelation relations = this.model.getRelationsMap().get(fromClassS);
+									String superFull = relations.getSuperClass();
+									if (superFull != null) {
+										IClass next = this.model.getNamedClass(superFull);
+										while (!next.getName().equals(component)) {
+											next.addClassTypes2(DECORATORSTR, "decorator");
+											String supClass = this.model.getRelationsMap().get(next.getFullName())
+													.getSuperClass();
+											if (supClass == null) {
+												break;
+											}
+											if (supClass.equals("")) {
+												ArrayList<String> inter = (ArrayList<String>) this.model
+														.getRelationsMap().get(next.getName()).getInterfaces();
+												next = this.model.getNamedClass(inter.get(0));
+											} else {
+												next = this.model.getNamedClass(supClass);
+											}
 										}
-										if (supClass.equals("")) {
-											ArrayList<String> inter = (ArrayList<String>) this.model.getRelationsMap()
-													.get(next.getName()).getInterfaces();
-											next = this.model.getNamedClass(inter.get(0));
-										} else {
-											next = this.model.getNamedClass(supClass);
-										}
+									}
+								}
+								// In the else, we know there is a constraint,
+								// which is the number
+								// of methods that are being decorated.
+								else {
+									if (!this.methCounted) {
+										count++;
+										this.methCounted = true;
+									}
+									if (count >= Integer.parseInt(super.constraint)) {
+										if (this.model.getContainsPatternMap().containsKey("Decorator"))
+											if (!this.model.getContainsPatternMap().get("Decorator"))
+												this.model.getContainsPatternMap().put("Decorator", true);
 
+										this.model.getNamedClass(component).addClassTypes2(DECORATORSTR, "component");
+										this.model.getNamedClass(fromClassStr).addClassTypes2(DECORATORSTR,
+												"decorator");
+										String fromClassS = fromClassStr.replace(".", "/");
+										IRelation relations = this.model.getRelationsMap().get(fromClassS);
+										String superFull = relations.getSuperClass();
+										if (superFull != null) {
+											IClass next = this.model.getNamedClass(superFull);
+											while (!next.getName().equals(component)) {
+												next.addClassTypes2(DECORATORSTR, "decorator");
+												String supClass = this.model.getRelationsMap().get(next.getFullName())
+														.getSuperClass();
+												if (supClass == null) {
+													break;
+												}
+												if (supClass.equals("")) {
+													ArrayList<String> inter = (ArrayList<String>) this.model
+															.getRelationsMap().get(next.getName()).getInterfaces();
+													next = this.model.getNamedClass(inter.get(0));
+												} else {
+													next = this.model.getNamedClass(supClass);
+												}
+											}
+										}
 									}
 								}
 							}

@@ -14,6 +14,7 @@ public abstract class PatternSpotter implements IVisitor {
 	public static final String COMPOSITESTR = "Composite";
 
 	protected IModel model;
+	protected String constraint = null;
 	private PatternSpotter decorated;
 	protected String curClassFull = "";
 
@@ -25,6 +26,10 @@ public abstract class PatternSpotter implements IVisitor {
 	public PatternSpotter(IModel model2) {
 		this.model = model2;
 		this.decorated = null;
+	}
+
+	public void addConstraint(String constraint) {
+		this.constraint = constraint;
 	}
 
 	/**

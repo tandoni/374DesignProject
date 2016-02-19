@@ -49,31 +49,46 @@ public class Model implements IModel {
 	// DesignParser, and we need to check this against startClass when creating
 	// the SD, to know when to start recording sequences.
 	private String currentClass = "";
+	// Hashmap that determines whether a certain pattern is contained in this
+	// model
+	private HashMap<String, Boolean> containsPattern = new HashMap<String, Boolean>();
 
 	public Model() {
-		setClassNames();
+		this.initContainsPatternMap();
+		// setClassNames();
 	}
 
 	public Model(Collection<IClass> classes) {
 		Model.classes = classes;
 		Model.relations = new HashMap<String, IRelation>();
-		setClassNames();
+		setClassNames(classes);
+		this.initContainsPatternMap();
+		// setClassNames();
 	}
 
 	public Model(Collection<IClass> classes, HashMap<String, IRelation> relations) {
 		Model.classes = classes;
 		Model.relations = relations;
-		setClassNames();
+		setClassNames(classes);
+		this.initContainsPatternMap();
+		// setClassNames();
 	}
 
-	public void setClassNames() {
-		for (String s : MyMainApp.classes) {
-			String[] split = s.split("\\.");
-			String st = split[split.length - 1];
-			Model.classNames.add(st);
-			Model.fullClassNames.add(s.replace(".", "/"));
+	public void setClassNames(Collection<IClass> classes) {
+		for (IClass c : classes) {
+			Model.classNames.add(c.getName());
+			Model.fullClassNames.add(c.getFullName());
 		}
 	}
+
+	// public void setClassNames() {
+	// for (String s : MyMainApp.classes) {
+	// String[] split = s.split("\\.");
+	// String st = split[split.length - 1];
+	// Model.classNames.add(st);
+	// Model.fullClassNames.add(s.replace(".", "/"));
+	// }
+	// }
 
 	public void acceptSpotters(IVisitor v) {
 		v.preVisit(this);
@@ -384,6 +399,39 @@ public class Model implements IModel {
 	@Override
 	public void clearSequences() {
 		Model.sequences = new ArrayList<ISequence>();
+	}
+
+	@Override
+	public void nullifyContainsPatternMap() {
+		this.containsPattern = new HashMap<String, Boolean>();
+	}
+
+	@Override
+	public HashMap<String, Boolean> getContainsPatternMap() {
+		return this.containsPattern;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see problem.interfaces.IModel#initContainsPatternMap()
+	 */
+	@Override
+	public void initContainsPatternMap() {
+		ArrayList<String> pNames = this.getPatternNames();
+		for (String name : pNames) {
+			this.containsPattern.put(name, false);
+		}
+	}
+
+	@Override
+	public ArrayList<String> getPatternNames() {
+		ArrayList<String> list = new ArrayList<String>();
+		list.add("Adapter");
+		list.add("Decorator");
+		list.add("Composite");
+		list.add("Singleton");
+		return list;
 	}
 
 }

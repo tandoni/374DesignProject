@@ -1,6 +1,12 @@
 package problem.asm;
 
+import java.io.FileInputStream;
+import java.io.FilterInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+
+import javax.swing.JProgressBar;
 
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
@@ -9,20 +15,20 @@ import org.objectweb.asm.Opcodes;
 import problem.asm.seq.ClassDeclarationVisitorSeq;
 import problem.asm.seq.ClassFieldVisitorSeq;
 import problem.asm.seq.ClassMethodVisitorSeq;
+import problem.gui.LandingScreen;
 import problem.impl.Model;
 import problem.interfaces.IModel;
-import problem.spotter.AdapterSpotter;
-import problem.spotter.CompositeSpotter;
-import problem.spotter.DecoratorSpotter;
-import problem.spotter.PatternSpotter;
-import problem.spotter.SingletonSpotter;
-import problem.visitor.ITraverser;
 
 public class DesignParser {
 	public final static int DEFAULT_CALL_DEPTH = 10;
 	public static int MAX_CALL_DEPTH = 10;
 	public IModel model;
 	boolean deb = false;
+	private ArrayList<InputStream> classesFromFile;
+	
+	public int ClassCount = 0;
+	public int progressCount = 0;
+	public JProgressBar loader = new JProgressBar() ;
 
 	public DesignParser() {
 		this.model = new Model();
@@ -56,6 +62,7 @@ public class DesignParser {
 			for (int i = 0; i < splitArg1len - 2; i++) {
 				className += splitArg1[i];
 				className += ".";
+				ClassCount++;
 			}
 			className += splitArg1[splitArg1len - 2];
 			if (className.contains("\\.")) {
@@ -81,13 +88,21 @@ public class DesignParser {
 			// to
 			// visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+			this.progressCount++;
+			updateProgress();
+			
 		} else {
 			for (String className : args) {
 				this.model.setCurrentClass(className);
+				ClassReader reader;
 				// ASM's ClassReader does the heavy lifting of parsing the
-				// compiled
-				// Java class
-				ClassReader reader = new ClassReader(className);
+				// compiled Java class
+				// if (className.contains("\\")) {
+				// reader = new ClassReader(new FileInputStream(className));
+				// } else {
+//				System.out.println("CLASS NAME IS: " + className);
+				reader = new ClassReader(className);
+				// }
 
 				// make class declaration visitor to get superclass and
 				// interfaces
@@ -106,12 +121,44 @@ public class DesignParser {
 				// to
 				// visit the class
 				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+				this.progressCount++;
+				updateProgress();
+			}
+			ArrayList<InputStream> fClasses = this.classesFromFile;
+			// for (InputStream fClass : fClasses) {
+			// ClassReader reader = new ClassReader((InputStream) fClass);
+			//
+			// ClassVisitor decVisitor = new
+			// ClassDeclarationVisitor(Opcodes.ASM5, model);
+			//
+			// ClassVisitor fieldVisitor = new ClassFieldVisitor(Opcodes.ASM5,
+			// decVisitor, model);
+			//
+			// ClassVisitor methodVisitor = new ClassMethodVisitor(Opcodes.ASM5,
+			// fieldVisitor, model);
+			//
+			// reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
+			// }
+		}
+	}
+
+	private void updateProgress() {
+		System.out.println(this.progressCount);
+		if (LandingScreen.loader != null) {
+			LandingScreen.loader.setValue(this.progressCount);
+			if(this.progressCount == this.ClassCount){
+				LandingScreen.showResult();
 			}
 
 		}
+		
 	}
 
 	public int getCallDepth() {
 		return MAX_CALL_DEPTH;
+	}
+
+	public void setClassesFromFile(ArrayList<InputStream> folderClasses) {
+		this.classesFromFile = folderClasses;
 	}
 }
