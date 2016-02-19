@@ -4,8 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map.Entry;
@@ -179,26 +181,28 @@ public class MyMainApp {
 		// Read in the path to the folder where we want to get the classes to
 		// analyze
 		File folder = new File(props.getProperty("Input-Folder", ""));
-		// File[] files2 = folder.listFiles();
-		// ArrayList<File> files = new ArrayList<File>(Arrays.asList(files2));
-		// // Make sure that all directories are traversed so that only files
-		// // remain
-		// for (int ind1 = 0; ind1 < files.size(); ind1++) {
-		// if (files.get(ind1).isDirectory()) {
-		// files.addAll(new
-		// ArrayList<File>(Arrays.asList(files.get(ind1).listFiles())));
-		// files.remove(ind1);
-		// ind1--;
-		// } else if (files.get(ind1).isFile()) {
-		// FileInputStream inClass = new FileInputStream(files.get(ind1));
-		// }
-		// }
-		// // Add each file (which represents a class) to the list of classes to
-		// // analyze
-		// for (File f : files) {
-		// classez.add(f.toString());
-		// }
-
+		File[] files2 = folder.listFiles();
+		ArrayList<InputStream> folderClasses = new ArrayList<InputStream>();
+		if (files2 != null) {
+			ArrayList<File> files = new ArrayList<File>(Arrays.asList(files2));
+			// Make sure that all directories are traversed so that only files
+			// remain
+			for (int ind1 = 0; ind1 < files.size(); ind1++) {
+				if (files.get(ind1).isDirectory()) {
+					files.addAll(new ArrayList<File>(Arrays.asList(files.get(ind1).listFiles())));
+					files.remove(ind1);
+					ind1--;
+				} else if (files.get(ind1).isFile()) {
+					InputStream inClass = new FileInputStream(files.get(ind1));
+					// classez.add(inClass.toString());
+				}
+			}
+			// Add each file (which represents a class) to the list of classes
+			// to analyze
+			for (File f : files) {
+				classez.add(f.toString());
+			}
+		}
 		// This adds the individual classes specified (outside of the path
 		// directory for the package) to the arrayList of classes to be analyzed
 		String indiClasses = props.getProperty("Input-Classes", "");
@@ -211,6 +215,7 @@ public class MyMainApp {
 		}
 		MyMainApp.parser = new DesignParser();
 
+		parser.setClassesFromFile(folderClasses);
 		// Only load the classes in ASM if its defined in the input
 		boolean classLoading = props.getProperty("Phases", "").contains("Class-Loading");
 		if (classLoading) {
@@ -291,6 +296,11 @@ public class MyMainApp {
 		spotterNames.put("Composite-Detection", new CompositeSpotter(parser.model));
 	}
 
+	/**
+	 * Set's the input (config/properties) file to be read by the core code
+	 * 
+	 * @param f
+	 */
 	public static void setFile(File f) {
 		file = f;
 	}
