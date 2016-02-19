@@ -79,7 +79,7 @@ public class Relation implements IRelation {
 	}
 
 	public void setClassNames() {
-		for (String s : MyMainApp.classes) {
+		for (String s : MyMainApp.getClassez()) {
 			String[] split = s.split("\\.");
 			s = split[split.length - 1];
 			// System.out.println("set |" + s + "|");

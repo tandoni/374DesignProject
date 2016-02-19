@@ -6,8 +6,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-import javax.swing.JProgressBar;
-
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassVisitor;
 import org.objectweb.asm.Opcodes;
@@ -15,7 +13,6 @@ import org.objectweb.asm.Opcodes;
 import problem.asm.seq.ClassDeclarationVisitorSeq;
 import problem.asm.seq.ClassFieldVisitorSeq;
 import problem.asm.seq.ClassMethodVisitorSeq;
-import problem.gui.LandingScreen;
 import problem.impl.Model;
 import problem.interfaces.IModel;
 
@@ -25,10 +22,6 @@ public class DesignParser {
 	public IModel model;
 	boolean deb = false;
 	private ArrayList<InputStream> classesFromFile;
-	
-	public int ClassCount = 0;
-	public int progressCount = 0;
-	public JProgressBar loader = new JProgressBar() ;
 
 	public DesignParser() {
 		this.model = new Model();
@@ -62,7 +55,6 @@ public class DesignParser {
 			for (int i = 0; i < splitArg1len - 2; i++) {
 				className += splitArg1[i];
 				className += ".";
-				ClassCount++;
 			}
 			className += splitArg1[splitArg1len - 2];
 			if (className.contains("\\.")) {
@@ -88,9 +80,6 @@ public class DesignParser {
 			// to
 			// visit the class
 			reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-			this.progressCount++;
-			updateProgress();
-			
 		} else {
 			for (String className : args) {
 				this.model.setCurrentClass(className);
@@ -100,7 +89,7 @@ public class DesignParser {
 				// if (className.contains("\\")) {
 				// reader = new ClassReader(new FileInputStream(className));
 				// } else {
-//				System.out.println("CLASS NAME IS: " + className);
+				// System.out.println("CLASS NAME IS: " + className);
 				reader = new ClassReader(className);
 				// }
 
@@ -121,8 +110,6 @@ public class DesignParser {
 				// to
 				// visit the class
 				reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
-				this.progressCount++;
-				updateProgress();
 			}
 			ArrayList<InputStream> fClasses = this.classesFromFile;
 			// for (InputStream fClass : fClasses) {
@@ -140,18 +127,6 @@ public class DesignParser {
 			// reader.accept(methodVisitor, ClassReader.EXPAND_FRAMES);
 			// }
 		}
-	}
-
-	private void updateProgress() {
-		System.out.println(this.progressCount);
-		if (LandingScreen.loader != null) {
-			LandingScreen.loader.setValue(this.progressCount);
-			if(this.progressCount == this.ClassCount){
-				LandingScreen.showResult();
-			}
-
-		}
-		
 	}
 
 	public int getCallDepth() {

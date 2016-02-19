@@ -142,4 +142,9 @@ public abstract class PatternSpotter implements IVisitor {
 		if (decorated != null)
 			decorated.visitSperator();
 	}
+
+	/**
+	 * Call this to reset all static fields for a given Spotter.
+	 */
+	public abstract void resetSpotter();
 }

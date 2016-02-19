@@ -40,18 +40,18 @@ public class Model implements IModel {
 	// variables represent the method we should start recording sequences.
 	// Because of the way asm parses things, it is better to store the method
 	// name, and the args as separate entities.
-	private String startMethodName = "";
-	private String[] startMethodArgs = new String[99];
+	private static String startMethodName = "";
+	private static String[] startMethodArgs = new String[99];
 	// This var is very similar to startMethod (above), but this represents the
 	// class we need to start recording the SD.
-	private String startClass = "";
+	private static String startClass = "";
 	// This is the current class ASM is parsing. This will be updated in
 	// DesignParser, and we need to check this against startClass when creating
 	// the SD, to know when to start recording sequences.
-	private String currentClass = "";
+	private static String currentClass = "";
 	// Hashmap that determines whether a certain pattern is contained in this
 	// model
-	private HashMap<String, Boolean> containsPattern = new HashMap<String, Boolean>();
+	private HashMap<String, Boolean> containsPattern;
 
 	public Model() {
 		this.initContainsPatternMap();
@@ -97,6 +97,7 @@ public class Model implements IModel {
 		}
 		v.visit(this);
 		v.postVisit(this);
+		System.out.println("maybe");
 	}
 
 	// This is the code where methods are called to generate the UML output.
@@ -299,23 +300,23 @@ public class Model implements IModel {
 	// Below are getters and setters for currentClass, startClass, startMethod,
 	// and recordSeq
 	public void setCurrentClass(String currentClass) {
-		this.currentClass = currentClass;
+		Model.currentClass = currentClass;
 	}
 
 	public String getCurrentClass() {
-		return this.currentClass;
+		return Model.currentClass;
 	}
 
 	public void setStartClass(String startClass) {
-		this.startClass = startClass;
+		Model.startClass = startClass;
 	}
 
 	public String getStartClass() {
-		return this.startClass;
+		return Model.startClass;
 	}
 
 	public void setStartMethod(String startMethod) {
-		this.startMethodName = startMethod.substring(0, startMethod.indexOf("("));
+		Model.startMethodName = startMethod.substring(0, startMethod.indexOf("("));
 		String allArgs = startMethod.substring(startMethod.indexOf("(") + 1, startMethod.length() - 1);
 		String[] eachArgs = allArgs.split(",");
 		// This will hold only the args, not the params as well
@@ -338,19 +339,19 @@ public class Model implements IModel {
 	}
 
 	public void setStartMethodName(String startMethodName) {
-		this.startMethodName = startMethodName;
+		Model.startMethodName = startMethodName;
 	}
 
 	public void setStartMethodArgs(String[] startArgs) {
-		this.startMethodArgs = startArgs;
+		Model.startMethodArgs = startArgs;
 	}
 
 	public String getStartMethodName() {
-		return this.startMethodName;
+		return Model.startMethodName;
 	}
 
 	public String[] getStartMethodArgs() {
-		return this.startMethodArgs;
+		return Model.startMethodArgs;
 	}
 
 	public void setRecordSeq(boolean bool) {
@@ -418,6 +419,7 @@ public class Model implements IModel {
 	 */
 	@Override
 	public void initContainsPatternMap() {
+		this.containsPattern = new HashMap<String, Boolean>();
 		ArrayList<String> pNames = this.getPatternNames();
 		for (String name : pNames) {
 			this.containsPattern.put(name, false);
@@ -432,6 +434,26 @@ public class Model implements IModel {
 		list.add("Composite");
 		list.add("Singleton");
 		return list;
+	}
+
+	@Override
+	public void resetModel() {
+		classes = new ArrayList<IClass>();
+		relations = new HashMap<String, IRelation>();
+		callDepth = 0;
+		sequences = new ArrayList<ISequence>();
+		singletons = new ArrayList<String>();
+		createdClasses = new ArrayList<String>();
+		SDClassNames = new ArrayList<String>();
+		fullClassNames = new ArrayList<String>();
+		classNames = new ArrayList<String>();
+		recordSeq = false;
+		startMethodName = "";
+		startMethodArgs = new String[99];
+		startClass = "";
+		currentClass = "";
+		containsPattern = new HashMap<String, Boolean>();
+		this.initContainsPatternMap();
 	}
 
 }
