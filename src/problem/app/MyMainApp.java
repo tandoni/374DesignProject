@@ -2,6 +2,7 @@ package problem.app;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,6 +29,10 @@ import problem.visitor.IVisitor;
 // in input_output dir for project
 // "C:\Program Files (x86)\Graphviz2.38\bin\dot" -Tpng GraphForGraphViz.gv > graph1.png
 public class MyMainApp {
+	static Properties props = new Properties();
+	// Easier to add to ArrayList then change to array, this is used for
+	// input from file
+	private static ArrayList<String> classez = new ArrayList<String>();
 	// boolean to determine whehter to reset the classes array
 	private static boolean loadedFromConfig = true;
 	private static DesignParser parser;
@@ -154,7 +159,6 @@ public class MyMainApp {
 	};
 
 	public static void main(String[] args) throws IOException {
-		Properties props = new Properties();
 		// FileInputStream in = new
 		// FileInputStream("./input_output/config.properties");
 		FileInputStream in = new FileInputStream(file);
@@ -172,10 +176,6 @@ public class MyMainApp {
 
 		// create application properties with default
 		Properties applicationProps = new Properties(props);
-
-		// Easier to add to ArrayList then change to array, this is used for
-		// input from file
-		ArrayList<String> classez = new ArrayList<String>();
 
 		// Files.readAllBytes() on .class file
 		// Read in the path to the folder where we want to get the classes to
@@ -219,17 +219,36 @@ public class MyMainApp {
 		// Only load the classes in ASM if its defined in the input
 		boolean classLoading = props.getProperty("Phases", "").contains("Class-Loading");
 		if (classLoading) {
-			if (MyMainApp.loadedFromConfig) {
-				// Call this if you want to read classes from a .properties file
-				parser.main(classez.toArray(new String[classez.size()]));
-			} else {
-				// Call this if you want to read from the array defined at the
-				// top
-				// of this file
-				// parser.main(classes);
-			}
+			callDP(parser);
+		} else {
 		}
+	}
 
+	/**
+	 * Calls the design parser from MyMainApp
+	 * 
+	 * @param parser
+	 * @throws IOException
+	 */
+	public static void callDP(DesignParser parser) throws IOException {
+		if (MyMainApp.loadedFromConfig) {
+			// Call this if you want to read classes from a .properties file
+			parser.main(classez.toArray(new String[classez.size()]));
+		} else {
+			// Call this if you want to read from the array defined at the
+			// top
+			// of this file
+			// parser.main(classes);
+		}
+		afterDP();
+	}
+
+	/**
+	 * What gets executed after DesignParser
+	 * 
+	 * @throws IOException
+	 */
+	private static void afterDP() throws IOException {
 		// Now we need to determine which patterns we need to detect
 		String phases = props.getProperty("Phases", "");
 		ArrayList<String> patterns = new ArrayList<String>();
@@ -248,12 +267,13 @@ public class MyMainApp {
 				activeSpotters.add(spotterNames.get(ke));
 			}
 		}
-
+		// add decorators to the pattern spotters
 		for (int ind = 1; ind < activeSpotters.size(); ind++) {
 			activeSpotters.get(ind).addDecorator(activeSpotters.get(ind - 1));
 		}
 		ITraverser patternTraverser = (ITraverser) parser.model;
 		patternTraverser.acceptSpotters(activeSpotters.get(activeSpotters.size() - 1));
+		System.out.println("contains Composite: " + parser.model.getContainsPatternMap().get("Composite"));
 
 		// OutputStream out = new
 		// FileOutputStream("./input_output/GraphForGraphViz.gv");
@@ -276,9 +296,9 @@ public class MyMainApp {
 
 		traverser2.acceptSequence(writer2, parser.getCallDepth());
 		out2.close();
+		System.out.println("contains Composite: " + parser.model.getContainsPatternMap().get("Composite"));
 
 		System.out.println("Program written by Ishank Tandon, Max Morgan, and Ruying Chen.");
-
 	}
 
 	/**
@@ -307,6 +327,10 @@ public class MyMainApp {
 
 	public static DesignParser getParser() {
 		return MyMainApp.parser;
+	}
+
+	public static ArrayList<String> getClassez() {
+		return classez;
 	}
 
 }

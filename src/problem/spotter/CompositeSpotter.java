@@ -21,6 +21,11 @@ public class CompositeSpotter extends PatternSpotter {
 		super(model);
 	}
 
+	@Override
+	public void resetSpotter() {
+
+	}
+
 	/**
 	 * Determine if a class is part of the composite pattern.
 	 */
@@ -68,6 +73,9 @@ public class CompositeSpotter extends PatternSpotter {
 				Collection<String> assoc = r.getAssociations();
 				if (!interIsField) {
 					if (s.getClassTypes2().containsKey(COMPOSITESTR)) {
+						if (this.model.getContainsPatternMap().containsKey("Composite"))
+							if (!this.model.getContainsPatternMap().get("Composite"))
+								this.model.getContainsPatternMap().put("Composite", true);
 						if (!s.getClassTypes2().get(COMPOSITESTR).equals("component")) {
 							// If the super class of this string is the
 							// component, then

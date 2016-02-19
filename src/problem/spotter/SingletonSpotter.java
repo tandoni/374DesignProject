@@ -25,6 +25,9 @@ public class SingletonSpotter extends PatternSpotter {
 		super(model, decorated);
 	}
 
+	public void resetSpotter() {
+	}
+
 	// When visit is called for a spotter, the spotter then spots the design
 	// pattern and makes the necessary changes to the Model class.
 	@Override

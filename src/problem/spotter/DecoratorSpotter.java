@@ -37,6 +37,12 @@ public class DecoratorSpotter extends PatternSpotter {
 	}
 
 	@Override
+	public void resetSpotter() {
+		meths = new ConcurrentHashMap<String, Collection<String>>();
+		decorates = new ArrayList<String>();
+	}
+
+	@Override
 	// Gathers all methods with more than one class that calls it, and stores
 	// those methods here.
 	public void visit(IMethod m) {

@@ -100,4 +100,9 @@ public interface IModel extends ITraverser {
 	 */
 	void initContainsPatternMap();
 
+	/**
+	 * This resets the Model back to its original specs
+	 */
+	public void resetModel();
+
 }

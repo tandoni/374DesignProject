@@ -29,6 +29,11 @@ public class AdapterSpotter extends PatternSpotter {
 		this.r = super.model.getRelations();
 	}
 
+	public void resetSpotter() {
+		thisInterfaces = new HashMap<String, Collection<String>>();
+		thisFields = new HashMap<String, Collection<String>>();
+	}
+
 	@Override
 	public void visit(IClass c) {
 		super.visit(c);
