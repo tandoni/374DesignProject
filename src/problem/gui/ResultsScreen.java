@@ -100,12 +100,6 @@ public class ResultsScreen extends JFrame {
 		}
 	}
 
-	/**
-	 * issue This displays the classes (with checkboxes) in their respective
-	 * patterns.
-	 * 
-	 * @author morganml
-	 */
 	class Response extends JPanel {
 		// boolean to indicate whether this change in CB was from a pattern CB
 		// being clicked. Used to determine if MyMainApp.main() should be ran
@@ -226,11 +220,7 @@ public class ResultsScreen extends JFrame {
 			}
 		}
 	}
-
-	/**
-	 * @author morganml
-	 *
-	 */
+	
 	class MyPatternCBListener implements ItemListener {
 		Response response;
 
